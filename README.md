@@ -18,7 +18,7 @@ The used Pictures are slightly modfied X-PixMap (XPM) Black&White Pictures with 
 You can create X-PixMap Pictures with Gimp.  
 After you created the X-PixMap Picture open it with an Text Editor, I use Notepad++, and do the following:
 * Switch to Linux Line Ending (LF only)
-* Remove all text lines until the first Data Line which should contain a lot Dot's "." and Spaces like `"... . . . ... .. "`
+* Remove all text lines until the first Data Line which should contain a lot Dot's "." and Spaces like `"... . . . "`
 * Add `#!/bin/bash` as first line
 * Add `logo=(` before the first **"** so it should look like `logo=("`
 * Replace all Dot's "." with "0"'s
@@ -35,7 +35,7 @@ Double check the files in https://github.com/venice1200/MiSTer_i2c2oled/tree/mai
 | S60i2c2oled [1] | Starter Script, must be placed in folder `/etc/init.d/` on **MiSTer** |
 | i2c2oled [1] | Communication Script, must be placed in folder `/usr/bin/` on **MiSTer** |
 | Pictures | Just Pictures |  
-| Pictures/Pix | Logos/Pictures in X-PixMap Format, but slightly modified,  must be placed in folder `/media/fat/i2c2oled_pix/` on **MiSTer** |  
+| Pictures/Pix | X-PixMap Logis/Pictures, slightly midified, must be placed in folder `/media/fat/i2c2oled_pix/` on **MiSTer** |  
   
 **Notes:**  
 [1]  
