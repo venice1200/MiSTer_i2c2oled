@@ -1,7 +1,6 @@
 # 👾 MiSTer_i2c2oled 👾  
   
-This [tty2oled](https://github.com/venice1200/MiSTer_tty2oled) based Bash-Script-Add-On  
-uses the DE10-Nano/IOBoard's **i2c Interface** to drive a small SSD1306 OLED Display with 128x64 Pixel.  
+This [tty2oled](https://github.com/venice1200/MiSTer_tty2oled) based Bash-Script-Add-On uses the DE10-Nano/IOBoard's **i2c Interface** to drive a small SSD1306 OLED Display with 128x64 Pixel.  
   
 ![i2c2oled](https://github.com/venice1200/MiSTer_i2c2oled/blob/main/Pictures/SSD1306_MiSTer_small.jpg?raw=true)  
   
