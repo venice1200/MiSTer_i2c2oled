@@ -5,18 +5,18 @@
 #
 # Just for fun ;-)
 #
-# 2021-04-18 
+# 2021-04-18 by venice
 # i2c-Logo v0.1 (Bashversion) License GPL v3
-# by venice for Antonio Villena
-# Using MiSTer's i2c Bus and commands showing the MiSTer Logo on an SSD1306 OLED Display
+# 
+# Using MiSTer's i2c Bus and Commands showing the MiSTer Logo on an SSD1306 OLED Display
 #
 # Initial Bash Script taken from here
 # https://stackoverflow.com/questions/42980922/which-commands-do-i-have-to-use-ssd1306-over-i%C2%B2c
 #
-# Use Gimp to convert the PNG to Pixart and change " " (Space) to "1" and "." (Dot) to "0" for easier handling
+# Use Gimp to convert the original to X-PixMap (XPM) and change " " (Space) to "1" and "." (Dot) to "0" for easier handling
 # See examples what to modify additionally
 # The String Array has 64 Lines with 128 Chars
-# Put yout Pixart files in /media/fat/i2c_oled_pix with extension "pix"
+# Put your X-PixMap files in /media/fat/i2c_oled_pix with extension "pix"
 #
 #
 
