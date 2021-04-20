@@ -10,7 +10,7 @@ When the MiSTer boots up the script `/etc/init.d/S60i2c2oled` is called.
 This script does nothing more than calling the script `/usr/bin/i2c2oled.sh` and sent it to the background,  
 but only if `/usr/bin/i2c2oled.sh` is found and is executable.  
 The Script `/usr/bin/i2c2oled.sh` uses the Linux `source` command to **load** the Picture Data from file if the core has changed.  
-The Script uses i2c commands like `i2cset` to initialize the Display and calculates the needed values  
+The Script uses **i2c** commands like `i2cset` to initialize the Display and calculates the needed values  
 out of the loaded Picture Data and send them via **i2c** with the command `i2cset` to the Display.
   
 **Picture Modification:**  
@@ -35,7 +35,7 @@ Double check the files in https://github.com/venice1200/MiSTer_i2c2oled/tree/mai
 | S60i2c2oled [1] | Starter Script, must be placed in folder `/etc/init.d/` on **MiSTer** |
 | i2c2oled [1] | Communication Script, must be placed in folder `/usr/bin/` on **MiSTer** |
 | Pictures | Just Pictures |  
-| Pictures/Pix | Logos/Pictures in X-PixMap Format but slightly modified, must be placed in folder `/media/fat/i2c2oled_pix/` on **MiSTer** |  
+| Pictures/Pix | Logos/Pictures in X-PixMap Format, but slightly modified, must be placed in folder `/media/fat/i2c2oled_pix/` on **MiSTer** |  
   
 **Notes:**  
 [1]  
