@@ -16,7 +16,7 @@
 # Use Gimp to convert the original to X-PixMap (XPM) and change " " (Space) to "1" and "." (Dot) to "0" for easier handling
 # See examples what to modify additionally
 # The String Array has 64 Lines with 128 Chars
-# Put your X-PixMap files in /media/fat/i2c_oled_pix with extension "pix"
+# Put your X-PixMap files in /media/fat/i2c2oled_pix with extension "pix"
 #
 #
 

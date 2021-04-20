@@ -1,9 +1,9 @@
-#!/bin/sh
+#!/bin/bash
 
 #
 # /etc/init.d/S60i2c2oled
 #
-# 2021-04-19 by venice for Antonio Villena
+# 2021-04-19 by venice
 # License GPL v3
 # Release based on S60tty2oled
 #
@@ -13,7 +13,7 @@ DAEMONSCRIPT="/usr/bin/i2c2oled.sh"
 # Start
 start() {
     if [[ -x ${DAEMONSCRIPT} ]]; then
-      echo "Starting i2c_oled..."
+      echo "Starting i2c2oled..."
       ${DAEMONSCRIPT} &
     else
       echo "${DAEMONSCRIPT} not found!"
@@ -22,7 +22,7 @@ start() {
 
 # Stop
 stop() {
-    echo "Stopping i2c_oled..."
+    echo "Stopping i2c2oled..."
     killall ${DAEMONSCRIPT}
 }
 
