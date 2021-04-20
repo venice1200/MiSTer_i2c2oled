@@ -17,13 +17,13 @@ You need to make sure you use the right **i2c Bus** as the MiSTer has more than 
 Use the command `i2cdetect -l` for detecting the correct i2c-Bus  
 and `i2cdetect [I2CBUS]` for detecting the correct **i2c Address** of your Display, normally 0x3C.  
 On my new DE10-Nano the correct I2CBUS Number is 2, on my older DE10-Nano the correct I2CBUS Number is 1.  
-Normally you get an error message if you try to run `i2cdetect  [I2CBUS]` on the wrong Bus.  
+Normally you get an error message if you try to run `i2cdetect` on the wrong Bus.  
   
 --I will add a i2detect Picture here--
   
 ### How does it work  
-When the MiSTer boots up the script `/etc/init.d/S60i2c2oled` in `/etc/init.d/` is called.  
-This script does nothing more than calling the script `/usr/bin/i2c2oled.sh` in `/usr/bin/`  
+When the MiSTer boots up the script `/etc/init.d/S60i2c2oled` is called.  
+This script does nothing more than calling the script `/usr/bin/i2c2oled.sh`  
 and sent it to the background, but only if `/usr/bin/i2c2oled.sh` is found and is executable.  
 The Script `/usr/bin/i2c2oled.sh` uses the Linux `source` command to **load** the Picture Data from file if the core has changed.  
 The Script uses the **i2c** command `i2cset` to initialize the Display and calculates the needed values  
