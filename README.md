@@ -2,7 +2,7 @@
   
 Just for fun...  
   
-This Bash-Script-Add-On uses the MiSTer's **i2c Interface** on the DE10-Nano or IO-Board  
+This Bash-Script-Add-On uses the MiSTer's **i2c Interface** on the DE10-Nano  
 to drive a small SSD1306 OLED Display with 128x64 Pixel showing (currently only) Pictures based on the running core.  
 Antonio Villena builds IOBoards with such small OLED Displays and asked for support, so here we are 🙂  
   
