@@ -11,7 +11,7 @@ Antonio Villena builds IOBoards with such small OLED Displays and asked for supp
 [>>Short Gif Video<<](https://github.com/venice1200/MiSTer_i2c2oled/blob/main/Pictures/i2c2oled_life.gif)
 
 ### !! WARNING !! 
-This Add-On uses the MiSTer's **i2c Bus**. Wrong usage can confuse your i2c bus **or worse**!  
+This Add-On uses the MiSTer's **i2c Bus**. Wrong usage can confuse the MiSTer's **i2c Bus or worse**!  
 You need to make sure you use the right **i2c Bus** as the MiSTer has more than one.  
   
 Use the command `i2cdetect -l` for detecting the correct i2c-Bus  
