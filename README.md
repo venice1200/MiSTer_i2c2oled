@@ -30,9 +30,9 @@ The Script uses the **i2c** command `i2cset` to initialize the Display and calcu
 out of the loaded Picture Data and send these values via **i2c** to the Display.
   
 ### Picture Modification:  
-The used Pictures are slightly modfied X-PixMap (XPM) Black&White Pictures with 128x64 Pixel.  
+The used Black&White Pictures are slightly modfied X-PixMap (XPM) Pictures with 128x64 Pixel.  
 You can create X-PixMap Pictures with Gimp.  
-After you created the X-PixMap Picture open it with an Text Editor, I use Notepad++, and do the following:
+After you created the Black&White X-PixMap Picture open it with an Text Editor, I use Notepad++, and do the following:
 * Switch to Linux Line Ending (LF only)
 * Remove all text lines until the first Data Line which should contain a lot Dot's "." and Spaces like `"... . . . "`
 * Add `#!/bin/bash` as the new first line
