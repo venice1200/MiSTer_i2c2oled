@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #
-# /usr/bin/i2c_oled.sh
+# /usr/bin/i2c2oled.sh
 #
 # Just for fun ;-)
 #
@@ -22,7 +22,7 @@
 
 # Debugging
 debug="false"
-debugfile="/tmp/i2c_oled"
+debugfile="/tmp/i2c2oled"
 
 # Some System Variables
 oledaddr=0x3C     #OLED Display I2C Address
@@ -35,7 +35,7 @@ oldcore=""
 corenamefile="/tmp/CORENAME"
 
 # Picture related
-pixpath="/media/fat/i2c_oled_pix"
+pixpath="/media/fat/i2c2oled_pix"
 pixextn="pix"
 pixstart="${pixpath}/starting.pix"
 pixnavail="${pixpath}/nopixavail.pix"
