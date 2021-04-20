@@ -6,7 +6,7 @@
 # Just for fun ;-)
 #
 # 2021-04-18 by venice
-# i2c-Logo v0.1 (Bashversion) License GPL v3
+# License GPL v3
 # 
 # Using MiSTer's i2c Bus and Commands showing the MiSTer Logo on an SSD1306 OLED Display
 #
