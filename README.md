@@ -33,10 +33,10 @@ out of the loaded Picture Data and send these values via **i2c** to the Display.
 The used Black&White Pictures are slightly modfied X-PixMap (XPM) Pictures with 128x64 Pixel.  
 You can create X-PixMap Pictures with Gimp.  
 After you created the Black&White X-PixMap Picture open it with an Text Editor, I use Notepad++, and do the following:
-* Switch to Linux Line Ending (LF only)
+* Switch to Linux Line Ending (LineFeed only)
 * Remove all text lines until the first Data Line which should contain a lot Dot's "." and Spaces like `"... . . . "`
 * Add `#!/bin/bash` as the new first line
-* Add `logo=(` before the first **"** so it should look like `logo=("`
+* Add `logo=(` before the first **"** (double quote) so it should look like `logo=("`
 * Replace all Dot's "." with the Number "0"
 * Replace all Spaces " " with the Number "1"
 * Replace the ending `};` with `)`
