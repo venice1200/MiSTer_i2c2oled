@@ -10,7 +10,7 @@
 # 
 # Using MiSTer's i2c Bus and Commands showing the MiSTer Logo on an SSD1306 OLED Display
 #
-# Initial Bash Script taken from here
+# Initial Script taken from here
 # https://stackoverflow.com/questions/42980922/which-commands-do-i-have-to-use-ssd1306-over-i%C2%B2c
 #
 # Use Gimp to convert the original to X-PixMap (XPM) and change " " (Space) to "1" and "." (Dot) to "0" for easier handling
