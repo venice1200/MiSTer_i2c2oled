@@ -16,7 +16,8 @@ You need to make sure you use the right **i2c Bus** as the MiSTer has more than 
   
 Use the command `i2cdetect -l` for detecting the correct i2c-Bus  
 and `i2cdetect [I2CBUS]` for detecting the correct **i2c Address** of your Display, normally 0x3C.  
-On my new DE10-Nano (LOT#0521) the correct I2CBUS Number is 2, on my older DE10-Nano (LOT#0519) the correct I2CBUS Number is 1.  
+On my new DE10-Nano (LOT#0521) the correct I2CBUS Number is 2,  
+on my older DE10-Nano (LOT#0519) the correct I2CBUS Number is ~~1~~ also 2 (just checked).  
 Normally you get an error message if you try to run `i2cdetect` on the wrong Bus.  
   
 ![i2cdetect](https://github.com/venice1200/MiSTer_i2c2oled/blob/main/Pictures/i2cdetect.png?raw=true)
