@@ -54,7 +54,7 @@ Double check the files in https://github.com/venice1200/MiSTer_i2c2oled/tree/mai
 | S60i2c2oled [1] | Starter Script, must be placed in folder `/etc/init.d/` on **MiSTer** |
 | i2c2oled [1] | Communication Script, must be placed in folder `/usr/bin/` on **MiSTer** |
 | Pictures | Just Pictures |  
-| Pictures/Pix | X-PixMap Pictures, slightly midified, must be placed in folder `/media/fat/i2c2oled_pix/` on **MiSTer** |  
+| Pictures/Pix | X-PixMap Pictures, slightly modified, must be placed in folder `/media/fat/i2c2oled_pix/` on **MiSTer** |  
   
 **Notes**
 [1]  
@@ -71,3 +71,5 @@ https://www.antoniovillena.es
 The following website  
 https://stackoverflow.com/questions/42980922/which-commands-do-i-have-to-use-ssd1306-over-i%C2%B2c  
 for pointing me into the right direction.  
+  
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://github.com/venice1200/MiSTer_tty2oled/blob/main/LICENSE)
