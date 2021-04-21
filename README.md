@@ -43,6 +43,7 @@ After you created the Black&White X-PixMap Picture open it with an Text Editor, 
 * The filename must be the same as the **name of the core** plus `.pix` as extension  
   Example: Corename = **C64**, Filename = **C64.pix**  
 * Upload the File(s) to `/media/fat/i2c2oled_pix/` on **MiSTer**
+* Have fun 😃
   
 Double check the files in https://github.com/venice1200/MiSTer_i2c2oled/tree/main/Pictures/Pix for correct modification.
   
