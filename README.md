@@ -19,7 +19,7 @@ and `i2cdetect [I2CBUS]` for detecting the correct **i2c Address** of your Displ
 On my new DE10-Nano the correct I2CBUS Number is 2, on my older DE10-Nano the correct I2CBUS Number is 1.  
 Normally you get an error message if you try to run `i2cdetect` on the wrong Bus.  
   
---I will add a i2detect Picture here--
+![i2cdetect](https://github.com/venice1200/MiSTer_i2c2oled/blob/main/Pictures/i2cdetect.png?raw=true)
   
 ### How does it work  
 When the MiSTer boots up the script `/etc/init.d/S60i2c2oled` is called.  
