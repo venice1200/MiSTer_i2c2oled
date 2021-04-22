@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 #
 # /etc/init.d/S60i2c2oled
@@ -8,7 +8,8 @@
 # Release based on S60tty2oled
 #
 
-DAEMONSCRIPT="/usr/bin/i2c2oled.sh"
+SCRIPT="i2c2oled"
+DAEMONSCRIPT="/usr/bin/${SCRIPT}"
 
 # Start
 start() {
@@ -23,7 +24,8 @@ start() {
 # Stop
 stop() {
     echo "Stopping i2c2oled..."
-    killall ${DAEMONSCRIPT}
+    killall ${SCRIPT}
+    #killall ${DAEMONSCRIPT}
 }
 
 case "$1" in

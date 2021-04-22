@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/bin/sh
 
 #
-# /usr/bin/i2c2oled.sh
+# /usr/bin/i2c2oled
 #
 # Just for fun ;-)
 #
@@ -25,7 +25,7 @@ debug="false"
 debugfile="/tmp/i2c2oled"
 
 # Some System Variables
-oledaddr=0x3C     #OLED Display I2C Address
+oledaddr=0x3C     # OLED Display I2C Address
 # i2cbus=1        # i2c-1, Bus 1, uncomment only one i2c Bus
 i2cbus=2          # i2c-2, Bus 2, uncomment only one i2c Bus
 
@@ -37,8 +37,8 @@ corenamefile="/tmp/CORENAME"
 # Picture related
 pixpath="/media/fat/i2c2oled_pix"
 pixextn="pix"
-pixstart="${pixpath}/starting.pix"
-pixnavail="${pixpath}/nopixavail.pix"
+startpix="${pixpath}/starting.pix"
+notavailpix="${pixpath}/nopixavail.pix"
 pix=""
 
 # Vars
@@ -67,7 +67,8 @@ dbug() {
 # Display funtions
 function display_off() {
   i2cset -y ${i2cbus} ${oledaddr} 0x00 0xAE  # Display OFF (sleep mode)
-  sleep 0.1
+  #sleep 0.1
+  sleep 0.01
 }
 
 function display_on() {
@@ -76,25 +77,23 @@ function display_on() {
 }
 
 function init_display() {
+  #i2cset -y ${i2cbus} ${oledaddr} 0xA8 0x3F 0xD3 0x00 0x40 0xA1 0xC8
+  
   i2cset -y ${i2cbus} ${oledaddr} 0x00 0xA8    # Set Multiplex Ratio
-  i2cset -y ${i2cbus} ${oledaddr} 0x00 0x3F     # value
+  i2cset -y ${i2cbus} ${oledaddr} 0x00 0x3F    # value
 
   i2cset -y ${i2cbus} ${oledaddr} 0x00 0xD3    # Set Display Offset
-  i2cset -y ${i2cbus} ${oledaddr} 0x00 0x00     # no vertical shift
+  i2cset -y ${i2cbus} ${oledaddr} 0x00 0x00    # no vertical shift
 
   i2cset -y ${i2cbus} ${oledaddr} 0x00 0x40    # Set Display Start Line to 000000b
   i2cset -y ${i2cbus} ${oledaddr} 0x00 0xA1    # Set Segment Re-map, column address 127 ismapped to SEG0
   i2cset -y ${i2cbus} ${oledaddr} 0x00 0xC8    # Set COM Output Scan Direction, remapped mode. Scan from COM7 to COM0
-  #i2cset -y ${i2cbus} ${oledaddr} 0x00 0xC0   # Set COM Output Scan Direction, remapped mode. Scan from COM7 to COM0
 
   i2cset -y ${i2cbus} ${oledaddr} 0x00 0xDA    # Set COM Pins Hardware Configuration
-  i2cset -y ${i2cbus} ${oledaddr} 0x00 0x12   # Alternative COM pin configuration, Disable COM Left/Right remap needed for 128x64
-  #i2cset -y ${i2cbus} ${oledaddr} 0x00 0x2    # Sequential COM pin configuration,  Disable COM Left/Right remap
-  #i2cset -y ${i2cbus} ${oledaddr} 0x00 0x22   # Sequential COM pin configuration,  Enable Left/Right remap  (8pixels height)
-  #i2cset -y ${i2cbus} ${oledaddr} 0x00 0x32    # Alternative COM pin configuration, Enable Left/Right remap   (4pixels height)
+  i2cset -y ${i2cbus} ${oledaddr} 0x00 0x12    # Alternative COM pin configuration, Disable COM Left/Right remap needed for 128x64
 
   i2cset -y ${i2cbus} ${oledaddr} 0x00 0x81    # Set Contrast Control
-  i2cset -y ${i2cbus} ${oledaddr} 0x00 0xCF     # value, 0x7F max.
+  i2cset -y ${i2cbus} ${oledaddr} 0x00 0xCF    # value, 0x7F max.
 
   i2cset -y ${i2cbus} ${oledaddr} 0x00 0xA4    # display RAM content
 
@@ -102,14 +101,20 @@ function init_display() {
 
   i2cset -y ${i2cbus} ${oledaddr} 0x00 0xD5    # Set Display Clock (Divide Ratio/Oscillator Frequency)
   i2cset -y ${i2cbus} ${oledaddr} 0x00 0x80    # max fequency, no divide ratio
-
+  
+  i2cset -y ${i2cbus} ${oledaddr} 0x00 0xDB    # SSD1306_COMMSELECT
+  i2cset -y ${i2cbus} ${oledaddr} 0x00 0x20    # 0.77 * VCC (default)
+  
   i2cset -y ${i2cbus} ${oledaddr} 0x00 0x8D    # Charge Pump Setting
   i2cset -y ${i2cbus} ${oledaddr} 0x00 0x14    # enable charge pump
 
   i2cset -y ${i2cbus} ${oledaddr} 0x00 0x20    # page addressing mode
-  i2cset -y ${i2cbus} ${oledaddr} 0x00 0x20    # horizontal addressing mode
-  #i2cset -y ${i2cbus} ${oledaddr} 0x00 0x21   # vertical addressing mode
-  #i2cset -y ${i2cbus} ${oledaddr} 0x00 0x22   # page addressing mode
+  i2cset -y ${i2cbus} ${oledaddr} 0x00 0x00    # horizontal addressing mode
+  #i2cset -y ${i2cbus} ${oledaddr} 0x00 0x01    # vertikal addressing mode
+  #i2cset -y ${i2cbus} ${oledaddr} 0x00 0x02    # page addressing mode
+  #i2cset -y ${i2cbus} ${oledaddr} 0x00 0x20    # horizontal addressing mode
+  #i2cset -y ${i2cbus} ${oledaddr} 0x00 0x21    # vertikal addressing mode
+  #i2cset -y ${i2cbus} ${oledaddr} 0x00 0x22    # page addressing mode
 }
 
 function reset_cursor() {
@@ -145,8 +150,9 @@ function flushscreen() {
   reset_cursor  # Set Cursor to Top-Left
 }
 
-function show_pix() {
+function showpix() {
 # Get for each 8-Bit Size Vertical Segment the Bits and draw them
+  display_off
   val=""
   for j in 0 7 15 23 31 39 47 55; do
     for i in $(seq 0 127); do
@@ -171,21 +177,24 @@ function show_pix() {
       fi # 
     done # for i
   done # for j
+  display_on
 }
 
 # i2c Send-Picture function
 sendpix() {
   if [ -d "${pixpath}" ]; then					# Check for am existing Picturefolder and proceed
-    pix=("${pixpath}/${1}.${pixextn}")			# Build Pix + Path + Extension
+    pix=("${pixpath}/${1}.${pixextn}")				# Build Pix + Path + Extension
     echo "Pix: ${pix}"
     dbug "Pix: ${pix}"
     if [ -f "${pix}" ]; then					# Lookup for an existing PIX and proceed
-      source ${pix}								# Load Picture Array
-      show_pix								# ..and show it
-    else										# No Picture available!
-      source ${pixnavail}						# Load Picture Array for no Picture available
-      show_pix								# ..and show it
-    fi											# End if Picture check
+      source ${pix}						# Load Picture Array
+      showpix							# ..and show it
+    else							# No Picture available!
+      if [ -f "${notavailpix}" ]; then				# Lookup for an existing Not-Avail-PIX and proceed
+        source ${notavailpix}					# Load Picture Array for no Picture available
+        show_pix						# ..and show it
+      fi
+    fi								# End if Picture check
   fi
 }
 
@@ -195,24 +204,25 @@ sendpix() {
 display_off     # Switch Display off
 init_display    # Send INIT Commands
 display_on      # Switch Display on
-
 flushscreen     # Fill the Screen completly
-
-display_on      # Switch Display on
+#display_on      # Switch Display on
 
 
 # ** Main **
-  source ${pixstart}										# Load Picture Array for no Picture available
-  show_pix												# ..and show it
-  while true; do											# main loop
-    if [ -r ${corenamefile} ]; then							# proceed if file exists and is readable (-r)
-      newcore=$(cat ${corenamefile})						# get CORENAME
-      echo "Read CORENAME: -${newcore}-"					# some output
-      dbug "Read CORENAME: -${newcore}-"					# some debug output
+  if [ -f "${startpix}" ]; then					        # Lookup for an existing Start-PIX and proceed
+    source ${startpix}							# Load Picture Array for no Picture available
+    showpix								# ..and show it
+    sleep 1.0
+  fi
+  while true; do							# main loop
+    if [ -r ${corenamefile} ]; then					# proceed if file exists and is readable (-r)
+      newcore=$(cat ${corenamefile})					# get CORENAME
+      echo "Read CORENAME: -${newcore}-"				# some output
+      dbug "Read CORENAME: -${newcore}-"				# some debug output
       if [ "${newcore}" != "${oldcore}" ]; then				# proceed only if Core has changed
         dbug "Send -${newcore}- to i2c-${i2cbus}"			# some debug output
-        sendpix ${newcore}				 					# The "Magic"
-        oldcore=${newcore}									# update oldcore variable
+        sendpix ${newcore}				 		# The "Magic"
+        oldcore=${newcore}						# update oldcore variable
       fi  # end if core check
       inotifywait -e modify "${corenamefile}"				# wait here for next change of corename
     else  # CORENAME file not found
