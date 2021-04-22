@@ -1,0 +1,4 @@
+#!/bin/bash
+
+#MiSTer i2c2oled template, add your XPM-Picture-Code between the brackets "()"
+logo=()
