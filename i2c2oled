@@ -1,4 +1,4 @@
-#!/bin/sh
+#! /bin/sh
 
 #
 # /usr/bin/i2c2oled
@@ -154,7 +154,7 @@ function showpix() {
 # Get for each 8-Bit Size Vertical Segment the Bits and draw them
   display_off
   val=""
-  for j in 0 7 15 23 31 39 47 55; do
+  for j in 0 8 16 24 32 40 48 56; do
     for i in $(seq 0 127); do
       b0=${logo[j+0]:${i}:1}
       b1=${logo[j+1]:${i}:1}
@@ -203,9 +203,12 @@ sendpix() {
 
 display_off     # Switch Display off
 init_display    # Send INIT Commands
-display_on      # Switch Display on
 flushscreen     # Fill the Screen completly
-#display_on      # Switch Display on
+display_on      # Switch Display on
+sleep 0.5
+display_off     # Switch Display off
+clearscreen     # Clear the Screen completly
+display_on      # Switch Display on
 
 
 # ** Main **

@@ -1,4 +1,4 @@
-#!/bin/sh
+#! /bin/sh
 
 #
 # /etc/init.d/S60i2c2oled
@@ -9,15 +9,15 @@
 #
 
 SCRIPT="i2c2oled"
-DAEMONSCRIPT="/usr/bin/${SCRIPT}"
+DAEMON="/usr/bin/${SCRIPT}"
 
 # Start
 start() {
-    if [[ -x ${DAEMONSCRIPT} ]]; then
+    if [[ -x ${DAEMON} ]]; then
       echo "Starting i2c2oled..."
-      ${DAEMONSCRIPT} &
+      ${DAEMON} &
     else
-      echo "${DAEMONSCRIPT} not found!"
+      echo "${DAEMON} not found!"
     fi
 }
 
@@ -25,7 +25,6 @@ start() {
 stop() {
     echo "Stopping i2c2oled..."
     killall ${SCRIPT}
-    #killall ${DAEMONSCRIPT}
 }
 
 case "$1" in
