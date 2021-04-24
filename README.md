@@ -22,6 +22,14 @@ Normally you get an error message if you try to run `i2cdetect` on the wrong Bus
   
 ![i2cdetect](https://github.com/venice1200/MiSTer_i2c2oled/blob/main/Pictures/i2cdetect.png?raw=true)
   
+### What is needed  
+* An DE10-Nano Board  
+* An i2c breakout (RTC Boards or IOBoards from Antonio Villena with builtin OLED's)  
+  The i2c/SPI Header of the official RTC 1.3 Board has no Power Pin, only Data and GND if I am right.  
+  Means you have to get the 3.3v Power from another Pin on the Board.  
+  I was sponsored by Antonio Villena with (t)his RTC which has solder Pins for i2c and 3.3v power.  
+* An i2c SSD1306 OLED  
+  
 ### How does it work  
 When the MiSTer boots up the script `/etc/init.d/S60i2c2oled` is called.  
 This script does nothing more than calling the script `/usr/bin/i2c2oled.sh`  
@@ -52,7 +60,9 @@ or do manually
   
 ▶️ You can use the [template](https://github.com/venice1200/MiSTer_i2c2oled/blob/main/Pictures/Pix/template.pix) as well.  
   
-Double check the files in https://github.com/venice1200/MiSTer_i2c2oled/tree/main/Pictures/Pix for correct modification.
+Double check the files in https://github.com/venice1200/MiSTer_i2c2oled/tree/main/Pictures/Pix for correct modification.  
+  
+***>> Make you PIX available for others uploading them zipped to the forum-thread or use an pull-request here <<***
   
 ### Files&Folders  
 | File/Folder | Description |
