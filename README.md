@@ -33,10 +33,11 @@ out of the loaded Picture Data and send these values via **i2c** to the Display.
 ### Picture Modification:  
 The used Black&White Pictures are slightly modfied X-PixMap (XPM) Pictures with 128x64 Pixel.  
 You can create X-PixMap Pictures with Gimp.  
-After you created the Black&White X-PixMap Picture open it with an Text Editor, I use Notepad++, and do the following:
+After you created the Black&White X-PixMap Picture open it with an Text Editor, I use Notepad++, and...  
   
-🛠️ Use the new XPMtoPIX conversion tool (need .NET Core Framework 3.1+) by MickGyver, many thanks.  
-or
+🛠️ Use the new XPMtoPIX conversion tool (need .NET Core Framework 3.1+) by MickGyver, many thanks.
+  
+or do manually  
 * Switch to Linux Line Ending (LineFeed only)
 * Remove all text lines until the first Data Line which should contain a lot Dot's "." and Spaces like `"... . . . "`
 * Add `#!/bin/bash` as the new first line
