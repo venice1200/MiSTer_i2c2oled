@@ -58,20 +58,28 @@ Double check the files in https://github.com/venice1200/MiSTer_i2c2oled/tree/mai
 | Pictures | Just Pictures |  
 | Pictures/Pix | X-PixMap Pictures, slightly modified, must be placed in folder `/media/fat/i2c2oled_pix/` on **MiSTer** |  
   
-**Notes**
+**Notes**  
 [1]  
 Do not forget to make the two Scripts executable after copying them to the MiSTer.  
 Use `chmod +x [scriptname]` for this.
   
-### Thanks to    
+### Thanks to  
 sorgelig for his MiSTer  
 https://github.com/MiSTer-devel  
   
 Antonio Villena for his RTC Board with i2c connector  
 https://www.antoniovillena.es  
   
+MickGyver for his XPMtoPIX conversion Tool  
+https://github.com/MickGyver  
+  
 The following website  
 https://stackoverflow.com/questions/42980922/which-commands-do-i-have-to-use-ssd1306-over-i%C2%B2c  
 for pointing me into the right direction.  
+  
+### Links  
+MiSTer on Github: https://github.com/MiSTer-devel  
+MiSTer Forum: https://misterfpga.org  
+Add-On Thread :  https://misterfpga.org/viewtopic.php?f=9&t=2476  
   
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://github.com/venice1200/MiSTer_tty2oled/blob/main/LICENSE)
