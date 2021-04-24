@@ -46,7 +46,8 @@ After you created the Black&White X-PixMap Picture open it with an Text Editor, 
 * Upload the File(s) to `/media/fat/i2c2oled_pix/` on **MiSTer**
 * Have fun 😃  
   
-▶️You can use the [template](https://github.com/venice1200/MiSTer_i2c2oled/blob/main/Pictures/Pix/template.pix) as well.  
+▶️ You can use the [template](https://github.com/venice1200/MiSTer_i2c2oled/blob/main/Pictures/Pix/template.pix) as well.  
+▶️ You can use the new XPMtoPIX conversion tool (need .NET Core Framework 3.1+) by MickGyver, many thanks.  
   
 Double check the files in https://github.com/venice1200/MiSTer_i2c2oled/tree/main/Pictures/Pix for correct modification.
   
