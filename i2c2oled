@@ -192,7 +192,7 @@ sendpix() {
     else							# No Picture available!
       if [ -f "${notavailpix}" ]; then				# Lookup for an existing Not-Avail-PIX and proceed
         source ${notavailpix}					# Load Picture Array for no Picture available
-        show_pix						# ..and show it
+        showpix						# ..and show it
       fi
     fi								# End if Picture check
   fi
