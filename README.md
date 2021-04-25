@@ -23,29 +23,30 @@ Normally you get an error message if you try to run `i2cdetect` on the wrong Bus
 ![i2cdetect](https://github.com/venice1200/MiSTer_i2c2oled/blob/main/Pictures/i2cdetect.png?raw=true)
   
 ### What is needed  
-* An DE10-Nano Board  
+* The DE10-Nano Board  
 * An i2c breakout (RTC Boards or IOBoards from Antonio Villena with builtin OLED's)  
   The i2c/SPI Header of the official RTC 1.3 Board has no Power Pin, only Data and GND if I am right.  
   Means you have to get the 3.3v Power from another Pin on the Board.  
-  I was sponsored by Antonio Villena with (t)his RTC which has solder Pins for i2c and 3.3v power.  
+  I was sponsored by Antonio Villena with his RTC which has solder Pins for i2c and 3.3v Power.  
 * An i2c SSD1306 OLED  
   
 ### How does it work  
 When the MiSTer boots up the script `/etc/init.d/S60i2c2oled` is called.  
-This script does nothing more than calling the script `/usr/bin/i2c2oled.sh`  
-and sent it to the background, but only if `/usr/bin/i2c2oled.sh` is found and is executable.  
-The Script `/usr/bin/i2c2oled.sh` uses the Linux `source` command to **load** the Picture Data from file if the core has changed.  
-The Script uses the **i2c** command `i2cset` to initialize the Display and calculates the needed values  
-out of the loaded Picture Data and send these values via **i2c** to the Display.
+This script does nothing more than calling the script `/usr/bin/i2c2oled`  
+and sent it to the background, but only if `/usr/bin/i2c2oled` is found and is executable.  
+The Script `/usr/bin/i2c2oled` uses the Linux `source` command to **load** the Binary Coded Picture Data from file, if the core has changed.  
+![i2cdetect](https://github.com/venice1200/MiSTer_i2c2oled/blob/main/Pictures/XPM_with_01.png?raw=true)  
+  
+The Script applies the **i2c** command `i2cset` to initialize the Display and send calculated Picture-Data to the Display.  
   
 ### Picture Modification:  
 The used Black&White Pictures are slightly modfied X-PixMap (XPM) Pictures with 128x64 Pixel.  
 You can create X-PixMap Pictures with Gimp.  
-After you created the Black&White X-PixMap Picture open it with an Text Editor, I use Notepad++, and...  
+After you created the Black&White X-PixMap Picture...   
   
-🛠️ Use the new XPMtoPIX conversion tool (need .NET Core Framework 3.1+) by MickGyver, many thanks.
+🛠️ Use the new XPMtoPIX conversion tool (need .NET Core Framework 3.1+) by MickGyver, many thanks.  
   
-or do manually  
+or open it with an Text Editor, I use Notepad++, and do manually...  
 * Switch to Linux Line Ending (LineFeed only)
 * Remove all text lines until the first Data Line which should contain a lot Dot's "." and Spaces like `"... . . . "`
 * Add `#!/bin/bash` as the new first line
@@ -62,7 +63,7 @@ or do manually
   
 Double check the files in https://github.com/venice1200/MiSTer_i2c2oled/tree/main/Pictures/Pix for correct modification.  
   
-***>> Make you PIX available for others uploading them zipped to the forum-thread or use an pull-request here <<***
+***>> PleaSE Make you PIX available for others <<***
   
 ### Files&Folders  
 | File/Folder | Description |
