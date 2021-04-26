@@ -63,7 +63,7 @@ or open it with an Text Editor, I use Notepad++, and do manually...
   
 Double check the files in https://github.com/venice1200/MiSTer_i2c2oled/tree/main/Pictures/Pix for correct modification.  
   
-***>> PleaSE Make you PIX available for others <<***
+***>> Please make your PIX available for others <<***
   
 ### Files&Folders  
 | File/Folder | Description |
