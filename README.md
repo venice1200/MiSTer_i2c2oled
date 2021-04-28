@@ -59,9 +59,9 @@ or open it with an Text Editor, I use Notepad++, and do manually...
 * Upload the File(s) to `/media/fat/i2c2oled_pix/` on **MiSTer**
 * Have fun 😃  
   
-▶️ You can use the [template](https://github.com/venice1200/MiSTer_i2c2oled/blob/main/Pictures/Pix/template.pix) as well.  
+▶️ You can use the [template](https://github.com/venice1200/MiSTer_i2c2oled/blob/main/Pictures/templates/template.pix) as well.  
   
-Double check the files in https://github.com/venice1200/MiSTer_i2c2oled/tree/main/Pictures/Pix for correct modification.  
+Check your PIX against the files in https://github.com/venice1200/MiSTer_i2c2oled/tree/main/Pictures/Pix for correct modification.  
   
 ***>> Please make your PIX available for others <<***
   
