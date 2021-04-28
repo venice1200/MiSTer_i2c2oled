@@ -48,7 +48,7 @@ pixpath="/media/fat/i2c2oled_pix"
 pixextn="pix"
 startpix="${pixpath}/starting.pix"
 notavailpix="${pixpath}/nopixavail.pix"
-emptyheaderpix="${pixpath}/misterheader.pix"
+misterheaderpix="${pixpath}/misterheader.pix"
 pix=""
 
 # Vars
@@ -330,8 +330,8 @@ function showpix() {
       source ${pix}						# Load Picture Array
       sendpix							# ..and show it
     else							# No Picture available!
-      if [ -f "${emptyheaderpix}" ]; then			# Lookup for the Empty-Header-PIX and proceed
-        source ${emptyheaderpix}				# Load Picture Array for "Empty Header" if available
+      if [ -f "${misterheaderpix}" ]; then			# Lookup for the Empty-Header-PIX and proceed
+        source ${misterheaderpix}				# Load Picture Array for "Empty Header" if available
         sendpix	 						# ..and show it
       fi
       corenamelen=${#1}						# Get lenght of Corename
