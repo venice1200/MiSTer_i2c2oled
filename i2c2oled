@@ -48,7 +48,7 @@ pixpath="/media/fat/i2c2oled_pix"
 pixextn="pix"
 startpix="${pixpath}/starting.pix"
 notavailpix="${pixpath}/nopixavail.pix"
-emptyheaderpix="${pixpath}/emptyheader.pix"
+emptyheaderpix="${pixpath}/misterheader.pix"
 pix=""
 
 # Vars
