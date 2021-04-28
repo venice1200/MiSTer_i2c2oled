@@ -23,7 +23,7 @@
 # Put your X-PixMap files in /media/fat/i2c2oled_pix with extension "pix"
 #
 # 2021-04-28
-# Adding Basic Support for an 8x8 Pixel Font
+# Adding Basic Support for an 8x8 Pixel Font taken from https://github.com/greiman/SdFat under the MIT License
 # Use modded functions from here https://gist.github.com/jmmitchell/c82b03e3fc2dc0dcad6c95224e42c453
 # Cosmetic changes
 #
