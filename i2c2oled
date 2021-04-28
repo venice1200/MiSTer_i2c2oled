@@ -24,7 +24,7 @@
 #
 # 2021-04-28
 # Adding Basic Support for an 8x8 Pixel Font taken from https://github.com/greiman/SdFat under the MIT License
-# Use modded functions from here https://gist.github.com/jmmitchell/c82b03e3fc2dc0dcad6c95224e42c453
+# Use modded ASCII functions from here https://gist.github.com/jmmitchell/c82b03e3fc2dc0dcad6c95224e42c453
 # Cosmetic changes
 #
 #
@@ -339,19 +339,19 @@ function showpix() {
 
 # function 
 function showtext() {
-  local a=0; local b=0; local local achar=0; charp=0; local charout="";
+  local a=0; local b=0; local achar=0; local charp=0; local charout="";
   local text=${1}
   local textlen=${#text}
   #echo "Textlen: ${textlen}"
   for (( a=0; a<${textlen}; a++ )); do
-    achar="`ord ${text:${a}:1}`"
-    let charp=(achar-32)*8
+    achar="`ord ${text:${a}:1}`"               # get the ASCII Code
+    let charp=(achar-32)*8                     # calculate first byte in font array
     charout=""
-    for (( b=0; b<8; b++ )); do
-      charout="${charout} ${font[charp+b]}"
+    for (( b=0; b<8; b++ )); do                # character loop
+      charout="${charout} ${font[charp+b]}"    # build character out of single values
     done
     # echo "${a}: ${text:${a}:1} -> ${achar} -> ${charp} -> ${charout}"
-  i2cset -y ${i2cbus} ${oledaddr} 0x40 ${charout} i
+  i2cset -y ${i2cbus} ${oledaddr} 0x40 ${charout} i  # send character bytes to display
   done
 }
 
@@ -370,12 +370,12 @@ display_on      # Switch Display on
 #cfont=${#font[@]}        # Debugging get count font array members
 #echo $cfont              # Debugging
 
-set_cursor 16 2           # Set Cursor to Page (Row) 2 to the 16th Pixel (Column)
+set_cursor 16 2           # Set Cursor at Page (Row) 2 to the 16th Pixel (Column)
 showtext "MiSTer FPGA"    # Some Text for the Display
 
 sleep 1.0                 # Wait a moment
 
-set_cursor 16 4           # Set Cursor to Page (Row) 4 to the 16th Pixel (Column)
+set_cursor 16 4           # Set Cursor at Page (Row) 4 to the 16th Pixel (Column)
 showtext "by Sorgelig"    # Some Text for the Display
 
 sleep 2.0                 # Wait a moment
