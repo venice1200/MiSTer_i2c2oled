@@ -44,7 +44,7 @@ The used Black&White Pictures are slightly modfied X-PixMap (XPM) Pictures with 
 You can create X-PixMap Pictures with Gimp.  
 After you created the Black&White X-PixMap Picture...   
   
-🛠️ Use the new XPMtoPIX conversion tool (need .NET Core Framework 3.1+) by MickGyver, many thanks.  
+🛠️ Use the XPMtoPIX conversion tool by MickGyver (need .NET Core Framework 3.1+). Many thanks 😃  
   
 or open it with an Text Editor, I use Notepad++, and do manually...  
 * Switch to Linux Line Ending (LineFeed only)
