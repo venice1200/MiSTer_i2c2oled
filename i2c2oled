@@ -360,6 +360,23 @@ function showtext() {
   done
 }
 
+function pressplay () {
+  showpix pressplay
+  # Testing Font-Based-Animation
+  for (( t=0; t<10; t++)); do
+    set_cursor 48 4
+    i2cset -y ${i2cbus} ${oledaddr} 0x40 0x3C 0x5A 0x81 0xC3 0xC3 0x81 0x5A 0x3C i
+    set_cursor 64 4
+    i2cset -y ${i2cbus} ${oledaddr} 0x40 0x3C 0x66 0xE7 0x81 0x81 0xE7 0x66 0x3C i
+    sleep 0.3
+    set_cursor 48 4
+    i2cset -y ${i2cbus} ${oledaddr} 0x40 0x3C 0x66 0xE7 0x81 0x81 0xE7 0x66 0x3C i
+    set_cursor 64 4
+    i2cset -y ${i2cbus} ${oledaddr} 0x40 0x3C 0x5A 0x81 0xC3 0xC3 0x81 0x5A 0x3C i
+    sleep 0.3
+  done
+}
+
 # ************************** Main Program **********************************
 
 
@@ -393,6 +410,9 @@ while true; do							# main loop
     dbug "Read CORENAME: -${newcore}-"				# some debug output
     if [ "${newcore}" != "${oldcore}" ]; then			# proceed only if Core has changed
       dbug "Send -${newcore}- to i2c-${i2cbus}"			# some debug output
+      if [ ${newcore} != "MENU" ]; then
+        pressplay
+      fi
       showpix ${newcore}				 	# The "Magic"
       oldcore=${newcore}					# update oldcore variable
     fi  							# end if core check
