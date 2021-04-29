@@ -8,7 +8,7 @@ Antonio Villena build IOBoards with such small OLED Displays and asked for suppo
   
 ![i2c2oled](https://github.com/venice1200/MiSTer_i2c2oled/blob/main/Pictures/SSD1306_MiSTer_v2.jpg?raw=true)  
   
-[>>Short Gif Video<<](https://github.com/venice1200/MiSTer_i2c2oled/blob/main/Pictures/i2c2oled_life.gif)
+![>>Short Gif Video<<](https://github.com/venice1200/MiSTer_i2c2oled/blob/main/Pictures/pressplay.gif?raw=true)
 
 ### !! WARNING !! 
 This Add-On uses the MiSTer's **i2c Bus**. Wrong usage can confuse the MiSTer's **i2c Bus or worse**!  
