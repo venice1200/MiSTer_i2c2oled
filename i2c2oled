@@ -28,6 +28,10 @@
 # Cosmetic changes
 #
 #
+# 2021-04-29/30
+# Adding Font-Based Animation "pressplay" and "loading"
+# The PIX's "pressplay.pix" and "loading.pix" are needed.
+#
 
 # Debugging
 debug="false"
@@ -50,6 +54,13 @@ startpix="${pixpath}/starting.pix"
 notavailpix="${pixpath}/nopixavail.pix"
 misterheaderpix="${pixpath}/misterheader.pix"
 pix=""
+
+# Animation Icon's
+itape1="0x3C 0x5A 0x81 0xC3 0xC3 0x81 0x5A 0x3C"
+itape2="0x3C 0x66 0xE7 0x81 0x81 0xE7 0x66 0x3C"
+iload1="0x78 0x3C 0x1E 0x0F 0x87 0xC3 0xE1 0xF0"
+iload2="0x00 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0x00"
+
 
 # Vars
 #val=""
@@ -322,6 +333,7 @@ function sendpix() {
 
 # i2c Show-Picture function
 function showpix() {
+  local corenamepos=0; local corenamelen=0;
   if [ -d "${pixpath}" ]; then					# Check for am existing Picturefolder and proceed
     pix=("${pixpath}/${1}.${pixextn}")				# Build Pix + Path + Extension
     echo "Pix: ${pix}"
@@ -329,7 +341,7 @@ function showpix() {
     if [ -f "${pix}" ]; then					# Lookup for an existing PIX and proceed
       source ${pix}						# Load Picture Array
       sendpix							# ..and show it
-    else							# No Picture available!
+    else							# ! No Picture available !
       if [ -f "${misterheaderpix}" ]; then			# Lookup for the Empty-Header-PIX and proceed
         source ${misterheaderpix}				# Load Picture Array for "Empty Header" if available
         sendpix	 						# ..and show it
@@ -361,21 +373,37 @@ function showtext() {
 }
 
 function pressplay () {
+  local t=0;
   showpix pressplay
   # Testing Font-Based-Animation
   for (( t=0; t<10; t++)); do
     set_cursor 48 4
-    i2cset -y ${i2cbus} ${oledaddr} 0x40 0x3C 0x5A 0x81 0xC3 0xC3 0x81 0x5A 0x3C i
+    i2cset -y ${i2cbus} ${oledaddr} 0x40 ${itape1}  i
     set_cursor 64 4
-    i2cset -y ${i2cbus} ${oledaddr} 0x40 0x3C 0x66 0xE7 0x81 0x81 0xE7 0x66 0x3C i
+    i2cset -y ${i2cbus} ${oledaddr} 0x40 ${itape2} i
     sleep 0.3
     set_cursor 48 4
-    i2cset -y ${i2cbus} ${oledaddr} 0x40 0x3C 0x66 0xE7 0x81 0x81 0xE7 0x66 0x3C i
+    i2cset -y ${i2cbus} ${oledaddr} 0x40 ${itape2} i
     set_cursor 64 4
-    i2cset -y ${i2cbus} ${oledaddr} 0x40 0x3C 0x5A 0x81 0xC3 0xC3 0x81 0x5A 0x3C i
+    i2cset -y ${i2cbus} ${oledaddr} 0x40 ${itape1} i
     sleep 0.3
   done
 }
+
+function loading () {
+  local t=0;
+  showpix loading
+  set_cursor 24 5
+  sleep 0.75
+  for (( t=0; t<10 ; t++ )); do
+    #sleep 0.10                                           # fast loading ~1x
+    sleep 0.30                                            # slow loading ~3s
+    i2cset -y ${i2cbus} ${oledaddr} 0x40 ${iload1} i      # Icon 1
+    #i2cset -y ${i2cbus} ${oledaddr} 0x40 ${iload2} i     # Icon 2
+  done
+  sleep 1.0
+}
+
 
 # ************************** Main Program **********************************
 
@@ -403,6 +431,9 @@ showtext "by Sorgelig"    # Some Text for the Display
 sleep 2.0                 # Wait a moment
 #reset_cursor
 
+# Run Loading Animation
+loading
+
 while true; do							# main loop
   if [ -r ${corenamefile} ]; then				# proceed if file exists and is readable (-r)
     newcore=$(cat ${corenamefile})				# get CORENAME
@@ -410,9 +441,9 @@ while true; do							# main loop
     dbug "Read CORENAME: -${newcore}-"				# some debug output
     if [ "${newcore}" != "${oldcore}" ]; then			# proceed only if Core has changed
       dbug "Send -${newcore}- to i2c-${i2cbus}"			# some debug output
-      if [ ${newcore} != "MENU" ]; then
-        pressplay
-      fi
+      if [ ${newcore} != "MENU" ]; then				# If Corename not "MENU"
+        pressplay						# Run "pressplay" Animation
+      fi							# end if
       showpix ${newcore}				 	# The "Magic"
       oldcore=${newcore}					# update oldcore variable
     fi  							# end if core check
