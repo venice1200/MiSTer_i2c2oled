@@ -27,7 +27,6 @@
 # Use modded ASCII functions from here https://gist.github.com/jmmitchell/c82b03e3fc2dc0dcad6c95224e42c453
 # Cosmetic changes
 #
-#
 # 2021-04-29/30
 # Adding Font-Based Animation "pressplay" and "loading"
 # The PIX's "pressplay.pix" and "loading.pix" are needed.
@@ -60,6 +59,8 @@ itape1="0x3C 0x5A 0x81 0xC3 0xC3 0x81 0x5A 0x3C"
 itape2="0x3C 0x66 0xE7 0x81 0x81 0xE7 0x66 0x3C"
 iload1="0x78 0x3C 0x1E 0x0F 0x87 0xC3 0xE1 0xF0"
 iload2="0x00 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0x00"
+iwarp1="0x3C 0x42 0x81 0x81 0x81 0x81 0x42 0x3C"
+iwarp2="0x3C 0x7E 0xFF 0xFF 0xFF 0xFF 0x7E 0x3C"
 
 
 # Vars
@@ -250,6 +251,19 @@ function init_display() {
   #i2cset -y ${i2cbus} ${oledaddr} 0x00 0x21    # vertikal addressing mode
   #i2cset -y ${i2cbus} ${oledaddr} 0x00 0x22    # page addressing mode
 
+  i2cset -y ${i2cbus} ${oledaddr} 0x00 0x2E    # Deactivate Scrolling
+
+  i2cset -y ${i2cbus} ${oledaddr} 0x00 0x26
+  i2cset -y ${i2cbus} ${oledaddr} 0x00 0x00    # Dummy 00h
+  i2cset -y ${i2cbus} ${oledaddr} 0x00 0x02    # Start Page 2
+  i2cset -y ${i2cbus} ${oledaddr} 0x00 0x07    # Frame frequency 2 frames (fastest)
+  #i2cset -y ${i2cbus} ${oledaddr} 0x00 0x00   # Frame frequency 5 frames
+  #i2cset -y ${i2cbus} ${oledaddr} 0x00 0x06   # Frame frequency 25 frames (slower)
+  i2cset -y ${i2cbus} ${oledaddr} 0x00 0x07    # End Page 7
+  i2cset -y ${i2cbus} ${oledaddr} 0x00 0x00    # Dummy 00h
+  i2cset -y ${i2cbus} ${oledaddr} 0x00 0xFF    # Dummy FFh
+
+
   reset_cursor
 }
 
@@ -404,6 +418,42 @@ function loading () {
   sleep 1.0
 }
 
+function warp5 () {
+  local t=0;
+  showpix ncc1701
+  sleep 1
+
+  for (( t=0; t<5 ; t++ )); do
+    set_cursor 56 4
+    i2cset -y ${i2cbus} ${oledaddr} 0x40 ${iwarp2} i 
+    sleep 0.5
+    set_cursor 56 4
+    i2cset -y ${i2cbus} ${oledaddr} 0x40 ${iwarp1} i
+    sleep 0.5
+  done
+
+  set_cursor 80 3
+  showtext "Warp 5"
+  sleep 2
+
+  set_cursor 80 5
+  showtext "Energy"
+  sleep 1
+
+  set_cursor 80 3
+  showtext "      "
+  set_cursor 80 5
+  showtext "      "
+  sleep 0.5
+
+  # Activate Scrolling
+  i2cset -y ${i2cbus} ${oledaddr} 0x00 0x2F
+  sleep 5
+
+  # Deactivate Scrolling
+  i2cset -y ${i2cbus} ${oledaddr} 0x00 0x2E
+  sleep 1
+}
 
 # ************************** Main Program **********************************
 
@@ -433,6 +483,9 @@ sleep 2.0                 # Wait a moment
 
 # Run Loading Animation
 loading
+
+# Run NCC1701 Animation
+warp5
 
 while true; do							# main loop
   if [ -r ${corenamefile} ]; then				# proceed if file exists and is readable (-r)
