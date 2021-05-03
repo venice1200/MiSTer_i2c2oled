@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/bin/bash
 
 #
 # File: "/usr/bin/i2c2oled"
@@ -318,7 +318,7 @@ function flushscreen() {
 
 function sendpix() {
 # Get for each 8-Bit Size Vertical Segment the Bits and send them to be drawd
-  display_off
+  #display_off
   reset_cursor
   local val=""; local byt=0; 
   local b0=0; local b1=0; local b2=0; local b3=0; local b4=0; local b5=0; local b6=0; local b7=0
@@ -346,7 +346,7 @@ function sendpix() {
       fi # 
     done # for i
   done # for j
-  display_on
+  #display_on
 }
 
 # i2c Show-Picture function
@@ -396,7 +396,7 @@ function pressplay () {
   local t=0;
   showpix pressplay
   # Testing Font-Based-Animation
-  for (( t=0; t<10; t++)); do
+  for (( t=0; t<5; t++)); do
     set_cursor 48 4
     i2cset -y ${i2cbus} ${oledaddr} 0x40 ${itape1}  i
     set_cursor 64 4
@@ -412,22 +412,27 @@ function pressplay () {
 
 function loading () {
   local t=0;
+  display_off
   showpix loading
+  display_on
   set_cursor 24 5
   sleep 0.75
-  for (( t=0; t<10 ; t++ )); do
-    #let sleepval=0.5-t*0.05                              # float doesn't work, no "bc" on MiSTer
-    #sleep 0.10                                           # fast loading ~1x
-    sleep 0.30                                            # slow loading ~3s
-    i2cset -y ${i2cbus} ${oledaddr} 0x40 ${iload1} i      # Icon 1
-    #i2cset -y ${i2cbus} ${oledaddr} 0x40 ${iload2} i     # Icon 2
+  #for (( t=0; t<10 ; t++ )); do
+  for t in 0.5 0.45 0.4 0.35 0.3 0.25 0.2 0.15 1.0 0.5; do  # going faster each step
+    #sleep 0.10                                             # fast loading ~1x
+    #sleep 0.30                                             # slow loading ~3s
+    sleep ${t}                                              # going faster each step
+    i2cset -y ${i2cbus} ${oledaddr} 0x40 ${iload1} i        # Icon 1
+    #i2cset -y ${i2cbus} ${oledaddr} 0x40 ${iload2} i       # Icon 2
   done
   sleep 1.0
 }
 
 function warp5 () {
   local t=0;
+  display_off
   showpix ncc1701
+  display_on
   sleep 1
 
   for (( t=0; t<5 ; t++ )); do
@@ -493,7 +498,7 @@ sleep 2.0                 # Wait a moment
 loading
 
 # Run NCC1701 Animation
-warp5
+#warp5
 
 while true; do							# main loop
   if [ -r ${corenamefile} ]; then				# proceed if file exists and is readable (-r)
@@ -504,8 +509,10 @@ while true; do							# main loop
       dbug "Send -${newcore}- to i2c-${i2cbus}"			# some debug output
       if [ ${newcore} != "MENU" ]; then				# If Corename not "MENU"
         pressplay						# Run "pressplay" Animation
-      fi							# end if
+      fi       							# end if
+      display_off
       showpix ${newcore}				 	# The "Magic"
+      display_on
       oldcore=${newcore}					# update oldcore variable
     fi  							# end if core check
     inotifywait -e modify "${corenamefile}"			# wait here for next change of corename
