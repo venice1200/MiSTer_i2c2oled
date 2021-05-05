@@ -417,15 +417,12 @@ function loading () {
   display_on
   set_cursor 24 5
   sleep 0.75
-  #for (( t=0; t<10 ; t++ )); do
-  for t in 0.5 0.45 0.4 0.35 0.3 0.25 0.2 0.15 1.0 0.5; do  # going faster each step
-    #sleep 0.10                                             # fast loading ~1x
-    #sleep 0.30                                             # slow loading ~3s
-    sleep ${t}                                              # going faster each step
+  for t in 0.5 0.45 0.4 0.35 0.3 0.25 0.2 0.15 1.0 0.1; do  # going faster each step
     i2cset -y ${i2cbus} ${oledaddr} 0x40 ${iload1} i        # Icon 1
     #i2cset -y ${i2cbus} ${oledaddr} 0x40 ${iload2} i       # Icon 2
+    sleep ${t}                                              # going faster each step
   done
-  sleep 1.0
+  sleep 0.5
 }
 
 function warp5 () {
