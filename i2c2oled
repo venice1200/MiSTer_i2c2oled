@@ -36,16 +36,22 @@
 # The PIX "ncc1701.pix" is needed.
 # Using "font_width" instead of fixed value.
 #
+# 2021-05-15
+# Adding OLED Address Detection
+# If Device is not found the Script ends with Error Code 1 
+# Use code from https://raspberrypi.stackexchange.com/questions/26818/check-for-i2c-device-presence
+#
 #
 
 # Debugging
 debug="false"
 debugfile="/tmp/i2c2oled"
 
-# Some System Variables
-oledaddr=0x3C     # OLED Display I2C Address
-# i2cbus=1        # i2c-1, Bus 1, uncomment only one i2c Bus
-i2cbus=2          # i2c-2, Bus 2, uncomment only one i2c Bus
+# System Variables
+oledid=3c                # OLED I2C Address without "0x"
+oledaddr=0x${oledid}     # OLED I2C Address with "0x"
+i2cbus=2                 # i2c-2 = Bus 2
+oledfound="false"        # Pre-Set Variable witrh false
 
 # Core related
 newcore=""
@@ -354,8 +360,8 @@ function showpix() {
   local corenamepos=0; local corenamelen=0;
   if [ -d "${pixpath}" ]; then					# Check for am existing Picturefolder and proceed
     pix=("${pixpath}/${1}.${pixextn}")				# Build Pix + Path + Extension
-    echo "Pix: ${pix}"
-    dbug "Pix: ${pix}"
+    echo "Pix: ${pix}"                                          # Show Pix-Path
+    dbug "Pix: ${pix}"                                          # Debug Pix-Path 
     if [ -f "${pix}" ]; then					# Lookup for an existing PIX and proceed
       source ${pix}						# Load Picture Array
       sendpix							# ..and show it
@@ -466,6 +472,23 @@ function warp5 () {
 # ************************** End Functions **********************************
 
 # ************************** Main Program **********************************
+
+# Lookup for i2c Device
+
+mapfile -t i2cdata < <(i2cdetect -y ${i2cbus})
+for i in $(seq 1 ${#i2cdata[@]}); do
+  i2cline=(${i2cdata[$i]})
+  echo ${i2cline[@]:1} | grep -q ${oledid}
+  if [ $? -eq 0 ]; then
+    echo "OLED at 0x${oledid} found, proceed..."
+    oledfound="true"
+  fi
+done
+
+if [ "${oledfound}" = "false" ]; then
+  echo "OLED at 0x${oledid} not found! Exit!"
+  exit 1
+fi
 
 
 display_off     # Switch Display off
