@@ -2,7 +2,7 @@
   
 Just for fun...  
   
-This Bash-Script MiSTer-Add-On uses the DE10-Nano's **i2c Interface** to drive a small SSD1306 OLED Display  
+This Bash-Script-MiSTer-Add-On uses the DE10-Nano's **i2c Interface** to drive a small SSD1306 OLED Display  
 with 128x64 Pixel showing ~~(currently only)~~ Pictures or Text based on the running core.  
 Antonio Villena build IOBoards with such small OLED Displays and asked for support, so here we are 🙂  
   
@@ -24,11 +24,12 @@ Normally you get an error message if you try to run `i2cdetect` on the wrong Bus
   
 ### What is needed  
 * The DE10-Nano Board  
+* An SSD1306 OLED Display with i2c Interface  
 * An i2c breakout (RTC Boards or IOBoards from Antonio Villena with builtin OLED's)  
   The i2c/SPI Header of the official RTC 1.3 Board has no Power Pin, only Data and GND if I am right.  
   Means you have to get the 3.3v Power from another Pin on the Board.  
+  See [Connection Scheme RTC v1.3](https://misterfpga.org/viewtopic.php?p=26036#p26036) for some details.  
   I was sponsored by Antonio Villena with his RTC which has solder Pins for i2c and 3.3v Power.  
-* An i2c SSD1306 OLED  
   
 ### How does it work  
 When the MiSTer boots up the script `/etc/init.d/S60i2c2oled` is called.  
@@ -36,7 +37,6 @@ This script does nothing more than calling the script `/usr/bin/i2c2oled`
 and sent it to the background, but only if `/usr/bin/i2c2oled` is found and is executable.  
 The Script `/usr/bin/i2c2oled` uses the Linux `source` command to **load** the Binary Coded Picture Data from file, if the core has changed.  
 ![i2cdetect](https://github.com/venice1200/MiSTer_i2c2oled/blob/main/Pictures/XPM_with_01.png?raw=true)  
-  
 The Script applies the **i2c** command `i2cset` to initialize the Display and send calculated Picture-Data to the Display.  
   
 ### Picture Modification:  
