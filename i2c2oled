@@ -41,6 +41,10 @@
 # If Device is not found the Script ends with Error Code 1 
 # Use code from https://raspberrypi.stackexchange.com/questions/26818/check-for-i2c-device-presence
 #
+# 2021-05-17
+# Adding an "contrast" variable so you can set your contrast value
+#
+#
 #
 
 # Debugging
@@ -51,7 +55,8 @@ debugfile="/tmp/i2c2oled"
 oledid=3c                # OLED I2C Address without "0x"
 oledaddr=0x${oledid}     # OLED I2C Address with "0x"
 i2cbus=2                 # i2c-2 = Bus 2
-oledfound="false"        # Pre-Set Variable witrh false
+oledfound="false"        # Pre-Set Variable with false
+contrast=100             # Set Contrast Value 0..255
 
 # Core related
 newcore=""
@@ -238,7 +243,8 @@ function init_display() {
   i2cset -y ${i2cbus} ${oledaddr} 0x00 0x12    # Alternative COM pin configuration, Disable COM Left/Right remap needed for 128x64
 
   i2cset -y ${i2cbus} ${oledaddr} 0x00 0x81    # Set Contrast Control
-  i2cset -y ${i2cbus} ${oledaddr} 0x00 0xCF    # value, 0x7F max.
+  i2cset -y ${i2cbus} ${oledaddr} 0x00 ${contrast}    # value, 0xFF max.
+  #i2cset -y ${i2cbus} ${oledaddr} 0x00 0xCF    # value, 0x7F max.
 
   i2cset -y ${i2cbus} ${oledaddr} 0x00 0xA4    # display RAM content
 
