@@ -70,6 +70,7 @@ Check your PIX against the files in https://github.com/venice1200/MiSTer_i2c2ole
 | :--- | :--- |
 | S60i2c2oled [1] | Starter Script, must be placed in folder `/etc/init.d/` on **MiSTer** |
 | i2c2oled [1] | Communication Script, must be placed in folder `/usr/bin/` on **MiSTer** |
+| i2c2oled_slideshow.sh | Slideshow Viewer |   
 | Pictures | Just Pictures |  
 | Pictures/Pix | modded X-PixMap Pictures, must be placed in folder `/media/fat/i2c2oled_pix/` on **MiSTer** |  
   
