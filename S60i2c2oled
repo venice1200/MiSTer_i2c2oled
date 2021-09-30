@@ -1,15 +1,17 @@
 #! /bin/sh
-
 #
-# /etc/init.d/S60i2c2oled
+# /media/fat/i2c2oled/S60i2c2oled
 #
 # 2021-04-19 by venice
 # License GPL v3
 # Release based on S60tty2oled
 #
 
-SCRIPT="i2c2oled"
-DAEMON="/usr/bin/${SCRIPT}"
+SCRIPT="i2c2oled.sh"
+DAEMON="/media/fat/i2c2oled/${SCRIPT}"
+INITSCRIPT="/media/fat/i2c2oled/S60i2c2oled"
+USERSTARTUP="/media/fat/linux/user-startup.sh"
+USERSTARTUPTPL="/media/fat/linux/_user-startup.sh"
 
 # Start
 start() {
@@ -38,11 +40,26 @@ case "$1" in
         stop
         start
         ;;
-#  reload)
-#       reload
-#       ;;
+  setup)
+        if [ ! -e ${USERSTARTUP} ] && [ -e /etc/init.d/S99user ]; then
+          if [ -e ${USERSTARTUPTPL} ]; then
+            echo "Copying ${USERSTARTUPTPL} to ${USERSTARTUP}"
+            cp ${USERSTARTUPTPL} ${USERSTARTUP}
+          else
+            echo "Creating ${USERSTARTUP}"
+            echo -e "#!/bin/sh\n" > ${USERSTARTUP}
+            echo -e 'echo "***" $1 "***"' >> ${USERSTARTUP}
+          fi
+        fi
+
+        if [ $(grep -c "i2c2oled"  ${USERSTARTUP}) = "0" ]; then
+          echo "Adding i2c2oled init to user-startup"
+          echo -e "\n# Startup i2c2oled" >>  ${USERSTARTUP}
+          echo -e "[[ -e ${INITSCRIPT} ]] && ${INITSCRIPT} \$1" >>  ${USERSTARTUP}
+        fi
+        ;;
   *)
-#        echo "Usage: $0 {start|stop|restart|reload}"
-        echo "Usage: $0 {start|stop|restart}"
+        echo "Usage: $0 {start|stop|restart|setup}"
         exit 1
+        ;;
 esac

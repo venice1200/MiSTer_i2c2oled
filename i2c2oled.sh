@@ -1,28 +1,75 @@
 #!/bin/bash
 
 #
-# File: "/media/fat/Scripts/i2c2oled_slideshow.sh"
+# File: "media/fat/i2x2oled/i2c2oled.sh"
 #
 # Just for fun ;-)
 #
-# 2021-05-03 by venice
+# 2021-04-18 by venice
 # License GPL v3
 # 
-# Simple Slidehow Player for all availble PIX files
+# Using DE10-Nano's i2c Bus and Commands showing the MiSTer Logo on an connected SSD1306 OLED Display
+#
+# The SSD1306 is organized in eight 8-Pixel-High Pages (=Rows, 0..7) and 128 Columns (0..127).
+# I you write an Data Byte you address an 8 Pixel high Column in one Page.
+# Commands start with 0x00, Data with 0x40 (as far as I know)
+#
+# Initial Base for the Script taken from here:
+# https://stackoverflow.com/questions/42980922/which-commands-do-i-have-to-use-ssd1306-over-i%C2%B2c
+#
+# Use Gimp to convert the original to X-PixMap (XPM) and change " " (Space) to "1" and "." (Dot) to "0" for easier handling
+# See examples what to modify additionally
+# The String Array has 64 Lines with 128 Chars
+# Put your X-PixMap files in /media/fat/i2c2oled_pix with extension "pix"
+#
+# 2021-04-28
+# Adding Basic Support for an 8x8 Pixel Font taken from https://github.com/greiman/SdFat under the MIT License
+# Use modded ASCII functions from here https://gist.github.com/jmmitchell/c82b03e3fc2dc0dcad6c95224e42c453
+# Cosmetic changes
+#
+# 2021-04-29/30
+# Adding Font-Based Animation "pressplay" and "loading"
+# The PIX's "pressplay.pix" and "loading.pix" are needed.
+#
+# 2021-05-01
+# Adding "Warp-5" Scrolling :-)
+# The PIX "ncc1701.pix" is needed.
+# Using "font_width" instead of fixed value.
+#
+# 2021-05-15
+# Adding OLED Address Detection
+# If Device is not found the Script ends with Error Code 1 
+# Use code from https://raspberrypi.stackexchange.com/questions/26818/check-for-i2c-device-presence
+#
+# 2021-05-17
+# Adding an "contrast" variable so you can set your contrast value
+#
+#
 #
 
 # Debugging
 debug="false"
-debugfile="/tmp/i2c2oled_slideshow"
+debugfile="/tmp/i2c2oled"
 
-# Some System Variables
-oledaddr=0x3C     # OLED Display I2C Address
-# i2cbus=1        # i2c-1, Bus 1, uncomment only one i2c Bus
-i2cbus=2          # i2c-2, Bus 2, uncomment only one i2c Bus
+# System Variables
+oledid=3c                # OLED I2C Address without "0x"
+oledaddr=0x${oledid}     # OLED I2C Address with "0x"
+i2cbus=2                 # i2c-2 = Bus 2
+oledfound="false"        # Pre-Set Variable with false
+contrast=100             # Set Contrast Value 0..255
+
+# Core related
+newcore=""
+oldcore=""
+corenamefile="/tmp/CORENAME"
 
 # Picture related
 pixpath="/media/fat/i2c2oled/pix"
 pixextn="pix"
+startpix="${pixpath}/starting.pix"
+notavailpix="${pixpath}/nopixavail.pix"
+misterheaderpix="${pixpath}/misterheader.pix"
+pix=""
 
 
 # Animation Icon's
@@ -196,7 +243,8 @@ function init_display() {
   i2cset -y ${i2cbus} ${oledaddr} 0x00 0x12    # Alternative COM pin configuration, Disable COM Left/Right remap needed for 128x64
 
   i2cset -y ${i2cbus} ${oledaddr} 0x00 0x81    # Set Contrast Control
-  i2cset -y ${i2cbus} ${oledaddr} 0x00 0xCF    # value, 0x7F max.
+  i2cset -y ${i2cbus} ${oledaddr} 0x00 ${contrast}    # value, 0xFF max.
+  #i2cset -y ${i2cbus} ${oledaddr} 0x00 0xCF    # value, 0x7F max.
 
   i2cset -y ${i2cbus} ${oledaddr} 0x00 0xA4    # display RAM content
 
@@ -258,7 +306,6 @@ function set_cursor() {
 
 function clearscreen() {
 # fill screen with 0x00, sent each 32 bytes
-  local i=0
   for i in $(seq 32); do
     val=""
     for j in $(seq 32); do
@@ -271,7 +318,6 @@ function clearscreen() {
 
 function flushscreen() {
 # fill screen with 0xff, sent each 32 bytes
-  local i=0
   for i in $(seq 32); do
     val=""
     for j in $(seq 32); do
@@ -320,8 +366,8 @@ function showpix() {
   local corenamepos=0; local corenamelen=0;
   if [ -d "${pixpath}" ]; then					# Check for am existing Picturefolder and proceed
     pix=("${pixpath}/${1}.${pixextn}")				# Build Pix + Path + Extension
-    echo "Pix: ${pix}"
-    dbug "Pix: ${pix}"
+    echo "Pix: ${pix}"                                          # Show Pix-Path
+    dbug "Pix: ${pix}"                                          # Debug Pix-Path 
     if [ -f "${pix}" ]; then					# Lookup for an existing PIX and proceed
       source ${pix}						# Load Picture Array
       sendpix							# ..and show it
@@ -383,15 +429,12 @@ function loading () {
   display_on
   set_cursor 24 5
   sleep 0.75
-  #for (( t=0; t<10 ; t++ )); do
-  for t in 0.5 0.45 0.4 0.35 0.3 0.25 0.2 0.15 0.1 0.5; do  # going faster each step
-    #sleep 0.10                                             # fast loading ~1x
-    #sleep 0.30                                             # slow loading ~3s
-    sleep ${t}                                              # going faster each step
+  for t in 0.5 0.45 0.4 0.35 0.3 0.25 0.2 0.15 1.0 0.1; do  # going faster each step
     i2cset -y ${i2cbus} ${oledaddr} 0x40 ${iload1} i        # Icon 1
     #i2cset -y ${i2cbus} ${oledaddr} 0x40 ${iload2} i       # Icon 2
+    sleep ${t}                                              # going faster each step
   done
-  sleep 1.0
+  sleep 0.5
 }
 
 function warp5 () {
@@ -436,33 +479,73 @@ function warp5 () {
 
 # ************************** Main Program **********************************
 
+# Lookup for i2c Device
 
-# Stopping the deamon
-/etc/init.d/S60i2c2oled stop
-
-#display_off     # Switch Display off
-init_display    # Send INIT Commands
-clearscreen     # Fill the Screen completly
-#display_on      # Switch Display on
-
-set_cursor 8 3              # Set Cursor at Page (Row) 2 to the 16th Pixel (Column)
-showtext "PIX Slideshow"    # Some Text for the Display
-
-sleep 3.0                   # Wait a moment
-
-
-# Picture related
-pixpath="/media/fat/i2c2oled_pix"
-pixextn="pix"
-
-for pixpic in `find ${pixpath} -name "*.${pixextn}"`; do
-  echo ${pixpic}
-  source ${pixpic}
-  sendpix
-  sleep 3
+mapfile -t i2cdata < <(i2cdetect -y ${i2cbus})
+for i in $(seq 1 ${#i2cdata[@]}); do
+  i2cline=(${i2cdata[$i]})
+  echo ${i2cline[@]:1} | grep -q ${oledid}
+  if [ $? -eq 0 ]; then
+    echo "OLED at 0x${oledid} found, proceed..."
+    oledfound="true"
+  fi
 done
 
-# Stopping the deamon
-/etc/init.d/S60i2c2oled start
+if [ "${oledfound}" = "false" ]; then
+  echo "OLED at 0x${oledid} not found! Exit!"
+  exit 1
+fi
+
+
+display_off     # Switch Display off
+init_display    # Send INIT Commands
+flushscreen     # Fill the Screen completly
+display_on      # Switch Display on
+sleep 0.5       # Small sleep
+display_off     # Switch Display off
+clearscreen     # Clear the Screen completly
+display_on      # Switch Display on
+
+#cfont=${#font[@]}        # Debugging get count font array members
+#echo $cfont              # Debugging
+
+set_cursor 16 2           # Set Cursor at Page (Row) 2 to the 16th Pixel (Column)
+showtext "MiSTer FPGA"    # Some Text for the Display
+
+sleep 1.0                 # Wait a moment
+
+set_cursor 16 4           # Set Cursor at Page (Row) 4 to the 16th Pixel (Column)
+showtext "by Sorgelig"    # Some Text for the Display
+
+sleep 2.0                 # Wait a moment
+#reset_cursor
+
+# Run Loading Animation
+loading
+
+# Run NCC1701 Animation
+#warp5
+
+while true; do							# main loop
+  if [ -r ${corenamefile} ]; then				# proceed if file exists and is readable (-r)
+    newcore=$(cat ${corenamefile})				# get CORENAME
+    echo "Read CORENAME: -${newcore}-"				# some output
+    dbug "Read CORENAME: -${newcore}-"				# some debug output
+    if [ "${newcore}" != "${oldcore}" ]; then			# proceed only if Core has changed
+      dbug "Send -${newcore}- to i2c-${i2cbus}"			# some debug output
+      if [ ${newcore} != "MENU" ]; then				# If Corename not "MENU"
+        pressplay						# Run "pressplay" Animation
+      fi       							# end if
+      display_off
+      showpix ${newcore}				 	# The "Magic"
+      display_on
+      oldcore=${newcore}					# update oldcore variable
+    fi  							# end if core check
+    inotifywait -e modify "${corenamefile}"			# wait here for next change of corename
+  else  							# CORENAME file not found
+    echo "File ${corenamefile} not found!"			# some output
+    dbug "File ${corenamefile} not found!"			# some debug output
+  fi  								# end if /tmp/CORENAME check
+done  								# end while
 
 # ************************** End Main Program *******************************
