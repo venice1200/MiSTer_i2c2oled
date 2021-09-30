@@ -31,8 +31,12 @@ Normally you get an error message if you try to run `i2cdetect` on the wrong Bus
   See [Connection Scheme RTC v1.3](https://misterfpga.org/viewtopic.php?p=26036#p26036) for some details.  
   I was sponsored by Antonio Villena with his RTC which has solder Pins for i2c and 3.3v Power.  
   
+### Setup  
+For Setting up the MiSTer to start the Autostart Script of i2c2oled run  
+once the command `/media/fat/i2c2oled/S60i2c2oled setup` from cli or via ssh.  
+  
 ### How does it work  
-When the MiSTer boots up the script `/etc/init.d/S60i2c2oled` is called.  
+When the MiSTer boots up the script `/media/fat/i2c2oled/S60i2c2oled` is called.  
 This script does nothing more than calling the script `/usr/bin/i2c2oled`  
 and sent it to the background, but only if `/usr/bin/i2c2oled` is found and is executable.  
 The Script `/usr/bin/i2c2oled` uses the Linux `source` command to **load** the Binary Coded Picture Data from file, if the core has changed.  
@@ -68,15 +72,15 @@ Check your PIX against the files in https://github.com/venice1200/MiSTer_i2c2ole
 ### Files&Folders  
 | File/Folder | Description |
 | :--- | :--- |
-| S60i2c2oled [1] | Starter Script, must be placed in folder `/etc/init.d/` on **MiSTer** |
-| i2c2oled [1] | Communication Script, must be placed in folder `/usr/bin/` on **MiSTer** |
-| i2c2oled_slideshow.sh | Slideshow Viewer |   
+| S60i2c2oled [1] | Starter Script, must be placed in folder `/media/fat/i2c2oled/` on **MiSTer** |
+| i2c2oled [1] | Communication Script, must be placed in folder `/media/fat/i2c2oled/` on **MiSTer** |
+| i2c2oled_slideshow.sh [1] | Slideshow Viewer, can be placed in folder `/media/fat/i2c2oled/` on **MiSTer** |   
 | Pictures | Just Pictures |  
-| Pictures/Pix | modded X-PixMap Pictures, must be placed in folder `/media/fat/i2c2oled_pix/` on **MiSTer** |  
+| Pictures/Pix | modded X-PixMap Pictures,  must be placed in folder `/media/fat/i2c2oled/pix/` on **MiSTer** |  
   
 **Notes**  
 [1]  
-Do not forget to make the two Scripts executable after copying them to the MiSTer.  
+Do not forget to make the three Scripts executable after copying them to the MiSTer.  
 Use `chmod +x [scriptname]` for this.
   
 ### Thanks to  
