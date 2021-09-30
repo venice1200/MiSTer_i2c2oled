@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #
-# File: "/media/fat/Scripts/i2c2oled_slideshow.sh"
+# File: "/media/fat/i2c2oled/i2c2oled_slideshow.sh"
 #
 # Just for fun ;-)
 #
@@ -438,7 +438,7 @@ function warp5 () {
 
 
 # Stopping the deamon
-/etc/init.d/S60i2c2oled stop
+/media/fat/i2c2oled/S60i2c2oled stop
 
 #display_off     # Switch Display off
 init_display    # Send INIT Commands
@@ -450,11 +450,6 @@ showtext "PIX Slideshow"    # Some Text for the Display
 
 sleep 3.0                   # Wait a moment
 
-
-# Picture related
-pixpath="/media/fat/i2c2oled_pix"
-pixextn="pix"
-
 for pixpic in `find ${pixpath} -name "*.${pixextn}"`; do
   echo ${pixpic}
   source ${pixpic}
@@ -463,6 +458,6 @@ for pixpic in `find ${pixpath} -name "*.${pixextn}"`; do
 done
 
 # Stopping the deamon
-/etc/init.d/S60i2c2oled start
+/media/fat/i2c2oled/S60i2c2oled start
 
 # ************************** End Main Program *******************************
