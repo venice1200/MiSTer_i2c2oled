@@ -32,8 +32,9 @@ Normally you get an error message if you try to run `i2cdetect` on the wrong Bus
   I was sponsored by Antonio Villena with his RTC which has solder Pins for i2c and 3.3v Power.  
   
 ### Setup  
-For Setting up the MiSTer to start the Autostart Script of i2c2oled run  
-once the command `/media/fat/i2c2oled/S60i2c2oled setup` from cli or via ssh.  
+Check the **Files&Folders** Table below for which file needs to be placed in which folder on the MiSTer.  
+For Setting up the MiSTer for the Autostart Script of i2c2oled run once the command `/media/fat/i2c2oled/S60i2c2oled setup`  
+from cli or via ssh to enable Auto-Start of i2c2oled.  
   
 ### How does it work  
 When the MiSTer boots up the script `/media/fat/i2c2oled/S60i2c2oled` is called.  
