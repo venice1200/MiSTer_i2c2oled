@@ -36,6 +36,7 @@ Normally you get an error message if you try to run `i2cdetect` on the wrong Bus
 Run the command  
 `wget https://raw.githubusercontent.com/venice1200/MiSTer_i2c2oled/main/update_i2c2oled.sh -O /media/fat/Scripts/update_i2c2oled.sh` from the MiSTer's command line (F9) or from an SSH Session to download the i2c2oled install/update script to the MiSTer's Script Folder.  
 After the Script was downloaded, start it from the MiSTer's Script Menu, the MiSTer's command line (F9) or an SSH Session running the command `/media/fat/Scripts/update_i2c2oled.sh`.  
+All needed Files and Pictures are downloaded to the right places and the correct permissions are set.  
   
 Or (manually) check the **Files&Folders** Table below for which file needs to be placed in which folder on the MiSTer.  
 For Setting up the MiSTer for the Autostart Script of i2c2oled run once the command `/media/fat/i2c2oled/S60i2c2oled setup`  
