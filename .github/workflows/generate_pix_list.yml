@@ -1,0 +1,63 @@
+# Publish new set of GitHub Pages when new pictures are committed to main
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/generate_pix_list.yml"
+      - "Pictures/Pix/*.pix"
+
+name: Generate Pix List for Viewer
+
+jobs:
+  generate_data_json:
+    name: Generate Data JSON
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout ${{ github.ref }}
+        uses: actions/checkout@v2
+
+      - name: Generate data.js
+        env:
+          GIT_SHA: ${{ github.sha }}
+        run: |
+          import glob
+          import json
+          import os
+          from datetime import datetime
+
+          PIC_ROOT = "Pictures/"
+          pics = {}
+          for file in glob.glob(f"{PIC_ROOT}**/*.pix", recursive=True):
+              if os.path.islink(file):
+                  continue
+              path, core = os.path.split(file.replace(PIC_ROOT, ""))
+              if path not in pics:
+                  pics[path] = []
+              pics[path].append(core)
+
+          try:
+              pics.pop("templates")
+          except Exception:
+              pass
+
+          with open(f"{PIC_ROOT}/data_i2c_pix.json", "w") as outfile:
+              data = {
+                  "pictures": pics,
+                  "version": {
+                      "date": datetime.now().isoformat(),
+                      "sha": os.environ.get("GIT_SHA", "unknown")[:7],
+                  },
+              }
+              json.dump(data, outfile)
+        shell: python
+
+      - name: Commit data json
+        run: |
+          git config --local user.name 'github-actions[bot]'
+          git config --local user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add Pictures/data_i2c_pix.json
+          git commit -am "automated update of json data"
+          git push
