@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/bin/bash
 #
 # /media/fat/i2c2oled/S60i2c2oled
 #
