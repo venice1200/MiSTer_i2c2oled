@@ -437,36 +437,36 @@ function warp5 () {
 # ************************** Main Program **********************************
 
 
-# Stopping the deamon
-/media/fat/i2c2oled/S60i2c2oled stop
-
-#display_off     # Switch Display off
-init_display    # Send INIT Commands
-clearscreen     # Fill the Screen completly
-#display_on      # Switch Display on
-
-
-sleep 3.0                   # Wait a moment
-
 if [ -z "$1" ]; then
+  # Stopping the deamon
+  /media/fat/i2c2oled/S60i2c2oled stop
+
+  #display_off     # Switch Display off
+  init_display    # Send INIT Commands
+  clearscreen     # Fill the Screen completly
+  #display_on      # Switch Display on
 
   set_cursor 8 3              # Set Cursor at Page (Row) 2 to the 16th Pixel (Column)
   showtext "PIX Slideshow"    # Some Text for the Display
+  sleep 3.0                   # Wait a moment
 
   for pixpic in `find ${pixpath} -name "*.${pixextn}"`; do
-    echo ${pixpic}
+    echo "Showing: ${pixpic}"
     source ${pixpic}
     sendpix
     sleep 3
   done
+
+  # Starting the deamon
+  /media/fat/i2c2oled/S60i2c2oled start
+
 else
-  echo ${1}
+  # Just show one PIX
+  echo "Showing: ${1}"
   source ${1}
   sendpix
   #sleep 3
 fi
 
-# Stopping the deamon
-#/media/fat/i2c2oled/S60i2c2oled start
 
 # ************************** End Main Program *******************************
