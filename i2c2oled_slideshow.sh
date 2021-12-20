@@ -21,7 +21,7 @@ oledaddr=0x3C     # OLED Display I2C Address
 i2cbus=2          # i2c-2, Bus 2, uncomment only one i2c Bus
 
 # Picture related
-pixpath="/media/fat/i2c2oled/pix"
+pixpath="/media/fat/i2c2oled/Pix"
 pixextn="pix"
 
 
@@ -445,19 +445,28 @@ init_display    # Send INIT Commands
 clearscreen     # Fill the Screen completly
 #display_on      # Switch Display on
 
-set_cursor 8 3              # Set Cursor at Page (Row) 2 to the 16th Pixel (Column)
-showtext "PIX Slideshow"    # Some Text for the Display
 
 sleep 3.0                   # Wait a moment
 
-for pixpic in `find ${pixpath} -name "*.${pixextn}"`; do
-  echo ${pixpic}
-  source ${pixpic}
+if [ -z "$1" ]; then
+
+  set_cursor 8 3              # Set Cursor at Page (Row) 2 to the 16th Pixel (Column)
+  showtext "PIX Slideshow"    # Some Text for the Display
+
+  for pixpic in `find ${pixpath} -name "*.${pixextn}"`; do
+    echo ${pixpic}
+    source ${pixpic}
+    sendpix
+    sleep 3
+  done
+else
+  echo ${1}
+  source ${1}
   sendpix
-  sleep 3
-done
+  #sleep 3
+fi
 
 # Stopping the deamon
-/media/fat/i2c2oled/S60i2c2oled start
+#/media/fat/i2c2oled/S60i2c2oled start
 
 # ************************** End Main Program *******************************
