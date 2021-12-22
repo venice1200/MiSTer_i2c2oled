@@ -450,9 +450,11 @@ if [ -z "$1" ]; then
   showtext "PIX Slideshow"    # Some Text for the Display
   sleep 3.0                   # Wait a moment
 
-  for pixpic in `find ${pixpath} -name "*.${pixextn}"`; do
+  for pixpic in ${pixpath}/*.${pixextn}; do
+  #for pixpic in `find ${pixpath} -name "*.${pixextn}"`; do
     echo "Showing: ${pixpic}"
-    source ${pixpic}
+    source "${pixpic}"
+    #source ${pixpic}
     sendpix
     sleep 3
   done
@@ -463,7 +465,8 @@ if [ -z "$1" ]; then
 else
   # Just show one PIX
   echo "Showing: ${1}"
-  source ${1}
+  source "${1}"
+  #source ${1}
   sendpix
   #sleep 3
 fi
