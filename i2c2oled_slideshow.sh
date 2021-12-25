@@ -451,10 +451,8 @@ if [ -z "$1" ]; then
   sleep 3.0                   # Wait a moment
 
   for pixpic in ${pixpath}/*.${pixextn}; do
-  #for pixpic in `find ${pixpath} -name "*.${pixextn}"`; do
     echo "Showing: ${pixpic}"
     source "${pixpic}"
-    #source ${pixpic}
     sendpix
     sleep 3
   done
@@ -466,7 +464,6 @@ else
   # Just show one PIX
   echo "Showing: ${1}"
   source "${1}"
-  #source ${1}
   sendpix
   #sleep 3
 fi
