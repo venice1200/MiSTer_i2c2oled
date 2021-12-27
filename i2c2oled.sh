@@ -44,7 +44,8 @@
 # 2021-05-17
 # Adding an "contrast" variable so you can set your contrast value
 #
-#
+# 2021-12-27
+# Adding "rotate" option and code from "MickGyver"
 #
 
 # Debugging
@@ -57,6 +58,7 @@ oledaddr=0x${oledid}     # OLED I2C Address with "0x"
 i2cbus=2                 # i2c-2 = Bus 2
 oledfound="false"        # Pre-Set Variable with false
 contrast=100             # Set Contrast Value 0..255
+rotate="false"           # Set to "true" for 180 degree rotation
 
 # Core related
 newcore=""
@@ -236,8 +238,14 @@ function init_display() {
   i2cset -y ${i2cbus} ${oledaddr} 0x00 0x00    # no vertical shift
 
   i2cset -y ${i2cbus} ${oledaddr} 0x00 0x40    # Set Display Start Line to 000000b
-  i2cset -y ${i2cbus} ${oledaddr} 0x00 0xA1    # Set Segment Re-map, column address 127 ismapped to SEG0
-  i2cset -y ${i2cbus} ${oledaddr} 0x00 0xC8    # Set COM Output Scan Direction, remapped mode. Scan from COM7 to COM0
+
+  if [ "${rotate}" = "true" ]; then
+    i2cset -y ${i2cbus} ${oledaddr} 0x00 0xA0    # Set Segment Re-map, column address 0 is mapped to SEG0 (horisontal flip)
+    i2cset -y ${i2cbus} ${oledaddr} 0x00 0xC0    # Set COM Output Scan Direction. Scan from COM0 to COM7 (vertical flip)
+  else
+    i2cset -y ${i2cbus} ${oledaddr} 0x00 0xA1    # Set Segment Re-map, column address 127 is mapped to SEG0
+    i2cset -y ${i2cbus} ${oledaddr} 0x00 0xC8    # Set COM Output Scan Direction, remapped mode. Scan from COM7 to COM0 
+  fi
 
   i2cset -y ${i2cbus} ${oledaddr} 0x00 0xDA    # Set COM Pins Hardware Configuration
   i2cset -y ${i2cbus} ${oledaddr} 0x00 0x12    # Alternative COM pin configuration, Disable COM Left/Right remap needed for 128x64
@@ -329,7 +337,7 @@ function flushscreen() {
 }
 
 function sendpix() {
-# Get for each 8-Bit Size Vertical Segment the Bits and send them to be drawd
+# Get for each 8-Bit Size Vertical Segment the Bits and send them to be drawn
   #display_off
   reset_cursor
   local val=""; local byt=0; 
@@ -345,7 +353,6 @@ function sendpix() {
       b5=${logo[j+5]:${i}:1}
       b6=${logo[j+6]:${i}:1}
       b7=${logo[j+7]:${i}:1}
-
       #echo "${b8} ${b7} ${b6} ${b5} ${b4} ${b3} ${b2} ${b1} = ${val}"
       let byt=${b7}*128+${b6}*64+${b5}*32+${b4}*16+${b3}*8+${b2}*4+${b1}*2+${b0}*1       # Bits to Decimal
       val=("${val} ${byt}")                                       # The collected Bytes for the "i" Mode
@@ -393,10 +400,8 @@ function showtext() {
   for (( a=0; a<${textlen}; a++ )); do
     achar="`ord ${text:${a}:1}`"               # get the ASCII Code
     let charp=(achar-32)*${font_width}         # calculate first byte in font array
-    #let charp=(achar-32)*8                    # calculate first byte in font array
     charout=""
     for (( b=0; b<${font_width}; b++ )); do    # character loop
-    #for (( b=0; b<8; b++ )); do               # character loop
       charout="${charout} ${font[charp+b]}"    # build character out of single values
     done
     # echo "${a}: ${text:${a}:1} -> ${achar} -> ${charp} -> ${charout}"

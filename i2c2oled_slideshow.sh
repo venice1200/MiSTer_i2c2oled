@@ -19,6 +19,8 @@ debugfile="/tmp/i2c2oled_slideshow"
 oledaddr=0x3C     # OLED Display I2C Address
 # i2cbus=1        # i2c-1, Bus 1, uncomment only one i2c Bus
 i2cbus=2          # i2c-2, Bus 2, uncomment only one i2c Bus
+contrast=100      # Set Contrast Value 0..255
+rotate="false"    # Set to "true" for 180 degree rotation
 
 # Picture related
 pixpath="/media/fat/i2c2oled/Pix"
@@ -189,14 +191,20 @@ function init_display() {
   i2cset -y ${i2cbus} ${oledaddr} 0x00 0x00    # no vertical shift
 
   i2cset -y ${i2cbus} ${oledaddr} 0x00 0x40    # Set Display Start Line to 000000b
-  i2cset -y ${i2cbus} ${oledaddr} 0x00 0xA1    # Set Segment Re-map, column address 127 ismapped to SEG0
-  i2cset -y ${i2cbus} ${oledaddr} 0x00 0xC8    # Set COM Output Scan Direction, remapped mode. Scan from COM7 to COM0
+  if [ "${rotate}" = "true" ]; then
+    i2cset -y ${i2cbus} ${oledaddr} 0x00 0xA0    # Set Segment Re-map, column address 0 is mapped to SEG0 (horisontal flip)
+    i2cset -y ${i2cbus} ${oledaddr} 0x00 0xC0    # Set COM Output Scan Direction. Scan from COM0 to COM7 (vertical flip)
+  else
+    i2cset -y ${i2cbus} ${oledaddr} 0x00 0xA1    # Set Segment Re-map, column address 127 is mapped to SEG0
+    i2cset -y ${i2cbus} ${oledaddr} 0x00 0xC8    # Set COM Output Scan Direction, remapped mode. Scan from COM7 to COM0 
+  fi
 
   i2cset -y ${i2cbus} ${oledaddr} 0x00 0xDA    # Set COM Pins Hardware Configuration
   i2cset -y ${i2cbus} ${oledaddr} 0x00 0x12    # Alternative COM pin configuration, Disable COM Left/Right remap needed for 128x64
 
   i2cset -y ${i2cbus} ${oledaddr} 0x00 0x81    # Set Contrast Control
-  i2cset -y ${i2cbus} ${oledaddr} 0x00 0xCF    # value, 0x7F max.
+  i2cset -y ${i2cbus} ${oledaddr} 0x00 ${contrast}    # value, 0xFF max.
+  #i2cset -y ${i2cbus} ${oledaddr} 0x00 0xCF    # value, 0x7F max.
 
   i2cset -y ${i2cbus} ${oledaddr} 0x00 0xA4    # display RAM content
 
