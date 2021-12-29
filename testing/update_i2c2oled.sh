@@ -17,11 +17,15 @@ fi
 
 # Check for i2c2oled path and create it if neccessary, download/update scripts
 ! [ -d /media/fat/i2c2oled/Pix ] && mkdir -p /media/fat/i2c2oled/Pix
+
+cd /media/fat/Scripts
+wget -N ${URL}/update_i2c2oled.sh
+chmod +x update_i2c2oled.sh
+
 cd /media/fat/i2c2oled
 wget -N ${URL}/S60i2c2oled ${URL}/i2c2oled.sh ${URL}/i2c2oled_slideshow.sh 
 wget -nc ${URL}/i2c2oled-user.ini ${URL}/i2c2oled-system.ini
-wget -N ${URL}/update_i2c2oled.sh -O /media/fat/Scripts/update_i2c2oled.sh
-chmod +x S60i2c2oled i2c2oled.sh i2c2oled_slideshow.sh /media/fat/Scripts/update_i2c2oled.sh
+chmod +x S60i2c2oled i2c2oled.sh i2c2oled_slideshow.sh
 
 # Old MiSTer layout: remove init script
 [[ -e /etc/init.d/S60i2c2oled ]] && /etc/init.d/S60i2c2oled stop && rm /etc/init.d/S60i2c2oled
