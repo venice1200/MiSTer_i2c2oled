@@ -51,6 +51,9 @@
 # Split Daemon Script into Daemon, User and System INI Files
 # Added new "animation" option in User INI
 #
+# 2021-12-29
+# New Loading Icon (iload3)
+#
 #
 
 # Load INI files
@@ -116,7 +119,7 @@ while true; do											# main loop
       if [ ${newcore} != "MENU" ]; then					# If Corename not "MENU"
         echo "${animation}"
         if (( ${animation} ==  -1 )); then				# 
-          anirandom=$[$RANDOM%4+1]						# Generate an Random Number between 1 and Modulo Factor -1
+          anirandom=$[$RANDOM%5+1]						# Generate an Random Number between 0 and Modulo_Faktor-1, +1 
         else
           anirandom=${animation}						# ..or use the anmation type from User-INI
         fi
@@ -124,11 +127,13 @@ while true; do											# main loop
         if (( ${anirandom} == 1 )); then
           pressplay										# Run "pressplay" Animation
         elif (( ${anirandom} == 2 )); then				
-          loading 1										# Run "loading" Animation v1
+          loading 1										# Run "loading" Animation
         elif (( ${anirandom} == 3 )); then
-          loading 2										# Run "loading" Animation v2
+          loading 2										# Run "loading" Animation
         elif (( ${anirandom} == 4 )); then
-          loading 3										# Run "loading" Animation v2
+          loading 3										# Run "loading" Animation
+        elif (( ${anirandom} == 5 )); then
+          loading 4										# Run "loading" Animation
         fi		
       fi       											# end if
       display_off
