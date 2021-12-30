@@ -114,19 +114,21 @@ while true; do											# main loop
     if [ "${newcore}" != "${oldcore}" ]; then			# proceed only if Core has changed
       dbug "Send -${newcore}- to i2c-${i2cbus}"			# some debug output
       if [ ${newcore} != "MENU" ]; then					# If Corename not "MENU"
-	  
-		echo "${animation}"
-	    if (( ${animation} ==  -1 )); then				# 
-		  anirandom=$[$RANDOM%3+1]						# Generate an Random Number between 1 (Offset) and 3 (Modulo Factor 3 = Numbers between 0 and 2)
-		fi
-		echo "${anirandom}"
-		
-	    if (( ${anirandom} == 1 )); then
+        echo "${animation}"
+        if (( ${animation} ==  -1 )); then				# 
+          anirandom=$[$RANDOM%4+1]						# Generate an Random Number between 1 and Modulo Factor -1
+        else
+          anirandom=${animation}						# ..or use the anmation type from User-INI
+        fi
+        echo "${anirandom}"
+        if (( ${anirandom} == 1 )); then
           pressplay										# Run "pressplay" Animation
-	    elif (( ${anirandom} == 2 )); then				
-          loading										# Run "loading" Animation v1
-	    elif (( ${anirandom} == 3 )); then
-          loading2										# Run "loading" Animation v2
+        elif (( ${anirandom} == 2 )); then				
+          loading 1										# Run "loading" Animation v1
+        elif (( ${anirandom} == 3 )); then
+          loading 2										# Run "loading" Animation v2
+        elif (( ${anirandom} == 4 )); then
+          loading 3										# Run "loading" Animation v2
         fi		
       fi       											# end if
       display_off
