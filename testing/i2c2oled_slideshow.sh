@@ -21,6 +21,7 @@ debugfile="/tmp/i2c2oled_slideshow"
 
 # ************************** Main Program **********************************
 
+
 if [ -z "$1" ]; then
   # Stopping the deamon
   /media/fat/i2c2oled/S60i2c2oled stop
@@ -30,13 +31,13 @@ if [ -z "$1" ]; then
 
   set_cursor 8 3								# Set Cursor at Page (Row) 2 to the 16th Pixel (Column)
   showtext "PIX Slideshow"						# Some Text for the Display
-  sleep ${slidetime}							# Wait a moment
+  sleep ${SLIDETIME}							# Wait a moment
 
   for pixpic in ${pixpath}/*.${pixextn}; do		# Get Picture
     echo "Showing: ${pixpic}"					# Some output
     source "${pixpic}"							# Load Picture
     sendpix										# ...and show it.
-    sleep ${slidetime}
+    sleep ${SLIDETIME}
   done
 
   # Starting the deamon

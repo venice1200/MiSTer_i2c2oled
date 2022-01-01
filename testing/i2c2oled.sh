@@ -17,42 +17,48 @@
 # Initial Base for the Script taken from here:
 # https://stackoverflow.com/questions/42980922/which-commands-do-i-have-to-use-ssd1306-over-i%C2%B2c
 #
-# Use Gimp to convert the original to X-PixMap (XPM) and change " " (Space) to "1" and "." (Dot) to "0" for easier handling
+# Use Gimp or ImageMagick to convert the original to X-PixMap (XPM) and change " " (Space) to "1" and "." (Dot) to "0" for easier handling
 # See examples what to modify additionally
 # The String Array has 64 Lines with 128 Chars
 # Put your X-PixMap files in /media/fat/i2c2oled_pix with extension "pix"
 #
 # 2021-04-28
-# Adding Basic Support for an 8x8 Pixel Font taken from https://github.com/greiman/SdFat under the MIT License
-# Use modded ASCII functions from here https://gist.github.com/jmmitchell/c82b03e3fc2dc0dcad6c95224e42c453
-# Cosmetic changes
+# -Adding Basic Support for an 8x8 Pixel Font taken from https://github.com/greiman/SdFat under the MIT License
+#  Use modded ASCII functions from here https://gist.github.com/jmmitchell/c82b03e3fc2dc0dcad6c95224e42c453
+# -Cosmetic changes
 #
 # 2021-04-29/30
-# Adding Font-Based Animation "pressplay" and "loading"
-# The PIX's "pressplay.pix" and "loading.pix" are needed.
+# -Adding Font-Based Animation "pressplay" and "loading"
+#  The PIX's "pressplay.pix" and "loading.pix" are needed.
 #
 # 2021-05-01
-# Adding "Warp-5" Scrolling :-)
-# The PIX "ncc1701.pix" is needed.
-# Using "font_width" instead of fixed value.
+# -Adding "Warp-5" Scrolling :-)
+#  The PIX "ncc1701.pix" is needed.
+# -Using "font_width" instead of fixed value.
 #
 # 2021-05-15
-# Adding OLED Address Detection
-# If Device is not found the Script ends with Error Code 1 
-# Use code from https://raspberrypi.stackexchange.com/questions/26818/check-for-i2c-device-presence
+# -Adding OLED Address Detection
+#  If Device is not found the Script ends with Error Code 1 
+#  Use code from https://raspberrypi.stackexchange.com/questions/26818/check-for-i2c-device-presence
 #
 # 2021-05-17
-# Adding an "contrast" variable so you can set your contrast value
+# -Adding an "CONTRAST" variable so you can set your contrast value
 #
 # 2021-12-27
-# Adding "rotate" option and code from "MickGyver"
+# -Adding "ROTATE" option and code from "MickGyver"
 #
 # 2021-12-29
-# Split Daemon Script into Daemon, User and System INI Files
-# Added new "animation" option in User INI
+# -Split Daemon Script into Daemon, User and System INI Files
+# -New Option "ANIMATION" in User INI
+#  Set to -1 for Random Animation, 0 for NO Animation, 1 for PressPlay, 2..5  for "Loading" Variations
 #
-# 2021-12-29
-# New Loading Icon (iload3)
+# 2021-12-30
+# -New Loading Icons (iload3/iload4)
+#
+# 2022-01-01 (Happy new Year)
+# -New Option "ANIMATION" in User INI
+#  Set to "yes" (default) for the short "Display-Blackout" before a Picture change
+# -Cosmetics
 #
 #
 
@@ -63,8 +69,8 @@
 
 # ************************** Main Program **********************************
 
-# Lookup for i2c Device
 
+# Lookup for i2c Device
 mapfile -t i2cdata < <(i2cdetect -y ${i2cbus})
 for i in $(seq 1 ${#i2cdata[@]}); do
   i2cline=(${i2cdata[$i]})
@@ -80,34 +86,30 @@ if [ "${oledfound}" = "false" ]; then
   exit 1
 fi
 
-display_off     # Switch Display off
-init_display    # Send INIT Commands
-flushscreen     # Fill the Screen completly
-display_on      # Switch Display on
-sleep 0.5       # Small sleep
-display_off     # Switch Display off
-clearscreen     # Clear the Screen completly
-display_on      # Switch Display on
+display_off			# Switch Display off
+init_display		# Send INIT Commands
+flushscreen			# Fill the Screen completly
+display_on			# Switch Display on
+sleep 0.5			# Small sleep
+display_off			# Switch Display off
+clearscreen			# Clear the Screen completly
+display_on			# Switch Display on
 
-#cfont=${#font[@]}        # Debugging get count font array members
-#echo $cfont              # Debugging
+#cfont=${#font[@]}			# Debugging get count font array members
+#echo $cfont				# Debugging
 
-set_cursor 16 2           # Set Cursor at Page (Row) 2 to the 16th Pixel (Column)
-showtext "MiSTer FPGA"    # Some Text for the Display
+set_cursor 31 0				# Set Cursor at Page (Row) 0 to the 32th Pixel (Column)
+showtext "i2c2oled"			# Some Text for the Display
 
-#sleep 0.5                 # Wait a moment
+set_cursor 19 3				# Set Cursor at Page (Row) 3 to the 20th Pixel (Column)
+showtext "MiSTer FPGA"		# Some Text for the Display
 
-set_cursor 16 4           # Set Cursor at Page (Row) 4 to the 16th Pixel (Column)
-showtext "by Sorgelig"    # Some Text for the Display
+set_cursor 19 5				# Set Cursor at Page (Row) 5 to the 20th Pixel (Column)
+showtext "by Sorgelig"		# Some Text for the Display
 
-sleep 2.0                 # Wait a moment
+sleep ${SLIDETIME}			# Wait a moment
+
 # reset_cursor
-
-# Run Loading Animation
-# loading
-
-# Run NCC1701 Animation
-# warp5
 
 while true; do											# main loop
   if [ -r ${corenamefile} ]; then						# proceed if file exists and is readable (-r)
@@ -117,11 +119,11 @@ while true; do											# main loop
     if [ "${newcore}" != "${oldcore}" ]; then			# proceed only if Core has changed
       dbug "Send -${newcore}- to i2c-${i2cbus}"			# some debug output
       if [ ${newcore} != "MENU" ]; then					# If Corename not "MENU"
-        echo "${animation}"
-        if (( ${animation} ==  -1 )); then				# 
+        echo "${ANIMATION}"
+        if (( ${ANIMATION} ==  -1 )); then				# 
           anirandom=$[$RANDOM%5+1]						# Generate an Random Number between 0 and Modulo_Faktor-1, +1 
         else
-          anirandom=${animation}						# ..or use the anmation type from User-INI
+          anirandom=${ANIMATION}						# ..or use the anmation type from User-INI
         fi
         echo "${anirandom}"
         if (( ${anirandom} == 1 )); then
@@ -135,8 +137,10 @@ while true; do											# main loop
         elif (( ${anirandom} == 5 )); then
           loading 4										# Run "loading" Animation
         fi		
-      fi       											# end if
-      display_off
+      fi												# end if
+      if [ "${BLACKOUT}" = "yes" ]; then
+        display_off
+      fi
       showpix ${newcore}				 				# The "Magic"
       display_on
       oldcore=${newcore}								# update oldcore variable
@@ -147,5 +151,6 @@ while true; do											# main loop
     dbug "File ${corenamefile} not found!"				# some debug output
   fi  													# end if /tmp/CORENAME check
 done  													# end while
+
 
 # ************************** End Main Program *******************************
