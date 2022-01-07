@@ -1,3 +1,5 @@
+XPMToPIX by MickGyver
+---------------------------
 Converts all XPM images in a folder to PIX used by MiSTer i2c2oled.  
   
 Usage:  
