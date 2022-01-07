@@ -21,8 +21,9 @@ to get all XPM's in the folder converted with correct colors.
 Drop the folder containing your XPM's onto the Batch file called **"XPMToPIX_invert.bat"**   
 to get all XPM's in the folder converted with inverted colors.  
 
-Create XPM's
-Use Gimp's Export Funktion to covert your original to XPM or try the ImageMagick commands  
+Create XPM's  
+Use Gimp's Export Funktion to covert your original to XPM  
+or try the ImageMagick commands  
 `magick mogrify -monochrome -format xpm *.png`  
 `magick mogrify -monochrome -format xpm *.bmp`  
 for conversion.
