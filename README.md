@@ -53,7 +53,7 @@ The Script applies the **i2c** command `i2cset` to initialize the Display and se
   
 ### Picture Modification:  
 The used Black&White Pictures are slightly modfied X-PixMap (XPM) Pictures with 128x64 Pixel.  
-You can create X-PixMap Pictures with Gimp.  
+You can create X-PixMap Pictures with Gimp or ImageMagick.  
 After you created the Black&White X-PixMap Picture...   
   
 🛠️ Use the XPMtoPIX conversion tool **V2** by MickGyver (need .NET Core Framework 3.1+). Many thanks 😃  

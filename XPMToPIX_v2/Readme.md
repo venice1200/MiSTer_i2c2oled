@@ -13,11 +13,18 @@ will invert the colors making a black pixel white on the display and vice
 versa.  
   
   
-Added by Venice  
---------------------  
-Drop the folder containing your XPM's onto the Batch file called "XPMToPIX_normal.bat"   
-to get a full folder of XPM's converted with correct colors.  
+Added by Venice, 2022-01-07
+------------------------------
+Drop the folder containing your XPM's onto the Batch file called **"XPMToPIX_normal.bat"**   
+to get all XPM's in the folder converted with correct colors.  
   
-Drop the folder containing your XPM's onto the Batch file called "XPMToPIX_invert.bat"   
-to get a full folder of XPM's converted with inverted colors.  
+Drop the folder containing your XPM's onto the Batch file called **"XPMToPIX_invert.bat"**   
+to get all XPM's in the folder converted with inverted colors.  
+
+Create XPM's
+Use Gimp's Export Funktion to covert your original to XPM 
+or try the ImageMagick commands
+~magick mogrify -monochrome -format xpm *.png~
+~magick mogrify -monochrome -format xpm *.bmp~
+for conversion
   
