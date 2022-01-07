@@ -15,9 +15,9 @@ versa.
   
 Added by Venice  
 --------------------  
-Drop the folder onto the Batch file called "XPMToPIX_normal.bat"   
+Drop the folder containing your XPM's onto the Batch file called "XPMToPIX_normal.bat"   
 to get a full folder of XPM's converted with correct colors.  
   
-Drop the folder onto the Batch file called "XPMToPIX_invert.bat"   
+Drop the folder containing your XPM's onto the Batch file called "XPMToPIX_invert.bat"   
 to get a full folder of XPM's converted with inverted colors.  
   
