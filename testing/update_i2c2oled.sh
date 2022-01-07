@@ -19,11 +19,11 @@ fi
 ! [ -d /media/fat/i2c2oled/Pix ] && mkdir -p /media/fat/i2c2oled/Pix
 
 cd /media/fat/Scripts
-wget -N ${URL}/update_i2c2oled.sh
+wget -N --no-use-server-timestamps ${URL}/update_i2c2oled.sh
 chmod +x update_i2c2oled.sh
 
 cd /media/fat/i2c2oled
-wget -N ${URL}/S60i2c2oled ${URL}/i2c2oled.sh ${URL}/i2c2oled_slideshow.sh ${URL}/i2c2oled-system.ini
+wget -N --no-use-server-timestamps ${URL}/S60i2c2oled ${URL}/i2c2oled.sh ${URL}/i2c2oled_slideshow.sh ${URL}/i2c2oled-system.ini
 wget -nc ${URL}/i2c2oled-user.ini
 chmod +x S60i2c2oled i2c2oled.sh i2c2oled_slideshow.sh
 
