@@ -56,7 +56,7 @@ The used Black&White Pictures are slightly modfied X-PixMap (XPM) Pictures with 
 You can create X-PixMap Pictures with Gimp or ImageMagick.  
 After you created the Black&White X-PixMap Picture...   
   
-🛠️ Use the XPMtoPIX conversion tool **V2** by MickGyver (need .NET Core Framework 3.1+). Many thanks 😃  
+🛠️ Use the XPMtoPIX conversion tool **V2** by MickGyver (need .NET Core Framework 3.1+) 🛠️  
 Drop the folder which contains your XPM files onto the batch file **XPMToPIX_normal.bat** and check the result.  
 If you like the pictures **inverted** drop the folder onto the batch file **XPMToPIX_inverted.bat**.  
   
