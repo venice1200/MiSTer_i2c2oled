@@ -18,7 +18,7 @@ fi
 # Check for i2c2oled path and create it if neccessary, download/update scripts
 ! [ -d /media/fat/i2c2oled/Pix ] && mkdir -p /media/fat/i2c2oled/Pix
 
-# Check update_all.ini for i2c2oled
+# Check update_all.ini for i2c2oled Update/Install Script
 if [ $(grep -c "I2C2OLED_FILES_DOWNLOADER=\"true\"" "/media/fat/Scripts/update_all.ini") = "0" ]; then
   cd /media/fat/Scripts
   wget -N --no-use-server-timestamps ${URL}/update_i2c2oled.sh
@@ -27,6 +27,7 @@ else
   echo "UPDATE_ALL is responsible for the i2c2oled updater. Skipping Download/Update!"
 fi
 
+# Download/Update i2c2oled Scripts
 cd /media/fat/i2c2oled
 wget -N --no-use-server-timestamps ${URL}/S60i2c2oled ${URL}/i2c2oled.sh ${URL}/i2c2oled_slideshow.sh ${URL}/i2c2oled-system.ini
 wget -nc ${URL}/i2c2oled-user.ini
