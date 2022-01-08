@@ -20,12 +20,12 @@ fi
 
 cd /media/fat/Scripts
 wget -N --no-use-server-timestamps ${URL}/update_i2c2oled.sh
-chmod +x update_i2c2oled.sh
+[ -x update_i2c2oled.sh ] || chmod +x update_i2c2oled.sh
 
 cd /media/fat/i2c2oled
 wget -N --no-use-server-timestamps ${URL}/S60i2c2oled ${URL}/i2c2oled.sh ${URL}/i2c2oled_slideshow.sh ${URL}/i2c2oled-system.ini
 wget -nc ${URL}/i2c2oled-user.ini
-chmod +x S60i2c2oled i2c2oled.sh i2c2oled_slideshow.sh
+[ -x S60i2c2oled ] || chmod +x S60i2c2oled i2c2oled.sh i2c2oled_slideshow.sh
 
 # Old MiSTer layout: remove init script
 [[ -e /etc/init.d/S60i2c2oled ]] && /etc/init.d/S60i2c2oled stop && rm /etc/init.d/S60i2c2oled
