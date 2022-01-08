@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #
-# File: "media/fat/i2x2oled/i2c2oled.sh"
+# File: "media/fat/i2c2oled/i2c2oled.sh"
 #
 # Just for fun ;-)
 #
@@ -86,14 +86,14 @@ if [ "${oledfound}" = "false" ]; then
   exit 1
 fi
 
-display_off			# Switch Display off
-init_display		# Send INIT Commands
-flushscreen			# Fill the Screen completly
-display_on			# Switch Display on
-sleep 0.5			# Small sleep
-display_off			# Switch Display off
-clearscreen			# Clear the Screen completly
-display_on			# Switch Display on
+display_off				# Switch Display off
+init_display				# Send INIT Commands
+flushscreen				# Fill the Screen completly
+display_on				# Switch Display on
+sleep 0.5				# Small sleep
+display_off				# Switch Display off
+clearscreen				# Clear the Screen completly
+display_on				# Switch Display on
 
 #cfont=${#font[@]}			# Debugging get count font array members
 #echo $cfont				# Debugging
@@ -102,48 +102,52 @@ set_cursor 31 0				# Set Cursor at Page (Row) 0 to the 32th Pixel (Column)
 showtext "i2c2oled"			# Some Text for the Display
 
 set_cursor 19 3				# Set Cursor at Page (Row) 3 to the 20th Pixel (Column)
-showtext "MiSTer FPGA"		# Some Text for the Display
+showtext "MiSTer FPGA"			# Some Text for the Display
 
 set_cursor 19 5				# Set Cursor at Page (Row) 5 to the 20th Pixel (Column)
-showtext "by Sorgelig"		# Some Text for the Display
+showtext "by Sorgelig"			# Some Text for the Display
 
 sleep ${SLIDETIME}			# Wait a moment
 
 # reset_cursor
 
-while true; do											# main loop
-  if [ -r ${corenamefile} ]; then						# proceed if file exists and is readable (-r)
-    newcore=$(cat ${corenamefile})						# get CORENAME
+while true; do								# main loop
+  if [ -r ${corenamefile} ]; then					# proceed if file exists and is readable (-r)
+    newcore=$(cat ${corenamefile})					# get CORENAME
     echo "Read CORENAME: -${newcore}-"					# some output
     dbug "Read CORENAME: -${newcore}-"					# some debug output
-    if [ "${newcore}" != "${oldcore}" ]; then			# proceed only if Core has changed
-      dbug "Send -${newcore}- to i2c-${i2cbus}"			# some debug output
+    if [ "${newcore}" != "${oldcore}" ]; then				# proceed only if Core has changed
+      dbug "Send -${newcore}- to i2c-${i2cbus}"				# some debug output
       if [ ${newcore} != "MENU" ]; then					# If Corename not "MENU"
         echo "${ANIMATION}"
         if (( ${ANIMATION} ==  -1 )); then				# 
-          anirandom=$[$RANDOM%5+1]						# Generate an Random Number between 0 and Modulo_Faktor-1, +1 
+          anirandom=$[$RANDOM%5+1]					# Generate an Random Number between 0 and Modulo_Faktor-1, +1 
         else
-          anirandom=${ANIMATION}						# ..or use the anmation type from User-INI
+          anirandom=${ANIMATION}					# ..or use the anmation type from User-INI
         fi
         echo "${anirandom}"
         if (( ${anirandom} == 1 )); then
-          pressplay										# Run "pressplay" Animation
-        elif (( ${anirandom} == 2 )); then				
-          loading 1										# Run "loading" Animation
+          pressplay							# Run "pressplay" Animation
+        elif (( ${anirandom} == 2 )); then
+          loading 1							# Run "loading" Animation
         elif (( ${anirandom} == 3 )); then
-          loading 2										# Run "loading" Animation
+          loading 2							# Run "loading" Animation
         elif (( ${anirandom} == 4 )); then
-          loading 3										# Run "loading" Animation
+          loading 3							# Run "loading" Animation
         elif (( ${anirandom} == 5 )); then
-          loading 4										# Run "loading" Animation
+          loading 4							# Run "loading" Animation
         fi		
-      fi												# end if
+      fi								# end if
       if [ "${BLACKOUT}" = "yes" ]; then
         display_off
       fi
-      showpix ${newcore}				 				# The "Magic"
+      if [ ${newcore} = "THEEASTEREGG" ]; then
+        manythanksto
+      else
+        showpix ${newcore}		 				# The "Magic"
+      fi
       display_on
-      oldcore=${newcore}								# update oldcore variable
+      oldcore=${newcore}						# update oldcore variable
     fi  												# end if core check
     inotifywait -e modify "${corenamefile}"				# wait here for next change of corename
   else  												# CORENAME file not found
