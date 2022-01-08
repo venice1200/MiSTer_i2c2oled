@@ -107,10 +107,9 @@ The following website
 https://stackoverflow.com/questions/42980922/which-commands-do-i-have-to-use-ssd1306-over-i%C2%B2c  
 for pointing me into the right direction.  
   
-Contributors:  
-marcelosofth  
+Many Thanks to the Picture Contributors **ingloriond** and **marcelosofth**  
   
-...and all I forgot.  
+...and all I forgot (Sorry!).  
   
 ### Links  
 MiSTer on Github: https://github.com/MiSTer-devel  
