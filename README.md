@@ -43,6 +43,23 @@ Or (manually) check the **Files&Folders** Table below for which file needs to be
 For Setting up the MiSTer for the Autostart Script of i2c2oled run once the command `/media/fat/i2c2oled/S60i2c2oled setup`  
 from cli or via ssh to enable Auto-Start of i2c2oled.  
   
+Or enable the Option **i2c2oled Files** in "update_all" (see Misc).  
+  
+### Configuration  
+You can configure the User Setting by configuring the file `/media/fat/i2c2oled/i2c2oled-user.ini`.  
+User Options:  
+* Option `CONTRAST`  
+  Set your Display's Contrast Value from "0..255", default = 100  
+  
+* Option `ROTATE`  
+  Set to "true" for 180 Degree Display Rotation, default = "false"  
+  
+* Option `ANIMATION`  
+  Set to -1 (default) for Random Animation, 0 for NO Animation, 1 for PressPlay, 2..5  for "Loading" Variants  
+  
+* Option `BLACKOUT`  
+  Set to "yes" (default) for the short "Display-Blackout" before a Picture change, "no" = no blackout  
+  
 ### How does it work  
 When the MiSTer boots up the script `/media/fat/i2c2oled/S60i2c2oled` is called.  
 This script does nothing more than calling the script `/media/fat/i2c2oled/i2c2oled.sh`  
@@ -50,7 +67,7 @@ and sent it to the background, but only if `/media/fat/i2c2oled/i2c2oled.sh` is 
 The Script `/media/fat/i2c2oled/i2c2oled.sh` uses the Linux `source` command to **load** the Binary Coded Picture Data from file, if the core has changed.  
 ![i2cdetect](https://github.com/venice1200/MiSTer_i2c2oled/blob/main/Pictures/XPM_with_01.png?raw=true)  
 The Script applies the **i2c** command `i2cset` to initialize the Display and send calculated Picture-Data to the Display.  
-  
+
 ### Picture Modification:  
 The used Black&White Pictures are slightly modfied X-PixMap (XPM) Pictures with 128x64 Pixel.  
 You can create X-PixMap Pictures with Gimp or ImageMagick.  
