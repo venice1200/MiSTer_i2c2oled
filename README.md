@@ -101,9 +101,11 @@ Check your PIX against the files in https://github.com/venice1200/MiSTer_i2c2ole
 | :--- | :--- |
 | S60i2c2oled [1] | Starter Script, must be placed in folder `/media/fat/i2c2oled/` on **MiSTer** |
 | i2c2oled.sh [1] | Communication Script, must be placed in folder `/media/fat/i2c2oled/` on **MiSTer** |
-| i2c2oled_slideshow.sh [1] | Slideshow Viewer, can be placed in folder `/media/fat/i2c2oled/` on **MiSTer** |   
-| Pictures | Just Pictures |  
-| Pictures/Pix | modded X-PixMap Pictures,  must be placed in folder `/media/fat/i2c2oled/pix/` on **MiSTer** |  
+| i2c2oled-user.ini | User Option File, must be placed in folder `/media/fat/i2c2oled/` on **MiSTer** |
+| i2c2oled-system.ini | i2c2oled System File, must be placed in folder `/media/fat/i2c2oled/` on **MiSTer** |
+| i2c2oled_slideshow.sh [1] | Slideshow Viewer, can be placed in folder `/media/fat/i2c2oled/` on **MiSTer** | 
+| Pictures | Just Pictures |
+| -Pix- | See https://github.com/venice1200/MiSTer_i2c2oled_Pictures for all available PIX |  
   
 **Notes**  
 [1]  
