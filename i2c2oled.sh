@@ -119,13 +119,13 @@ while true; do								# main loop
     if [ "${newcore}" != "${oldcore}" ]; then				# proceed only if Core has changed
       dbug "Send -${newcore}- to i2c-${i2cbus}"				# some debug output
       if [ ${newcore} != "MENU" ]; then					# If Corename not "MENU"
-        echo "${ANIMATION}"
+        #echo "${ANIMATION}"
         if (( ${ANIMATION} ==  -1 )); then				# 
           anirandom=$[$RANDOM%5+1]					# Generate an Random Number between 0 and Modulo_Faktor-1, +1 
         else
           anirandom=${ANIMATION}					# ..or use the anmation type from User-INI
         fi
-        echo "${anirandom}"
+        #echo "${anirandom}"
         if (( ${anirandom} == 1 )); then
           pressplay							# Run "pressplay" Animation
         elif (( ${anirandom} == 2 )); then
