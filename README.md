@@ -39,7 +39,7 @@ from the MiSTer's command line (F9) or from an SSH Session to download the i2c2o
 After the Script was downloaded, start it from the MiSTer's Script Menu, the MiSTer's command line (F9) or an SSH Session running the command `/media/fat/Scripts/update_i2c2oled.sh`.  
 All needed Files and Pictures are downloaded to the right places and the correct permissions are set.  
   
-Or **NEW** enable the Option **i2c2oled Files** in **update_all** (see Misc).  
+▶️ Or enable the Option **i2c2oled Files** in **update_all** (see Menu-Misc).  
   
 Or (manually) check the **Files&Folders** Table below for which file needs to be placed in which folder on the MiSTer.  
 For Setting up the MiSTer for the Autostart Script of i2c2oled run once the command `/media/fat/i2c2oled/S60i2c2oled setup`  
@@ -99,7 +99,7 @@ Check your PIX against the files in https://github.com/venice1200/MiSTer_i2c2ole
 ### Slideshow/Picture Viewer:  
 **Show all Pictures one by one**  
 Run: `/media/fat/i2c2oled/i2c2oled_slideshow.sh from ssh/cli`  
-Daemon will be stopped before and started after Slideshow.  
+The i2c2oled Daemon will be stopped before and started after the Slideshow.  
 **Show single Picture**  
 Run: `/media/fat/i2c2oled/i2c2oled_slideshow.sh [/full/path/to/pix.pix]`  
   
