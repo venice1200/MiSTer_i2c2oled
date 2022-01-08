@@ -1,7 +1,7 @@
 #!/bin/bash
 
-URL="https://www.tty2tft.de/i2c2oled"
-# URL="https://www.tty2tft.de/i2c2oled/testing"
+# URL="https://www.tty2tft.de/i2c2oled"
+URL="https://www.tty2tft.de/i2c2oled/testing"
 I2C2OLED_PATH="/media/fat/i2c2oled"
 USERSTARTUP="/media/fat/linux/user-startup.sh"
 USERSTARTUPTPL="/media/fat/linux/_user-startup.sh"
