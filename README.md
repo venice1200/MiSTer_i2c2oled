@@ -96,6 +96,13 @@ Check your PIX against the files in https://github.com/venice1200/MiSTer_i2c2ole
   
 ***>> Please make your PIX available for others <<***
   
+### Slideshow/Picture Viewer:  
+**Show all Pictures one by one**  
+Run: `/media/fat/i2c2oled/i2c2oled_slideshow.sh from ssh/cli`  
+Daemon will be stopped before and started after Slideshow.  
+**Show single Picture**  
+Run: `/media/fat/i2c2oled/i2c2oled_slideshow.sh [/full/path/to/pix.pix]`  
+  
 ### Files&Folders  
 | File/Folder | Description |
 | :--- | :--- |
@@ -103,7 +110,7 @@ Check your PIX against the files in https://github.com/venice1200/MiSTer_i2c2ole
 | i2c2oled.sh [1] | Communication Script, must be placed in folder `/media/fat/i2c2oled/` on **MiSTer** |
 | i2c2oled-user.ini | User Option File, must be placed in folder `/media/fat/i2c2oled/` on **MiSTer** |
 | i2c2oled-system.ini | i2c2oled System File, must be placed in folder `/media/fat/i2c2oled/` on **MiSTer** |
-| i2c2oled_slideshow.sh [1] | Slideshow Viewer, can be placed in folder `/media/fat/i2c2oled/` on **MiSTer** | 
+| i2c2oled_slideshow.sh [1] | Slideshow Viewer, must be placed in folder `/media/fat/i2c2oled/` on **MiSTer** | 
 | Pictures | Just Pictures |
 | -Pix- | See https://github.com/venice1200/MiSTer_i2c2oled_Pictures for all available PIX |  
   
