@@ -1,6 +1,7 @@
 #!/bin/bash
 
 URL="https://www.tty2tft.de/i2c2oled"
+# URL="https://www.tty2tft.de/i2c2oled/testing"
 I2C2OLED_PATH="/media/fat/i2c2oled"
 USERSTARTUP="/media/fat/linux/user-startup.sh"
 USERSTARTUPTPL="/media/fat/linux/_user-startup.sh"
@@ -16,10 +17,23 @@ fi
 
 # Check for i2c2oled path and create it if neccessary, download/update scripts
 ! [ -d /media/fat/i2c2oled/Pix ] && mkdir -p /media/fat/i2c2oled/Pix
+
+# Check update_all.ini for i2c2oled Update/Install Script
+if [ $(grep -c "I2C2OLED_FILES_DOWNLOADER=\"true\"" "/media/fat/Scripts/update_all.ini") = "0" ]; then
+  cd /media/fat/Scripts
+  wget -N --no-use-server-timestamps ${URL}/update_i2c2oled.sh
+  [ -x update_i2c2oled.sh ] || chmod +x update_i2c2oled.sh
+else
+  echo "UPDATE_ALL is responsible for the i2c2oled updater. Skipping Download/Update!"
+fi
+
+# Download/Update i2c2oled Scripts
 cd /media/fat/i2c2oled
-wget -q -nc ${URL}/S60i2c2oled ${URL}/i2c2oled.sh ${URL}/i2c2oled_slideshow.sh
-wget -q -nc ${URL}/update_i2c2oled.sh -O /media/fat/Scripts/update_i2c2oled.sh
-chmod +x S60i2c2oled i2c2oled.sh i2c2oled_slideshow.sh /media/fat/Scripts/update_i2c2oled.sh
+wget -N --no-use-server-timestamps ${URL}/S60i2c2oled ${URL}/i2c2oled.sh ${URL}/i2c2oled_slideshow.sh ${URL}/i2c2oled-system.ini
+wget -nc ${URL}/i2c2oled-user.ini
+[ -x S60i2c2oled ] || chmod +x S60i2c2oled 
+[ -x i2c2oled.sh ] || chmod +x i2c2oled.sh 
+[ -x i2c2oled_slideshow.sh ] || chmod +x i2c2oled_slideshow.sh
 
 # Old MiSTer layout: remove init script
 [[ -e /etc/init.d/S60i2c2oled ]] && /etc/init.d/S60i2c2oled stop && rm /etc/init.d/S60i2c2oled
