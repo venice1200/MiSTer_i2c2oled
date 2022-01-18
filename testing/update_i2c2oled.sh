@@ -9,6 +9,16 @@ INITSCRIPT="${I2C2OLED_PATH}/S60i2c2oled"
 DAEMONNAME="i2c2oled.sh"
 export RSYNC_PASSWORD="93CdeEfF49ba92fEd2dEb29efi"
 
+freset="\e[0m\033[0m"
+fblue="\e[1;34m"
+fgreen="\e[1;32m"
+fcyan="\e[1;36m"
+fred="\e[1;31m"
+fmagenta="\e[1;35m"
+fyellow="\e[1;33m"
+
+echo -e "\n${fyellow}i2c2oled Updater/Installer${freset}\n"
+
 # Stop an already running daemon
 if [ $(pidof ${DAEMONNAME}) ]; then
     ${INITSCRIPT} stop
@@ -24,7 +34,7 @@ if [ $(grep -c "I2C2OLED_FILES_DOWNLOADER=\"true\"" "/media/fat/Scripts/update_a
   wget -N --no-use-server-timestamps ${URL}/update_i2c2oled.sh
   [ -x update_i2c2oled.sh ] || chmod +x update_i2c2oled.sh
 else
-  echo "UPDATE_ALL is responsible for the i2c2oled updater. Skipping Download/Update!"
+  echo -e "\n${fred}UPDATE_ALL is responsible for the i2c2oled updater. Skipping Download/Update!${freset}\n"
 fi
 
 # Download/Update i2c2oled Scripts
