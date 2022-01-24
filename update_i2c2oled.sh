@@ -23,6 +23,7 @@ if [ $(grep -c "I2C2OLED_FILES_DOWNLOADER=\"true\"" "/media/fat/Scripts/update_a
   cd /media/fat/Scripts
   wget -N --no-use-server-timestamps ${URL}/update_i2c2oled.sh
   [ -x update_i2c2oled.sh ] || chmod +x update_i2c2oled.sh
+  sleep 0.5
 else
   echo "UPDATE_ALL is responsible for the i2c2oled updater. Skipping Download/Update!"
 fi
