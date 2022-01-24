@@ -6,14 +6,14 @@
     "default_options": {},
     "files": {
         "Scripts/update_i2c2oled.sh": {
-            "hash": "cab328827210a149ad9e3fd7e5a28d20",
-            "size": 2313,
+            "hash": "a8f53da50b1bb45a2acfb2d22aa3e240",
+            "size": 239,
             "url": "https://raw.githubusercontent.com/venice1200/MiSTer_i2c2oled/main/update_i2c2oled.sh"
         }
     },
     "folders": {
         "Scripts": {}
     },
-    "timestamp": 1641655627,
+    "timestamp": 1643053971,
     "zips": {}
 }

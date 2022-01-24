@@ -15,8 +15,9 @@ if [ $(pidof ${DAEMONNAME}) ]; then
     sleep 0.5
 fi
 
-# Check for i2c2oled path and create it if neccessary, download/update scripts
+# Check for i2c2oled path's and create it if neccessary, download/update scripts
 ! [ -d /media/fat/i2c2oled/Pix ] && mkdir -p /media/fat/i2c2oled/Pix
+! [ -d /media/fat/i2c2oled/PRI ] && mkdir -p /media/fat/i2c2oled/PRI
 
 # Check update_all.ini for i2c2oled Update/Install Script
 if [ $(grep -c "I2C2OLED_FILES_DOWNLOADER=\"true\"" "/media/fat/Scripts/update_all.ini") = "0" ]; then
