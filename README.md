@@ -87,7 +87,7 @@ or open it with an Text Editor, I use Notepad++, and do manually...
 * Replace the ending `};` with `)`
 * The filename must be the same as the **name of the core** plus `.pix` as extension  
   Example: Corename = **C64**, Filename = **C64.pix**  
-* Upload the File(s) to `/media/fat/i2c2oled_pix/` on **MiSTer**
+* Upload the File(s) to `/media/fat/i2c2oled/Pix/` on **MiSTer**
 * Have fun 😃  
   
 ▶️ You can use the [template](https://github.com/venice1200/MiSTer_i2c2oled/blob/main/Pictures/templates/template.pix) as well.  
@@ -98,10 +98,10 @@ Check your PIX against the files in https://github.com/venice1200/MiSTer_i2c2ole
   
 ### Slideshow/Picture Viewer:  
 **Show all Pictures one by one**  
-Run: `/media/fat/i2c2oled/i2c2oled_slideshow.sh from ssh/cli`  
+Run: `/media/fat/i2c2oled/i2c2oled_slideshow.sh` from ssh/cli.  
 The i2c2oled Daemon will be stopped before and started after the Slideshow.  
 **Show single Picture**  
-Run: `/media/fat/i2c2oled/i2c2oled_slideshow.sh [/full/path/to/pix.pix]`  
+Run: `/media/fat/i2c2oled/i2c2oled_slideshow.sh [/full/path/to/pix.pix]` from ssh/cli.  
   
 ### Files&Folders  
 | File/Folder | Description |
@@ -138,8 +138,9 @@ Many Thanks to the Picture Contributors **ingloriond** and **marcelosofth**
 ...and all I forgot (Sorry!).  
   
 ### Links  
-MiSTer on Github: https://github.com/MiSTer-devel  
 MiSTer Forum: https://misterfpga.org  
-Add-On Thread :  https://misterfpga.org/viewtopic.php?f=9&t=2476  
+Add-On Thread : https://misterfpga.org/viewtopic.php?f=9&t=2476  
+MiSTer on Github: https://github.com/MiSTer-devel  
+mr-fitzie's pixviewer: https://venice1200.github.io/MiSTer_tty2oled_Pictures/  
   
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://github.com/venice1200/MiSTer_tty2oled/blob/main/LICENSE)
