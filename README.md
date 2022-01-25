@@ -98,10 +98,10 @@ Check your PIX against the files in https://github.com/venice1200/MiSTer_i2c2ole
   
 ### Slideshow/Picture Viewer:  
 **Show all Pictures one by one**  
-Run: `/media/fat/i2c2oled/i2c2oled_slideshow.sh from ssh/cli`  
+Run: `/media/fat/i2c2oled/i2c2oled_slideshow.sh` from ssh/cli.  
 The i2c2oled Daemon will be stopped before and started after the Slideshow.  
 **Show single Picture**  
-Run: `/media/fat/i2c2oled/i2c2oled_slideshow.sh [/full/path/to/pix.pix]`  
+Run: `/media/fat/i2c2oled/i2c2oled_slideshow.sh [/full/path/to/pix.pix]` from ssh/cli.  
   
 ### Files&Folders  
 | File/Folder | Description |
