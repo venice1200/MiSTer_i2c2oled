@@ -59,7 +59,10 @@
 # -New Option "ANIMATION" in User INI
 #  Set to "yes" (default) for the short "Display-Blackout" before a Picture change
 # -Cosmetics
-#
+# 
+# 2022-01-10
+# -Cosmetics
+# -Add Private Picture Folder pripath="/media/fat/i2c2oled/pri"
 #
 
 # Load INI files
@@ -71,23 +74,24 @@
 
 
 # Lookup for i2c Device
+echo -e "\n\n${fyellow}i2c2oled Hardware check.${freset}"
 mapfile -t i2cdata < <(i2cdetect -y ${i2cbus})
 for i in $(seq 1 ${#i2cdata[@]}); do
   i2cline=(${i2cdata[$i]})
   echo ${i2cline[@]:1} | grep -q ${oledid}
   if [ $? -eq 0 ]; then
-    echo "OLED at 0x${oledid} found, proceed..."
+    echo -e "${fgreen}OLED at 0x${oledid} found, proceed...${freset}"
     oledfound="true"
   fi
 done
 
 if [ "${oledfound}" = "false" ]; then
-  echo "OLED at 0x${oledid} not found! Exit!"
+  echo -e "${fred}OLED at 0x${oledid} not found, end here!${freset}"
   exit 1
 fi
 
 display_off				# Switch Display off
-init_display				# Send INIT Commands
+init_display			# Send INIT Commands
 flushscreen				# Fill the Screen completly
 display_on				# Switch Display on
 sleep 0.5				# Small sleep
@@ -114,7 +118,7 @@ sleep ${SLIDETIME}			# Wait a moment
 while true; do								# main loop
   if [ -r ${corenamefile} ]; then					# proceed if file exists and is readable (-r)
     newcore=$(cat ${corenamefile})					# get CORENAME
-    echo "Read CORENAME: -${newcore}-"					# some output
+    echo -e "${fyellow}Read CORENAME: ${fblue}${newcore}${freset}"					# some output
     dbug "Read CORENAME: -${newcore}-"					# some debug output
     if [ "${newcore}" != "${oldcore}" ]; then				# proceed only if Core has changed
       dbug "Send -${newcore}- to i2c-${i2cbus}"				# some debug output
