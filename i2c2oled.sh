@@ -64,10 +64,17 @@
 # -Cosmetics
 # -Add Private Picture Folder pripath="/media/fat/i2c2oled/pri"
 #
+# 2022-02-27
+# -Add Support for SSD1309 (2,42") Display (most of these Displays need to be modded from SPI to I2C)
+# -Copied values with default settings to i2c2oled-system.ini
+# -User INI i2c2oled-user.ini got higher Priority to overrride default setting in i2c2oled-system.ini
+# -Add Contrast function
+#
+
 
 # Load INI files
-. /media/fat/i2c2oled/i2c2oled-user.ini
 . /media/fat/i2c2oled/i2c2oled-system.ini
+. /media/fat/i2c2oled/i2c2oled-user.ini
 
 
 # ************************** Main Program **********************************
@@ -90,14 +97,16 @@ if [ "${oledfound}" = "false" ]; then
   exit 1
 fi
 
-display_off				# Switch Display off
-init_display			# Send INIT Commands
-flushscreen				# Fill the Screen completly
-display_on				# Switch Display on
-sleep 0.5				# Small sleep
-display_off				# Switch Display off
-clearscreen				# Clear the Screen completly
-display_on				# Switch Display on
+display_off					# Switch Display off
+init_display				# Send INIT Commands
+flushscreen					# Fill the Screen completly
+display_on					# Switch Display on
+sleep 0.5          		    # Small sleep
+set_contrast ${CONTRAST}	# Set Contrast
+sleep 0.5					# Small sleep
+display_off					# Switch Display off
+clearscreen					# Clear the Screen completly
+display_on					# Switch Display on
 
 #cfont=${#font[@]}			# Debugging get count font array members
 #echo $cfont				# Debugging
@@ -154,6 +163,8 @@ while true; do								# main loop
       oldcore=${newcore}						# update oldcore variable
     fi  												# end if core check
     inotifywait -e modify "${corenamefile}"				# wait here for next change of corename
+    #inotifywait -e modify -t 5 "${corenamefile}"				# wait here for next change of corename
+	#echo "5 secs Timeout"
   else  												# CORENAME file not found
     echo "File ${corenamefile} not found!"				# some output
     dbug "File ${corenamefile} not found!"				# some debug output

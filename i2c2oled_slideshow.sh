@@ -12,8 +12,8 @@
 #
 
 # Load INI files
-. /media/fat/i2c2oled/i2c2oled-user.ini
 . /media/fat/i2c2oled/i2c2oled-system.ini
+. /media/fat/i2c2oled/i2c2oled-user.ini
 
 # Enable Debugging in User INI File
 debugfile="/tmp/i2c2oled_slideshow"
