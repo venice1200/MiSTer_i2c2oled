@@ -142,5 +142,6 @@ MiSTer Forum: https://misterfpga.org
 Add-On Thread : https://misterfpga.org/viewtopic.php?f=9&t=2476  
 MiSTer on Github: https://github.com/MiSTer-devel  
 mr-fitzie's pixviewer: https://venice1200.github.io/MiSTer_tty2oled_Pictures/  
+terminator2k2 pics: https://github.com/terminator2k2
   
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://github.com/venice1200/MiSTer_tty2oled/blob/main/LICENSE)
