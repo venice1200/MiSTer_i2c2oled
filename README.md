@@ -64,7 +64,7 @@ User Options:
   Set to "yes" if you use an SSD1309 Display, "no" is default.  
   This Option activates a one line offset.  
   
-* Option `MONODISPLAY`  
+* Option `ONECOLOR`  
   Set to "yes" if you use a SSD1306 Display with only one Color, "no" is default.  
   This Option inverts the first 16 lines.  
   
