@@ -60,6 +60,14 @@ User Options:
 * Option `BLACKOUT`  
   Set to "yes" (default) for the short "Display-Blackout" before a Picture change, "no" = no blackout  
   
+* Option `SSD1390`  
+  Set to "yes" if you use an SSD1309 Display, "no" is default.  
+  This Option activates a one line offset.  
+  
+* Option `MONODISPLAY`  
+  Set to "yes" if you use a SSD1306 Display with only one Color, "no" is default.  
+  This Option inverts the first 16 lines.  
+  
 ### How does it work  
 When the MiSTer boots up the script `/media/fat/i2c2oled/S60i2c2oled` is called.  
 This script does nothing more than calling the script `/media/fat/i2c2oled/i2c2oled.sh`  
