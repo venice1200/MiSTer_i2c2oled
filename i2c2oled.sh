@@ -81,19 +81,22 @@
 
 
 # Lookup for i2c Device
-echo -e "\n\n${fyellow}i2c2oled Hardware check.${freset}"
+dbug "i2c2oled Hardware check."
+#echo -e "\n\n${fyellow}i2c2oled Hardware check.${freset}"
 mapfile -t i2cdata < <(i2cdetect -y ${i2cbus})
 for i in $(seq 1 ${#i2cdata[@]}); do
   i2cline=(${i2cdata[$i]})
   echo ${i2cline[@]:1} | grep -q ${oledid}
   if [ $? -eq 0 ]; then
-    echo -e "${fgreen}OLED at 0x${oledid} found, proceed...${freset}"
+    #echo -e "${fgreen}OLED at 0x${oledid} found, proceed...${freset}"
+    dbug "OLED at 0x${oledid} found, proceed..."
     oledfound="true"
   fi
 done
 
 if [ "${oledfound}" = "false" ]; then
-  echo -e "${fred}OLED at 0x${oledid} not found, end here!${freset}"
+  #echo -e "${fred}OLED at 0x${oledid} not found, end here!${freset}"
+  dbug "OLED at 0x${oledid} not found, end here!"
   exit 1
 fi
 
@@ -127,10 +130,10 @@ sleep ${SLIDETIME}			# Wait a moment
 while true; do								# main loop
   if [ -r ${corenamefile} ]; then					# proceed if file exists and is readable (-r)
     newcore=$(cat ${corenamefile})					# get CORENAME
-    echo -e "${fyellow}Read CORENAME: ${fblue}${newcore}${freset}"					# some output
-    dbug "Read CORENAME: -${newcore}-"					# some debug output
+    #echo -e "${fyellow}Read CORENAME: ${fblue}${newcore}${freset}"					# some output
+    dbug "Read CORENAME: ${newcore}"					# some debug output
     if [ "${newcore}" != "${oldcore}" ]; then				# proceed only if Core has changed
-      dbug "Send -${newcore}- to i2c-${i2cbus}"				# some debug output
+      dbug "Send ${newcore} to i2c-${i2cbus}"				# some debug output
       if [ ${newcore} != "MENU" ]; then					# If Corename not "MENU"
         #echo "${ANIMATION}"
         if (( ${ANIMATION} ==  -1 )); then				# 
@@ -160,13 +163,13 @@ while true; do								# main loop
         showpix ${newcore}		 				# The "Magic"
       fi
       display_on
-      oldcore=${newcore}						# update oldcore variable
-    fi  												# end if core check
-    inotifywait -e modify "${corenamefile}"				# wait here for next change of corename
+      oldcore=${newcore}										# update oldcore variable
+    fi  														# end if core check
+    inotifywait -e modify "${corenamefile}" -o /tmp/inwi2c.log	# wait here for next change of corename
     #inotifywait -e modify -t 5 "${corenamefile}"				# wait here for next change of corename
 	#echo "5 secs Timeout"
   else  												# CORENAME file not found
-    echo "File ${corenamefile} not found!"				# some output
+    #echo "File ${corenamefile} not found!"				# some output
     dbug "File ${corenamefile} not found!"				# some debug output
   fi  													# end if /tmp/CORENAME check
 done  													# end while
