@@ -60,7 +60,7 @@ User Options:
 * Option `BLACKOUT`  
   Set to "yes" (default) for the short "Display-Blackout" before a Picture change, "no" = no blackout  
   
-* Option `SSD1390`  
+* Option `SSD1309`  
   Set to "yes" if you use an SSD1309 Display, "no" is default.  
   This Option activates a one line offset.  
   
