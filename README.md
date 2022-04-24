@@ -68,6 +68,12 @@ User Options:
   Set to "yes" if you use a SSD1306 Display with only one Color, "no" is default.  
   This Option inverts the first 16 lines.  
   
+If you need to change the Display i2c Address add the following Option
+* Option `oledid`  
+  Set your Displays i2c Address by adding the Option `oledid` with your Displays i2c Address.  
+  Example: `oledid=3c`  
+  ❗ **Important**, you **need** to add the Option `oledaddr=0x${oledid}` **directly** one line behind `oledid`.  
+  
 ### How does it work  
 When the MiSTer boots up the script `/media/fat/i2c2oled/S60i2c2oled` is called.  
 This script does nothing more than calling the script `/media/fat/i2c2oled/i2c2oled.sh`  
