@@ -24,10 +24,10 @@ Normally you get an error message if you try to run `i2cdetect` on the wrong Bus
   
 ### What is needed  
 * The DE10-Nano Board  
-* An SSD1306 OLED Display with i2c Interface  
+* A SSD1306 or SSD1309 OLED Display with i2c Interface  
 * An i2c breakout (RTC Boards or IOBoards from Antonio Villena with builtin OLED's)  
-  The i2c/SPI Header of the official RTC 1.3 Board has no Power Pin, only Data and GND if I am right.  
-  Means you have to get the 3.3v Power from another Pin on the Board.  
+  The i2c/SPI Header of the official RTC 1.3 Board has ~no~ a tiny Power Pin.  
+  ~Means you have to get the 3.3v Power from another Pin on the Board.~  
   See [Connection Scheme RTC v1.3](https://misterfpga.org/viewtopic.php?p=26036#p26036) for some details.  
   I was sponsored by Antonio Villena with his RTC which has solder Pins for i2c and 3.3v Power.  
   
