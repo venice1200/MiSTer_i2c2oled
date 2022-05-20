@@ -66,15 +66,37 @@ User Options:
   Set to "yes" if you use an SSD1309 Display, "no" is default.  
   This Option activates a one line offset.  
   
-* Option `ONECOLOR`  
-  Set to "yes" if you use a SSD1306 Display with only one Color, "no" is default.  
-  This Option inverts the first 16 lines.  
+* Option `SSH1106`  
+  Set to "yes" if you use an SSH1106 Display, "no" is default.  
+  This Option activates different Display Ram addressing .  
   
+* Option `ONECOLOR`  
+  Set to "yes" if you want to use the new "OneColor" and "Original" Two-Color Pictures.  
+  Set to "no" (default) uses only the "Original" Pictures with Header.  
+  This Option inverts the first 16 lines.  
+
+* Option `INVERTHEADER`  
+  Set to "yes" if you want the Header of the "original" Two-Color Pictures to be inverted.  
+  Useful if you run an One-Color Display. "no" is default.  
+  This Option inverts the first 16 lines.  
+
 If you need to change the Display i2c Address add the following Option
 * Option `oledid`  
   Set your Displays i2c Address by adding the Option `oledid` with your Displays i2c Address.  
   Example: `oledid=3c`  
   ❗ **Important**, you **need** to add the Option `oledaddr=0x${oledid}` **directly** one line behind `oledid`.  
+  
+### Picture Locations  
+* **/media/fat/i2c2oled/Pix**  
+  Location of the original Pictures with 16 Pixel Line Header (for TwoColor SSD1306 Display)  
+* **/media/fat/i2c2oled/PRI**  
+  Priority/Private Picture folder for the normal TwoColor Pictures.  
+  Will not been touched by the Updater.  
+* **/media/fat/i2c2oled/PRI_Onecolor**  
+  Location of the new Pictures with Footer (for OneColor Displays)   
+* **/media/fat/i2c2oled/PRI_Onecolor**  
+  Priority/Private Picture folder for the new OneColor Pictures.  
+  Will not been touched by the Updater.  
   
 ### How does it work  
 When the MiSTer boots up the script `/media/fat/i2c2oled/S60i2c2oled` is called.  
