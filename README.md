@@ -92,7 +92,7 @@ If you need to change the Display i2c Address add the following Option
 * **/media/fat/i2c2oled/PRI**  
   Priority/Private Picture folder for the normal TwoColor Pictures.  
   Will not been touched by the Updater.  
-* **/media/fat/i2c2oled/PRI_Onecolor**  
+* **/media/fat/i2c2oled/Pix_Onecolor**  
   Location of the new Pictures with Footer (for OneColor Displays)   
 * **/media/fat/i2c2oled/PRI_Onecolor**  
   Priority/Private Picture folder for the new OneColor Pictures.  
