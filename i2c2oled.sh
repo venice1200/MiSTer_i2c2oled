@@ -66,12 +66,27 @@
 #
 # 2022-02-27
 # -Add Support for SSD1309 (2,42") Display (most of these Displays need to be modded from SPI to I2C)
+#  New Option SSD1309="yes/no"
 # -Copied values with default settings to i2c2oled-system.ini
-# -User INI i2c2oled-user.ini got higher Priority to overrride default setting in i2c2oled-system.ini
+# -User INI i2c2oled-user.ini got higher priority to overrride default setting in i2c2oled-system.ini
 # -Add Contrast function
 #
 # 2022-04-09
-# -Make the client more quiet
+# -Make the client quiet (inotifywait -q)
+#
+# 2022-05-15
+# -Make the client more quiet (inotifywait -qq)
+# -Switch Page Adressing from Horizontal Mode to Page Mode (Needed for Support of the SSH1106 Display)
+# -Add Support for OneColor Pictures
+#  Create the two folders /media/fat/i2c2oled/Pix_Onecolor and/or /media/fat/i2c2oled/PRI_Onecolor and add "OneColor" Pictures here.
+#
+# 2022-05-19
+# -New Option SSH1106="yes/no"
+#  Add Support for SSH1106#
+#
+# 2022-05-20
+# -New Option "INVERTHEADER="yes/no"
+#  Inverts the first 16 Pixel Lines, useful for TwoColor Displays
 #
 #
 
@@ -106,12 +121,13 @@ fi
 
 display_off					# Switch Display off
 init_display				# Send INIT Commands
+display_on					# Debug
 flushscreen					# Fill the Screen completly
 display_on					# Switch Display on
 sleep 0.5          		    # Small sleep
 set_contrast ${CONTRAST}	# Set Contrast
 sleep 0.5					# Small sleep
-display_off					# Switch Display off
+#display_off					# Switch Display off
 clearscreen					# Clear the Screen completly
 display_on					# Switch Display on
 
@@ -169,7 +185,7 @@ while true; do								# main loop
       display_on
       oldcore=${newcore}										# update oldcore variable
     fi  														# end if core check
-    inotifywait -q -e modify "${corenamefile}"					# wait here for next change of corename -q for quite
+    inotifywait -qq -e modify "${corenamefile}"					# wait here for next change of corename -q for quite
     #inotifywait -e modify -t 5 "${corenamefile}"				# wait here for next change of corename
 	#echo "5 secs Timeout"
   else  												# CORENAME file not found
