@@ -18,6 +18,9 @@ fi
 # Check for i2c2oled path's and create it if neccessary, download/update scripts
 ! [ -d /media/fat/i2c2oled/Pix ] && mkdir -p /media/fat/i2c2oled/Pix
 ! [ -d /media/fat/i2c2oled/PRI ] && mkdir -p /media/fat/i2c2oled/PRI
+! [ -d /media/fat/i2c2oled/Pix_Onecolor ] && mkdir -p /media/fat/i2c2oled/Pix_Onecolor
+! [ -d /media/fat/i2c2oled/PRI_Onecolor ] && mkdir -p /media/fat/i2c2oled/PRI_Onecolor
+
 
 # Check update_all.ini for i2c2oled Update/Install Script
 if [ $(grep -c "I2C2OLED_FILES_DOWNLOADER=\"true\"" "/media/fat/Scripts/update_all.ini") = "0" ]; then
@@ -59,6 +62,7 @@ fi
 
 # Synchronize pictures
 rsync -crlzzP --modify-window=1 --delete rsync://i2c2oled-update-daemon@tty2tft.de/i2c2oled-pictures/Pix/ ${I2C2OLED_PATH}/Pix/
+rsync -crlzzP --modify-window=1 --delete rsync://i2c2oled-update-daemon@tty2tft.de/i2c2oled-pictures/Pix_Onecolor/ ${I2C2OLED_PATH}/Pix_Onecolor/
 
 ${INITSCRIPT} start
 exit 0
