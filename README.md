@@ -4,8 +4,9 @@
   
 Just for fun...  
   
-This Bash-Script-MiSTer-Add-On uses the DE10-Nano's **i2c Interface** to drive a small SSD1306 OLED Display  
+This Bash-Script-MiSTer-Add-On uses the DE10-Nano's **i2c Interface** to drive a small Display  
 with 128x64 Pixel showing ~~(currently only)~~ Pictures or Text based on the running core.  
+**i2c2oled** is currently supporting SSD1306 (0.98")/SSD1309 (2.42") and SSH1106 (1.3") OLED Displays.  
 Antonio Villena build IOBoards with such small OLED Displays and asked for support, so here we are 🙂  
   
 ![i2c2oled](https://github.com/venice1200/MiSTer_i2c2oled/blob/main/Pictures/SSD1306_MiSTer_v2.jpg?raw=true)  
@@ -48,8 +49,8 @@ For Setting up the MiSTer for the Autostart Script of i2c2oled run once the comm
 from cli or via ssh to enable Auto-Start of i2c2oled.  
   
 ### Configuration  
-You can configure the User Setting by configuring the file `/media/fat/i2c2oled/i2c2oled-user.ini`.  
-User Options:  
+You can configure the User Settings by configuring the file `/media/fat/i2c2oled/i2c2oled-user.ini`.  
+Available Options:  
 * Option `CONTRAST`  
   Set your Display's Contrast Value from "0..255", default = 100  
   
