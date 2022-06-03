@@ -27,7 +27,7 @@ Normally you get an error message if you try to run `i2cdetect` on the wrong Bus
   
 ### What is needed  
 * The DE10-Nano Board  
-* A SSD1306 or SSD1309 OLED Display with i2c Interface  
+* A SSD1306, SSD1309 or a SSH1106 OLED Display with i2c Interface  
 * An i2c breakout (RTC Boards or IOBoards from Antonio Villena with builtin OLED's)  
   The i2c/SPI Header of the official RTC 1.3 Board has ~no~ a tiny Power Pin.  
   ~Means you have to get the 3.3v Power from another Pin on the Board.~  
