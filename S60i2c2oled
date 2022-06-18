@@ -26,7 +26,10 @@ start() {
 # Stop
 stop() {
     echo "Stopping i2c2oled..."
+    I2CINWPID=$(ps -eo pid,ppid,args | grep $(ps | grep ${SCRIPT} | awk 'NR==1{print $1}') | tail -1 | awk '{print $1}')
+    #echo "PID inotifywait: ${I2CINWPID}"
     killall ${SCRIPT}
+    kill ${I2CINWPID}
 }
 
 case "$1" in
