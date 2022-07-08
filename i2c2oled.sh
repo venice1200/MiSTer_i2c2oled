@@ -145,6 +145,10 @@ showtext "by Sorgelig"			# Some Text for the Display
 
 sleep ${SLIDETIME}			# Wait a moment
 
+if [ "${SHOW_TEMP}" = "yes" ]; then #initialize temperature sensor to default 
+        init_temperature_default_config 
+fi
+
 # reset_cursor
 
 while true; do								# main loop
