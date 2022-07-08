@@ -185,7 +185,15 @@ while true; do								# main loop
       display_on
       oldcore=${newcore}										# update oldcore variable
     fi  														# end if core check
-    inotifywait -qq -e modify "${corenamefile}"					# wait here for next change of corename -q for quite
+    current_corenamefile=${corenamefile} #store the current corename
+    while [ ${current_corenamefile} = ${corenamefile} ] #loops until change of corename occures 
+    do
+      if [ "${SHOW_TEMP}" = "yes" ]; then #show temperature 
+        read_temperature 
+      fi
+      sleep 1
+    done
+    #inotifywait -qq -e modify "${corenamefile}"					# wait here for next change of corename -q for quite
     #inotifywait -e modify -t 5 "${corenamefile}"				# wait here for next change of corename
 	#echo "5 secs Timeout"
   else  												# CORENAME file not found
