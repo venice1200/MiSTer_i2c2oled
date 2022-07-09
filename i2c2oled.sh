@@ -191,9 +191,9 @@ while true; do								# main loop
     fi  												# end if core check
     
     if [ "${SHOW_TEMP}" = "yes" ]; then
-      inotifywait -e modify "${corenamefile}". | show_temperature # show temperature while waiting for the core change event 
+      inotifywait -qq -e modify "${corenamefile}". | show_temperature # show temperature while waiting for the core change event 
     else
-      inotifywait -e modify "${corenamefile}"   
+      inotifywait -qq -e modify "${corenamefile}"   
     fi
     
     #inotifywait -qq -e modify "${corenamefile}"					# wait here for next change of corename -q for quite
