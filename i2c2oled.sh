@@ -145,6 +145,10 @@ showtext "by Sorgelig"			# Some Text for the Display
 
 sleep ${SLIDETIME}			# Wait a moment
 
+if [ "${SHOW_TEMP}" = "yes" ]; then #initialize temperature sensor to default 
+        init_temperature_default_config 
+fi
+
 # reset_cursor
 
 while true; do								# main loop
@@ -184,8 +188,15 @@ while true; do								# main loop
       fi
       display_on
       oldcore=${newcore}										# update oldcore variable
-    fi  														# end if core check
-    inotifywait -qq -e modify "${corenamefile}"					# wait here for next change of corename -q for quite
+    fi  												# end if core check
+    
+    if [ "${SHOW_TEMP}" = "yes" ]; then
+      inotifywait -qq -e modify "${corenamefile}". | show_temperature # show temperature while waiting for the core change event 
+    else
+      inotifywait -qq -e modify "${corenamefile}"   
+    fi
+    
+    #inotifywait -qq -e modify "${corenamefile}"					# wait here for next change of corename -q for quite
     #inotifywait -e modify -t 5 "${corenamefile}"				# wait here for next change of corename
 	#echo "5 secs Timeout"
   else  												# CORENAME file not found
