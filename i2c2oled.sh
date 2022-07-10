@@ -88,6 +88,8 @@
 # -New Option "INVERTHEADER="yes/no"
 #  Inverts the first 16 Pixel Lines, useful for TwoColor Displays
 #
+# 2022-07-10
+# -Github User ahmadexp add Support for an AD7414/AD7415 i2c Temperature Sensor mounted to RTC1.3
 #
 
 
@@ -191,7 +193,7 @@ while true; do								# main loop
     fi  												# end if core check
     
     if [ "${SHOW_TEMP}" = "yes" ]; then
-      inotifywait -qq -e modify "${corenamefile}". | show_temperature # show temperature while waiting for the core change event 
+      inotifywait -qq -t $SHOW_TEMP_INTERVAL -e modify "${corenamefile}" | show_temperature # show temperature while waiting for the core change event 
     else
       inotifywait -qq -e modify "${corenamefile}"   
     fi
