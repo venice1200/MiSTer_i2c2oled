@@ -146,7 +146,7 @@ Run: `/media/fat/i2c2oled/i2c2oled_slideshow.sh [/full/path/to/pix.pix]` from ss
 ### Temperature Sensor Readout  
 ...by @ahmadexp  
   
-The RTC 1.3 board supports the AD7414 I2C temerature sensor.  
+Support for temerature sensor (AD7414) readout (can be added to the RTC 1.3 board).  
 The i2c2oled code can support the readout of the this sensor and can overlay it on the existing image.  
 By default the temperature in not shown to make it compatible and issue free for the unsupported hardware.  
 In order to enable the temperature readout you should change the value "no" in front of SHOW_TEMP variable in the i2c2oled-system.ini to "yes".  
@@ -160,7 +160,7 @@ Mouser (https://www.mouser.com/ProductDetail/Analog-Devices/AD7414?qs=5aG0NVq1C4
 You might need a bit of soldering skils to do it right.  
 Please consider asking for help from a professional (like an electronic or cellphone repair shop) if you are not comfortable with the SMD soldering.  
 Hopefully soon we will have the RTC 1.4 with both the AD7414 as well as I2C pin headers for easier OLED epansion.  
-In additon, I am looking to add Temperature Based Fan Speed Control to this project.  
+In additon, I am looking to add Temperature Based Fan Speed Control to this project (future work).  
 If you have any further questions in this regards, please feel free rech out to @ahmadexp for more info. Stay tuned and have fun.  
     
 ### Files&Folders  
