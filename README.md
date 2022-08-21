@@ -14,8 +14,7 @@ Antonio Villena build IOBoards with such small OLED Displays and asked for suppo
 ![>>Short Gif Video<<](https://github.com/venice1200/MiSTer_i2c2oled/blob/main/Pictures/pressplay.gif?raw=true)
 
 ### !! WARNING !! 
-This Add-On uses the MiSTer's **i2c Bus**.  
-❗ **Wrong usage can confuse the MiSTer's i2c Bus or worse** ❗  
+This Add-On uses the MiSTer's **i2c Bus**. Wrong usage can confuse the MiSTer's **i2c Bus or worse**!  
 You need to make sure you use the right **i2c Bus** as the MiSTer has more than one.  
   
 Use the command `i2cdetect -l` for detecting the correct i2c-Bus  
@@ -50,7 +49,7 @@ For Setting up the MiSTer for the Autostart Script of i2c2oled run once the comm
 from cli or via ssh to enable Auto-Start of i2c2oled.  
   
 ### Configuration  
-You can configure **your User Settings** by configuring the file `/media/fat/i2c2oled/i2c2oled-user.ini`.  
+You can configure the User Settings by configuring the file `/media/fat/i2c2oled/i2c2oled-user.ini`.  
 Available Options:  
 * Option `CONTRAST`  
   Set your Display's Contrast Value from "0..255", default = 100  
@@ -66,15 +65,15 @@ Available Options:
   
 * Option `SSD1309`  
   Set to "yes" if you use an SSD1309 Display, "no" is default.  
-  This Option activates an one line offset.  
+  This Option activates a one line offset.  
   
 * Option `SSH1106`  
   Set to "yes" if you use an SSH1106 Display, "no" is default.  
   This Option activates different Display Ram addressing .  
   
 * Option `ONECOLOR`  
-  Set to "yes" if you want to use the new "OneColor" and alternatively the "Original" Pictures with header.  
-  Set to "no" (default) uses only "Original" Pictures with Header.  
+  Set to "yes" if you want to use the new "OneColor" and "Original" Two-Color Pictures.  
+  Set to "no" (default) uses only the "Original" Pictures with Header.  
   This Option inverts the first 16 lines.  
 
 * Option `INVERTHEADER`  
@@ -90,14 +89,14 @@ If you need to change the Display i2c Address add the following Option
   
 ### Picture Locations  
 * **/media/fat/i2c2oled/Pix**  
-  Location of the original Pictures with 16 Pixel Line Header (for the Two-Color SSD1306 Display)  
+  Location of the original Pictures with 16 Pixel Line Header (for TwoColor SSD1306 Display)  
 * **/media/fat/i2c2oled/PRI**  
-  Priority/Private Picture folder for the normal Two-Color Pictures.  
+  Priority/Private Picture folder for the normal TwoColor Pictures.  
   Will not been touched by the Updater.  
 * **/media/fat/i2c2oled/Pix_Onecolor**  
-  Location of the new Pictures with Footer (for One-Color Displays)   
+  Location of the new Pictures with Footer (for OneColor Displays)   
 * **/media/fat/i2c2oled/PRI_Onecolor**  
-  Priority/Private Picture folder for the new One-Color Pictures.  
+  Priority/Private Picture folder for the new OneColor Pictures.  
   Will not been touched by the Updater.  
   
 ### How does it work  
@@ -109,7 +108,7 @@ The Script `/media/fat/i2c2oled/i2c2oled.sh` uses the Linux `source` command to 
 The Script applies the **i2c** command `i2cset` to initialize the Display and send calculated Picture-Data to the Display.  
 
 ### Picture Modification:  
-The used Black & White Pictures are slightly modfied X-PixMap (XPM) Pictures with 128x64 Pixel.  
+The used Black&White Pictures are slightly modfied X-PixMap (XPM) Pictures with 128x64 Pixel.  
 You can create X-PixMap Pictures with Gimp or ImageMagick.  
 After you created the Black&White X-PixMap Picture...   
   
@@ -135,6 +134,14 @@ or open it with an Text Editor, I use Notepad++, and do manually...
 Check your PIX against the files in https://github.com/venice1200/MiSTer_i2c2oled/tree/main/Pictures/Pix for correct modification.  
   
 ***>> Please make your PIX available for others <<***
+
+### Temperature Sensor Readout
+
+The RTC 1.3 board supports the AD7414 I2C temerature sensor. The i2c2oled code can support the readout of the this sensor and can overlay it on the existing image. By default the temperature in not shown to make it compatible and issue free for the unsupported hardware
+In order to enable the temperature readout you should change the value "no" in front of SHOW_TEMP variable in the i2c2oled-system.ini to "yes". You can also change the location of the value readout using SHOW_TEMP_ROW and SHOW_TEMP_COL. In additon, you can chose how often the frequency readout gets updated (per seconds) by adjusting the value of SHOW_TEMP_INTERVAL which by default is set to 1 update per second.
+As of now that I am writing this guide, there is not ready for purchase RTC 1.3 boards with the AD7414 temperature sensor on them. If you wish to build one youself you can purchase the RTC 1.3 board and get the AD7414 from Digikey (https://www.digikey.com/catalog/en/partgroup/ad7414-and-ad7415/79942) or Mouser (https://www.mouser.com/ProductDetail/Analog-Devices/AD7414?qs=5aG0NVq1C4x8PH0XK0xGUA%3D%3D) and solder it youself. You might need a bit of soldering skils to do it right. Please consider asking for help from a professional (like an electronic or cellphone repair shop) if you are not comfortable with the SMD soldering. Hopefully soon we will have the RTC 1.4 with both the AD7414 as well as I2C pin headers for easier OLED epansion.
+In additon, we are looking to add Temperature Based Fan Speed Control to this project. If you have any further questions in this regards, please feel free rech out to @ahmadexp for more info. Stay tuned and have fun.
+
   
 ### Slideshow/Picture Viewer:  
 **Show all Pictures one by one**  
