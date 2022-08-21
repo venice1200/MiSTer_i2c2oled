@@ -49,7 +49,7 @@ For Setting up the MiSTer for the Autostart Script of i2c2oled run once the comm
 from cli or via ssh to enable Auto-Start of i2c2oled.  
   
 ### Configuration  
-You can configure the User Settings by configuring the file `/media/fat/i2c2oled/i2c2oled-user.ini`.  
+You can configure **your User Settings** by configuring the file `/media/fat/i2c2oled/i2c2oled-user.ini`.  
 Available Options:  
 * Option `CONTRAST`  
   Set your Display's Contrast Value from "0..255", default = 100  
