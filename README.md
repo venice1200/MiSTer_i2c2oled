@@ -135,7 +135,7 @@ or open it with an Text Editor, I use Notepad++, and do manually...
 Check your PIX against the files in https://github.com/venice1200/MiSTer_i2c2oled/tree/main/Pictures/Pix for correct modification.  
   
 ***>> Please make your PIX available for others <<***
-  
+
 ### Slideshow/Picture Viewer:  
 **Show all Pictures one by one**  
 Run: `/media/fat/i2c2oled/i2c2oled_slideshow.sh` from ssh/cli.  
@@ -143,6 +143,26 @@ The i2c2oled Daemon will be stopped before and started after the Slideshow.
 **Show single Picture**  
 Run: `/media/fat/i2c2oled/i2c2oled_slideshow.sh [/full/path/to/pix.pix]` from ssh/cli.  
   
+### Temperature Sensor Readout  
+...by @ahmadexp  
+  
+The RTC 1.3 board supports the AD7414 I2C temerature sensor.  
+The i2c2oled code can support the readout of the this sensor and can overlay it on the existing image.  
+By default the temperature in not shown to make it compatible and issue free for the unsupported hardware.  
+In order to enable the temperature readout you should change the value "no" in front of SHOW_TEMP variable in the i2c2oled-system.ini to "yes".  
+You can also change the location of the value readout using SHOW_TEMP_ROW and SHOW_TEMP_COL.  
+In additon, you can chose how often the frequency readout gets updated (per seconds) by adjusting the value of SHOW_TEMP_INTERVAL  
+which by default is set to 1 update per second.
+As of now that I am writing this guide, there is not ready for purchase RTC 1.3 boards with the AD7414 temperature sensor on them.  
+If you wish to build one youself you can purchase the RTC 1.3 board and get the AD7414 from  
+Digikey (https://www.digikey.com/catalog/en/partgroup/ad7414-and-ad7415/79942) or  
+Mouser (https://www.mouser.com/ProductDetail/Analog-Devices/AD7414?qs=5aG0NVq1C4x8PH0XK0xGUA%3D%3D) and solder it youself.  
+You might need a bit of soldering skils to do it right.  
+Please consider asking for help from a professional (like an electronic or cellphone repair shop) if you are not comfortable with the SMD soldering.  
+Hopefully soon we will have the RTC 1.4 with both the AD7414 as well as I2C pin headers for easier OLED epansion.  
+In additon, I am looking to add Temperature Based Fan Speed Control to this project.  
+If you have any further questions in this regards, please feel free rech out to @ahmadexp for more info. Stay tuned and have fun.  
+    
 ### Files&Folders  
 | File/Folder | Description |
 | :--- | :--- |
