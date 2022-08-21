@@ -93,6 +93,16 @@ If you need to change the Display i2c Address add the following Option
   Example: `oledid=3c`  
   ❗ **Important**, you **need** to add the Option `oledaddr=0x${oledid}` **directly** one line behind `oledid`.  
   
+* Options for AD7414 temperature output  
+  `SHOW_TEMP="no"`  
+  Set to "yes" in order to show the temperature (default=no)  
+  `SHOW_TEMP_ROW=[0..7]`  
+  Set the row for the temperature output (default=0)   
+  `SHOW_TEMP_COL=[0..128]`  
+  Set the column for the temperature output (default=2)  
+  `SHOW_TEMP_INTERVAL=[secs]`  
+  Set the interval for the temperature output (default=1)  
+  
 ### Picture Locations  
 * **/media/fat/i2c2oled/Pix**  
   Location of the original Pictures with 16 Pixel Line Header (for the Two-Color SSD1306 Display)  
