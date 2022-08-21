@@ -65,15 +65,15 @@ Available Options:
   
 * Option `SSD1309`  
   Set to "yes" if you use an SSD1309 Display, "no" is default.  
-  This Option activates a one line offset.  
+  This Option activates an one line offset.  
   
 * Option `SSH1106`  
   Set to "yes" if you use an SSH1106 Display, "no" is default.  
   This Option activates different Display Ram addressing .  
   
 * Option `ONECOLOR`  
-  Set to "yes" if you want to use the new "OneColor" and "Original" Two-Color Pictures.  
-  Set to "no" (default) uses only the "Original" Pictures with Header.  
+  Set to "yes" if you want to use the new "OneColor" and alternatively the "Original" Pictures with header.  
+  Set to "no" (default) uses only "Original" Pictures with Header.  
   This Option inverts the first 16 lines.  
 
 * Option `INVERTHEADER`  
@@ -89,14 +89,14 @@ If you need to change the Display i2c Address add the following Option
   
 ### Picture Locations  
 * **/media/fat/i2c2oled/Pix**  
-  Location of the original Pictures with 16 Pixel Line Header (for TwoColor SSD1306 Display)  
+  Location of the original Pictures with 16 Pixel Line Header (for the Two-Color SSD1306 Display)  
 * **/media/fat/i2c2oled/PRI**  
-  Priority/Private Picture folder for the normal TwoColor Pictures.  
+  Priority/Private Picture folder for the normal Two-Color Pictures.  
   Will not been touched by the Updater.  
 * **/media/fat/i2c2oled/Pix_Onecolor**  
-  Location of the new Pictures with Footer (for OneColor Displays)   
+  Location of the new Pictures with Footer (for One-Color Displays)   
 * **/media/fat/i2c2oled/PRI_Onecolor**  
-  Priority/Private Picture folder for the new OneColor Pictures.  
+  Priority/Private Picture folder for the new One-Color Pictures.  
   Will not been touched by the Updater.  
   
 ### How does it work  
@@ -108,7 +108,7 @@ The Script `/media/fat/i2c2oled/i2c2oled.sh` uses the Linux `source` command to 
 The Script applies the **i2c** command `i2cset` to initialize the Display and send calculated Picture-Data to the Display.  
 
 ### Picture Modification:  
-The used Black&White Pictures are slightly modfied X-PixMap (XPM) Pictures with 128x64 Pixel.  
+The used Black & White Pictures are slightly modfied X-PixMap (XPM) Pictures with 128x64 Pixel.  
 You can create X-PixMap Pictures with Gimp or ImageMagick.  
 After you created the Black&White X-PixMap Picture...   
   
