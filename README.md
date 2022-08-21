@@ -93,7 +93,7 @@ If you need to change the Display i2c Address add the following Option
   Example: `oledid=3c`  
   ❗ **Important**, you **need** to add the Option `oledaddr=0x${oledid}` **directly** one line behind `oledid`.  
   
-* Options for AD7414 temperature output  
+* Options for AD7414 temperature output (see below)  
   `SHOW_TEMP="no"`  
   Set to "yes" in order to show the temperature (default=no)  
   `SHOW_TEMP_ROW=[0..7]`  
@@ -175,7 +175,7 @@ Mouser (https://www.mouser.com/ProductDetail/Analog-Devices/AD7414?qs=5aG0NVq1C4
 You might need a bit of soldering skils to do it right.  
 Please consider asking for help from a professional (like an electronic or cellphone repair shop) if you are not comfortable with the SMD soldering.  
 Hopefully soon we will have the RTC 1.4 with both the AD7414 as well as I2C pin headers for easier OLED epansion.  
-In additon, I am looking to add Temperature Based Fan Speed Control to this project (future work).  
+In additon, I am looking to add Temperature based Fan Speed Control to this project (future work).  
 If you have any further questions in this regards, please feel free rech out to @ahmadexp for more info. Stay tuned and have fun.  
     
 ### Files&Folders  
