@@ -50,7 +50,12 @@ For Setting up the MiSTer for the Autostart Script of i2c2oled run once the comm
 from cli or via ssh to enable Auto-Start of i2c2oled.  
   
 ### Configuration  
-You can configure **your User Settings** by configuring the file `/media/fat/i2c2oled/i2c2oled-user.ini`.  
+The default configuration is configured in the file `/media/fat/i2c2oled/i2c2oled-system.ini`.  
+This file **will be updated** by the updater if new Options are available!  
+  
+If you neded to change settings you can configure **your User settings** by adding Options and their settings  
+to the file `/media/fat/i2c2oled/i2c2oled-user.ini`.  
+  
 Available Options:  
 * Option `CONTRAST`  
   Set your Display's Contrast Value from "0..255", default = 100  
@@ -149,7 +154,7 @@ Run: `/media/fat/i2c2oled/i2c2oled_slideshow.sh [/full/path/to/pix.pix]` from ss
 Support for temerature sensor (AD7414) readout (can be added to the RTC 1.3 board).  
 The i2c2oled code can support the readout of the this sensor and can overlay it on the existing image.  
 By default the temperature readout is not enabled to make it compatible and issue free for unsupported hardware.  
-In order to enable the temperature readout you need to add **SHOW_TEMP="yes"** to your ~i2c2oled-user.ini~ file.  
+In order to enable the temperature readout you need to add **SHOW_TEMP="yes"** to your `i2c2oled-user.ini` file.  
 You can also change the location of the value readout using **SHOW_TEMP_ROW** and **SHOW_TEMP_COL**.  
 In additon, you can chose how often the frequency readout gets updated (per seconds) by adjusting  
 the value of **SHOW_TEMP_INTERVAL** which by default is set to 1 update per second.  
