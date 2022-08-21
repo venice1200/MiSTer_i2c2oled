@@ -144,15 +144,15 @@ The i2c2oled Daemon will be stopped before and started after the Slideshow.
 Run: `/media/fat/i2c2oled/i2c2oled_slideshow.sh [/full/path/to/pix.pix]` from ssh/cli.  
   
 ### Temperature Sensor Readout  
-...by @ahmadexp  
+...by ahmadexp  
   
 The RTC 1.3 board supports the AD7414 I2C temerature sensor.  
 The i2c2oled code can support the readout of the this sensor and can overlay it on the existing image.  
-By default the temperature in not shown to make it compatible and issue free for the unsupported hardware.  
-In order to enable the temperature readout you should change the value "no" in front of SHOW_TEMP variable in the i2c2oled-system.ini to "yes".  
-You can also change the location of the value readout using SHOW_TEMP_ROW and SHOW_TEMP_COL.  
-In additon, you can chose how often the frequency readout gets updated (per seconds) by adjusting the value of SHOW_TEMP_INTERVAL  
-which by default is set to 1 update per second.
+By default the temperature readout is not enabled to make it compatible and issue free for unsupported hardware.  
+In order to enable the temperature readout you need to add **SHOW_TEMP="yes"** to your ~i2c2oled-user.ini~ file.  
+You can also change the location of the value readout using **SHOW_TEMP_ROW** and **SHOW_TEMP_COL**.  
+In additon, you can chose how often the frequency readout gets updated (per seconds) by adjusting  
+the value of **SHOW_TEMP_INTERVAL** which by default is set to 1 update per second.  
 As of now that I am writing this guide, there is not ready for purchase RTC 1.3 boards with the AD7414 temperature sensor on them.  
 If you wish to build one youself you can purchase the RTC 1.3 board and get the AD7414 from  
 Digikey (https://www.digikey.com/catalog/en/partgroup/ad7414-and-ad7415/79942) or  
