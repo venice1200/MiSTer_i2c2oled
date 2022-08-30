@@ -86,10 +86,14 @@
 #
 # 2022-05-20
 # -New Option "INVERTHEADER="yes/no"
-#  Inverts the first 16 Pixel Lines, useful for TwoColor Displays
+#  Inverts the first 16 Pixel Lines, useful for OneColor Displays
 #
 # 2022-07-10
 # -Github User ahmadexp add Support for an AD7414/AD7415 i2c Temperature Sensor mounted to RTC1.3
+#
+# 2022-08-25
+# -Add Option USE_RANDOM_ALT="yes/no" for randomly chosen alternative PixMap
+# -Show Startup Text only once each System Start (generate and check file "/tmp/i2c2oledinitdone")
 #
 
 
@@ -121,31 +125,41 @@ if [ "${oledfound}" = "false" ]; then
   exit 1
 fi
 
-display_off					# Switch Display off
-init_display				# Send INIT Commands
-display_on					# Debug
-flushscreen					# Fill the Screen completly
-display_on					# Switch Display on
-sleep 0.5          		    # Small sleep
-set_contrast ${CONTRAST}	# Set Contrast
-sleep 0.5					# Small sleep
-#display_off					# Switch Display off
-clearscreen					# Clear the Screen completly
-display_on					# Switch Display on
+if [ ! -e  ${initfile} ]; then
+  display_off					# Switch Display off
+  init_display				# Send INIT Commands
 
-#cfont=${#font[@]}			# Debugging get count font array members
-#echo $cfont				# Debugging
+  if [ "${debug}" = "true" ]; then
+    display_on				# Debug
+    flushscreen				# Fill the Screen completly
+    sleep 0.5          		# Small sleep
+  fi
 
-set_cursor 31 0				# Set Cursor at Page (Row) 0 to the 32th Pixel (Column)
-showtext "i2c2oled"			# Some Text for the Display
+  set_contrast ${CONTRAST}	# Set Contrast
 
-set_cursor 19 3				# Set Cursor at Page (Row) 3 to the 20th Pixel (Column)
-showtext "MiSTer FPGA"			# Some Text for the Display
+  if [ "${debug}" = "true" ]; then
+    sleep 0.5					# Small sleep
+  fi
 
-set_cursor 19 5				# Set Cursor at Page (Row) 5 to the 20th Pixel (Column)
-showtext "by Sorgelig"			# Some Text for the Display
+  clearscreen					# Clear the Screen completly
+  display_on					# Switch Display on
 
-sleep ${SLIDETIME}			# Wait a moment
+  cfont=${#font[@]}			# Debugging get count font array members
+  dbug $cfont					# Debugging
+
+  set_cursor 31 0				# Set Cursor at Page (Row) 0 to the 32th Pixel (Column)
+  showtext "i2c2oled"			# Some Text for the Display
+
+  set_cursor 19 3				# Set Cursor at Page (Row) 3 to the 20th Pixel (Column)
+  showtext "MiSTer FPGA"		# Some Text for the Display
+
+  set_cursor 19 5				# Set Cursor at Page (Row) 5 to the 20th Pixel (Column)
+  showtext "by Sorgelig"		# Some Text for the Display
+
+  sleep ${SLIDETIME}			# Wait a moment
+  touch ${initfile}				# Init done
+fi
+
 
 if [ "${SHOW_TEMP}" = "yes" ]; then #initialize temperature sensor to default 
         init_temperature_default_config 
@@ -156,18 +170,17 @@ fi
 while true; do								# main loop
   if [ -r ${corenamefile} ]; then					# proceed if file exists and is readable (-r)
     newcore=$(cat ${corenamefile})					# get CORENAME
-    #echo -e "${fyellow}Read CORENAME: ${fblue}${newcore}${freset}"					# some output
     dbug "Read CORENAME: ${newcore}"					# some debug output
     if [ "${newcore}" != "${oldcore}" ]; then				# proceed only if Core has changed
       dbug "Send ${newcore} to i2c-${i2cbus}"				# some debug output
-      if [ ${newcore} != "MENU" ]; then					# If Corename not "MENU"
-        #echo "${ANIMATION}"
+      if [[ ${newcore} != "MENU" && ${newcore} != "000-UPDATE" ]]; then	# If Corename not "MENU" and not "Update"
+        dbug "${ANIMATION}"
         if (( ${ANIMATION} ==  -1 )); then				# 
           anirandom=$[$RANDOM%5+1]					# Generate an Random Number between 0 and Modulo_Faktor-1, +1 
         else
           anirandom=${ANIMATION}					# ..or use the anmation type from User-INI
         fi
-        #echo "${anirandom}"
+        dbug "${anirandom}"
         if (( ${anirandom} == 1 )); then
           pressplay							# Run "pressplay" Animation
         elif (( ${anirandom} == 2 )); then
@@ -198,11 +211,10 @@ while true; do								# main loop
       inotifywait -qq -e modify "${corenamefile}"   
     fi
     
-    #inotifywait -qq -e modify "${corenamefile}"					# wait here for next change of corename -q for quite
+    #inotifywait -qq -e modify "${corenamefile}"				# wait here for next change of corename -q for quite
     #inotifywait -e modify -t 5 "${corenamefile}"				# wait here for next change of corename
 	#echo "5 secs Timeout"
   else  												# CORENAME file not found
-    #echo "File ${corenamefile} not found!"				# some output
     dbug "File ${corenamefile} not found!"				# some debug output
   fi  													# end if /tmp/CORENAME check
 done  													# end while
