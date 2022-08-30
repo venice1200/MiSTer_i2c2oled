@@ -86,13 +86,11 @@ Available Options:
   Set to "yes" if you want the Header of the "original" Two-Color Pictures to be inverted.  
   Useful if you run an One-Color Display. "no" is default.  
   This Option inverts the first 16 lines.  
-
-If you need to change the Display i2c Address add the following Option
-* Option `oledid`  
-  Set your Displays i2c Address by adding the Option `oledid` with your Displays i2c Address.  
-  Example: `oledid=3c`  
-  ❗ **Important**, you **need** to add the Option `oledaddr=0x${oledid}` **directly** one line behind `oledid`.  
   
+* Option `USE_RANDOM_ALT`  
+  Set to "yes" if you want randomly chosen alternative (_altX) PIX as well.  
+  Set to "no" (default) if you just want to use the "normal" PIX.  
+ 
 * Options for AD7414 temperature output (see below)  
   `SHOW_TEMP="no"`  
   Set to "yes" in order to show the temperature (default=no)  
@@ -102,6 +100,12 @@ If you need to change the Display i2c Address add the following Option
   Set the column for the temperature output (default=2)  
   `SHOW_TEMP_INTERVAL=[secs]`  
   Set the interval for the temperature output (default=1)  
+  
+If you need to change the Display i2c Address add the following Option
+* Option `oledid`  
+  Set your Displays i2c Address by adding the Option `oledid` with your Displays i2c Address.  
+  Example: `oledid=3c`  
+  ❗ **Important**, you **need** to add the Option `oledaddr=0x${oledid}` **directly** one line behind `oledid`.  
   
 ### Picture Locations  
 * **/media/fat/i2c2oled/Pix**  
