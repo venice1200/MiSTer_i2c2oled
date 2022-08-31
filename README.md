@@ -80,12 +80,11 @@ Available Options:
 * Option `ONECOLOR`  
   Set to "yes" if you want to use the new "OneColor" and alternatively the "Original" Pictures with header.  
   Set to "no" (default) uses only "Original" Pictures with Header.  
-  This Option inverts the first 16 lines.  
 
 * Option `INVERTHEADER`  
   Set to "yes" if you want the Header of the "original" Two-Color Pictures to be inverted.  
   Useful if you run an One-Color Display. "no" is default.  
-  This Option inverts the first 16 lines.  
+  This Option inverts the first 16 lines on Top.  
   
 * Option `USE_RANDOM_ALT`  
   Set to "yes" if you want randomly chosen alternative (_altX) PIX as well.  
