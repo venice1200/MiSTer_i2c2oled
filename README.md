@@ -212,7 +212,7 @@ The following website
 https://stackoverflow.com/questions/42980922/which-commands-do-i-have-to-use-ssd1306-over-i%C2%B2c  
 for pointing me into the right direction.  
   
-Many Thanks to the Picture Contributors **ingloriond**, **marcelosofth** and **salamantcas**.  
+Many Thanks to the Picture Contributors **ingloriond**, **marcelosofth** and **salamantecas**.  
   
 ...and all I forgot (Sorry!).  
   
