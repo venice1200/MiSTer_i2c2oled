@@ -1,6 +1,6 @@
 # 👾 MiSTer_i2c2oled 👾  
   
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://github.com/venice1200/MiSTer_tty2oled/blob/main/LICENSE) ![PICs](https://img.shields.io/badge/Supported_Cores-626-yellow)  
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://github.com/venice1200/MiSTer_tty2oled/blob/main/LICENSE) ![PICs](https://img.shields.io/badge/Supported_Cores-638-yellow)  
   
 Just for fun...  
   
