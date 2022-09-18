@@ -6,8 +6,8 @@ Just for fun...
   
 This Bash-Script-MiSTer-Add-On uses the DE10-Nano's **i2c Interface** to drive a small Display  
 with 128x64 Pixel showing ~~(currently only)~~ Pictures or Text based on the running core.  
-**i2c2oled** is currently supporting SSD1306 (0.98")/SSD1309 (2.42") and SSH1106 (1.3") OLED Displays.  
-Antonio Villena build IOBoards with such small OLED Displays and asked for support, so here we are 🙂  
+**i2c2oled** is currently supporting SSD1306 (0.98"), SSD1309 (2.42") and SSH1106 (1.3") OLED Displays.  
+Antonio Villena build IOBoards with such small SSD1306 Displays and asked for support, so here we are 🙂  
   
 ![i2c2oled](https://github.com/venice1200/MiSTer_i2c2oled/blob/main/Pictures/SSD1306_MiSTer_v2.jpg?raw=true)  
   
