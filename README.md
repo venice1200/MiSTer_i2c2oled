@@ -90,6 +90,14 @@ Available Options:
   Set to "yes" if you want randomly chosen alternative (_altX) PIX as well.  
   Set to "no" (default) if you just want to use the "normal" PIX.  
  
+* Options for the **Screensaver**  
+  `SCREENSAVER="no"`  
+  Set to **yes** to enable the ScreenSaver.  
+  `SCREENSAVER_INTERVAL=10`  
+  The Screensaver Interval in Seconds.  
+  `SCREENSAVER_START=6`  
+  The Screensaver starts after **SCREENSAVER_START x SCREENSAVER_INTERVAL** Seconds.  
+  
 * Options for AD7414 temperature output (see below)  
   `SHOW_TEMP="no"`  
   Set to "yes" in order to show the temperature (default=no)  
