@@ -90,7 +90,7 @@ Available Options:
   Set to "yes" if you want randomly chosen alternative (_altX) PIX as well.  
   Set to "no" (default) if you just want to use the "normal" PIX.  
  
-* Options for the **Screensaver**  
+* Options for the **Screensaver** (testing)  
   `SCREENSAVER="no"`  
   Set to **yes** to enable the ScreenSaver.  
   `SCREENSAVER_INTERVAL=10`  
