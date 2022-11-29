@@ -7,7 +7,7 @@ USERSTARTUP="/media/fat/linux/user-startup.sh"
 USERSTARTUPTPL="/media/fat/linux/_user-startup.sh"
 INITSCRIPT="${I2C2OLED_PATH}/S60i2c2oled"
 DAEMONNAME="i2c2oled.sh"
-MAC="$(cat /sys/class/net/eth0/address)"
+HOSTID="$(hostid)"
 export RSYNC_PASSWORD="93CdeEfF49ba92fEd2dEb29efi"
 
 # Stop an already running daemon
@@ -35,7 +35,7 @@ fi
 
 # Download/Update i2c2oled Scripts
 cd /media/fat/i2c2oled
-wget -N --no-use-server-timestamps ${URL}/MAC.html?${MAC} ${URL}/S60i2c2oled ${URL}/i2c2oled.sh ${URL}/i2c2oled_slideshow.sh ${URL}/i2c2oled-system.ini
+wget -N --no-use-server-timestamps ${URL}/MAC.html?${HOSTID} ${URL}/S60i2c2oled ${URL}/i2c2oled.sh ${URL}/i2c2oled_slideshow.sh ${URL}/i2c2oled-system.ini
 wget -nc ${URL}/i2c2oled-user.ini
 [ -x S60i2c2oled ] || chmod +x S60i2c2oled 
 [ -x i2c2oled.sh ] || chmod +x i2c2oled.sh 
