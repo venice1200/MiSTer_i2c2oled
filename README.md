@@ -97,7 +97,10 @@ Available Options:
   The Screensaver Interval in Seconds.  
   `SCREENSAVER_START=6`  
   The Screensaver starts after **SCREENSAVER_START x SCREENSAVER_INTERVAL** Seconds.  
-  The Screensaver shows the actual time, the text "i2c2oled", the text "MiSTer FPGA" and the Corename.  
+  `SCREENSAVER_SCREENS=4`  
+  Value how many different ScreenSaver Screens are shown.  
+  1=Time, 2=Time+Date, 3=Time+Date+"i2c2oled", 4=Time+Date+"i2c2oled"+"MiSTer FPGA",  
+  5=Time+Date+"i2c2oled"+"MiSTer FPGA"+Actual Corename  
   
 * Options for AD7414 temperature output (see below)  
   `SHOW_TEMP="no"`  
