@@ -95,15 +95,16 @@
 # -Add Option USE_RANDOM_ALT="yes/no" for randomly chosen alternative PixMap
 # -Show Startup Text only once each System Start (generate and check file "/tmp/i2c2oledinitdone")
 #
-
+# 2022-09-02..18
+# -Add Screeensaver
+#
+#
 
 # Load INI files
 . /media/fat/i2c2oled/i2c2oled-system.ini
 . /media/fat/i2c2oled/i2c2oled-user.ini
 
-
 # ************************** Main Program **********************************
-
 
 # Lookup for i2c Device
 dbug "i2c2oled Hardware check."
@@ -182,15 +183,15 @@ while true; do								# main loop
         fi
         dbug "${anirandom}"
         if (( ${anirandom} == 1 )); then
-          pressplay							# Run "pressplay" Animation
+          pressplay									# Run "pressplay" Animation
         elif (( ${anirandom} == 2 )); then
-          loading 1							# Run "loading" Animation
+          loading 1									# Run "loading" Animation
         elif (( ${anirandom} == 3 )); then
-          loading 2							# Run "loading" Animation
+          loading 2									# Run "loading" Animation
         elif (( ${anirandom} == 4 )); then
-          loading 3							# Run "loading" Animation
+          loading 3									# Run "loading" Animation
         elif (( ${anirandom} == 5 )); then
-          loading 4							# Run "loading" Animation
+          loading 4									# Run "loading" Animation
         fi		
       fi								# end if
       if [ "${BLACKOUT}" = "yes" ]; then
@@ -199,25 +200,58 @@ while true; do								# main loop
       if [ ${newcore} = "THEEASTEREGG" ]; then
         manythanksto
       else
-        showpix ${newcore}		 				# The "Magic"
+        showpix ${newcore}		 						# The "Magic"
       fi
-      display_on
-      oldcore=${newcore}										# update oldcore variable
-    fi  												# end if core check
+      if [ "${BLACKOUT}" = "yes" ]; then
+        display_on
+      fi
+	  SCREENSAVER_COUNTER=0												# Reset ScreenSaver Counter
+      #echo "SCREENSAVER_COUNTER: ${SCREENSAVER_COUNTER}"				# debug
+      oldcore=${newcore}												# Update oldcore Variable
+    fi  																# endif Core check
     
     if [ "${SHOW_TEMP}" = "yes" ]; then
       inotifywait -qq -t $SHOW_TEMP_INTERVAL -e modify "${corenamefile}" | show_temperature # show temperature while waiting for the core change event 
+    elif [ "${SCREENSAVER}" = "yes" ]; then													# Screensaver Active?
+	  inotifywait -qq -t ${SCREENSAVER_INTERVAL} -e modify "${corenamefile}"				# Wait for Corechange but with "SCREENSAVER_INTERVAL" Seconds as Timeout
+	  SCREENSAVER_COUNTER=$((SCREENSAVER_COUNTER+1))										# Count up Screensaver Counter
+	  if [[ ${SCREENSAVER_COUNTER} -ge 99 ]]; then											# Check for "overflow"
+	    SCREENSAVER_COUNTER=${SCREENSAVER_START}
+	  fi
+	  #echo "SCREENSAVER_COUNTER: ${SCREENSAVER_COUNTER}"									# debug
+	  if [[ ${SCREENSAVER_COUNTER} -ge ${SCREENSAVER_START} ]]; then						# Screensaver Reday to Start ?
+	    if [ "${BLACKOUT}" = "yes" ]; then													# "Blackout" ?
+          display_off
+        fi
+	    clearscreen																			# Clear the Screen for the Screensaver-Text
+		if [ $(( ${SCREENSAVER_COUNTER} % ${SCREENSAVER_SCREENS} )) -eq 0 ]; then			# Get Text for Screensaver-Text
+          textout=$(date '+%R')																# Show Time
+		elif [ $(( ${SCREENSAVER_COUNTER} % ${SCREENSAVER_SCREENS})) -eq 1 ]; then
+		  textout=$(date '+%a %b %d')														# Show Date
+		elif [ $(( ${SCREENSAVER_COUNTER} % ${SCREENSAVER_SCREENS})) -eq 2 ]; then
+		  textout="i2c2oled"																# Show Text "i2c2oled"
+		elif [ $(( ${SCREENSAVER_COUNTER} % ${SCREENSAVER_SCREENS} )) -eq 3 ]; then
+		  textout="MiSTer FPGA"																# Show Text "MiSTer FPGA"
+		elif [ $(( ${SCREENSAVER_COUNTER} % ${SCREENSAVER_SCREENS} )) -eq 4 ]; then
+		  textout=${newcore}		 														# Show CORENAME
+		fi
+		textoutlen=${#textout}											# Get Text length
+		#echo "textout: ${textout}"										# debug
+		#echo "textlen: ${textoutlen}"									# debug
+	    xpos=$((0 + $RANDOM % (127-8*${textoutlen})))					# 0..127-textlength*8
+	    ypos=$((0 + $RANDOM % 7))										# 0..7
+	    set_cursor ${xpos} ${ypos}
+	    showtext "${textout}"											# "" needed here or text after "space" is lost
+		if [ "${BLACKOUT}" = "yes" ]; then								# "Blackout" ?
+          display_on
+        fi
+      fi
     else
       inotifywait -qq -e modify "${corenamefile}"   
     fi
-    
-    #inotifywait -qq -e modify "${corenamefile}"				# wait here for next change of corename -q for quite
-    #inotifywait -e modify -t 5 "${corenamefile}"				# wait here for next change of corename
-	#echo "5 secs Timeout"
-  else  												# CORENAME file not found
-    dbug "File ${corenamefile} not found!"				# some debug output
-  fi  													# end if /tmp/CORENAME check
-done  													# end while
-
+  else  																# CORENAME file not found
+    dbug "File ${corenamefile} not found!"								# some debug output
+  fi  																	# end if /tmp/CORENAME check
+done  																	# end while
 
 # ************************** End Main Program *******************************
