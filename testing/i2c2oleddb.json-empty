@@ -1,0 +1,19 @@
+{
+    "base_files_url": "",
+    "db_files": [],
+    "db_id": "i2c2oled_files",
+    "db_url": "https://raw.githubusercontent.com/venice1200/MiSTer_i2c2oled/main/i2c2oleddb.json",
+    "default_options": {},
+    "files": {
+	"Scripts/update_i2c2oled.sh": {
+	    "hash": "XXX",
+	    "size": XXX,
+	    "url": "https://raw.githubusercontent.com/venice1200/MiSTer_i2c2oled/main/update_i2c2oled.sh"
+	}
+    },
+    "folders": {
+	"Scripts": {}
+    },
+    "timestamp": XXX,
+    "zips": {}
+}
