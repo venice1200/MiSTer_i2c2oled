@@ -5,15 +5,15 @@
     "db_url": "https://raw.githubusercontent.com/venice1200/MiSTer_i2c2oled/main/i2c2oleddb.json",
     "default_options": {},
     "files": {
-        "Scripts/update_i2c2oled.sh": {
-            "hash": "37cee279fb6718a984e97e737132a03d",
-            "size": 2717,
-            "url": "https://raw.githubusercontent.com/venice1200/MiSTer_i2c2oled/main/update_i2c2oled.sh"
-        }
+	"Scripts/update_i2c2oled.sh": {
+	    "hash": "10fc41857c8d37e6de3514c27049923b",
+	    "size": 2762,
+	    "url": "https://raw.githubusercontent.com/venice1200/MiSTer_i2c2oled/main/update_i2c2oled.sh"
+	}
     },
     "folders": {
-        "Scripts": {}
+	"Scripts": {}
     },
-    "timestamp": 1653142160,
+    "timestamp": 1672946700,
     "zips": {}
 }
