@@ -53,7 +53,7 @@ from cli or via ssh to enable Auto-Start of i2c2oled.
 The default configuration is configured in the file `/media/fat/i2c2oled/i2c2oled-system.ini`.  
 This file **will be updated** by the updater if new Options are available!  
   
-If you neded to change settings you can configure **your User settings** by adding Options and their settings  
+If you nedd to change the settings you can configure **your User settings** by adding Options and their settings  
 to the file `/media/fat/i2c2oled/i2c2oled-user.ini`.  
   
 Available Options:  
@@ -162,7 +162,7 @@ or open it with an Text Editor, I use Notepad++, and do manually...
   
 ▶️ You can use the [template](https://github.com/venice1200/MiSTer_i2c2oled/blob/main/Pictures/templates/template.pix) as well.  
   
-Check your PIX against the files in https://github.com/venice1200/MiSTer_i2c2oled/tree/main/Pictures/Pix for correct modification.  
+Check your PIX against the files in [https://github.com/venice1200/MiSTer_i2c2oled/tree/main/Pictures/Pix](https://github.com/venice1200/MiSTer_i2c2oled_Pictures/tree/main/Pictures/Pix) for correct modification.  
   
 ***>> Please make your PIX available for others <<***
 
